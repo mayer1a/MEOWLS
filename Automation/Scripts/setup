@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Path to the project directory
+PROJECT_DIR="../../MEOWLS"
+
+# Path to the script directory
+SCRIPT_DIR="Automation/Scripts"
+
+# Check and close the open MEOWLS project workspace in Xcode
+if [[ $1 == "clear" ]]; then
+osascript <<EOD > /dev/null 2>&1
+tell application "Xcode"
+    if exists (workspace document 1 whose name is "MEOWLS.xcworkspace") then
+        close (workspace document 1 whose name is "MEOWLS.xcworkspace") saving no
+    else if exists (project document 1 whose name is "MEOWLS.xcodeproj") then
+        close (project document 1 whose name is "MEOWLS.xcodeproj") saving no
+    end if
+end tell
+EOD
+
+# Wait a few seconds for Xcode to completely close the project
+sleep 2
+
+# Delete existing Xcode projects and workspaces in the project directory
+rm -R "$PROJECT_DIR"/*.xcodeproj
+rm -R "$PROJECT_DIR"/*.xcworkspace
+fi
+
+# Go to the project directory
+cd "$PROJECT_DIR"
+
+# Launch swiftgen via its script in the Automation/Scripts folder
+swiftgen config run --config swiftgen.yml
+
+# Run xcodegen via its script in the Automation/Scripts folder
+xcodegen -p "./"
+
+# Install CocoaPods dependencies by updating the repository
+pod install --repo-update
+
+# Add a 2 second delay
+sleep 2
+
+# Open the updated Xcode workspace
+open ./*.xcworkspace
