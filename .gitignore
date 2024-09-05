@@ -97,8 +97,6 @@ Dependencies/
 ### Homebrew ###
 Brewfile.lock.json
 
-Gemfile.lock
-
 ### macOS ###
 # General
 .DS_Store
