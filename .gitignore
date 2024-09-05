@@ -1,9 +1,14 @@
-### Objective-C ###
 # Xcode
+#
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
 xcuserdata/
+
+**/MEOWLS.xcodeproj
+**/MEOWLS.xcworkspace
+
+**/*Generated.swift
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -54,10 +59,7 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+**/Pods/
 
 # Carthage
 #
@@ -77,18 +79,25 @@ Dependencies/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
+# fastlane specific
 **/fastlane/report.xml
+
+# deliver temporary files
 **/fastlane/Preview.html
+
+# snapshot generated screenshots
+**/fastlane/screenshots
+
+# scan temporary files
 **/fastlane/test_output
+
+# Fastlane.swift runner binary
 **/fastlane/FastlaneRunner
-screenshots
 
-# Code Injection
-#
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
+### Homebrew ###
+Brewfile.lock.json
 
-iOSInjectionProject/
+Gemfile.lock
 
 ### macOS ###
 # General
@@ -103,4 +112,4 @@ Icon
 ._*
 
 # GoogleInfoPlist
-GBShop/Environments/GoogleService-Info.plist
+**/GoogleService-Info.plist
