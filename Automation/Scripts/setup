@@ -30,6 +30,9 @@ fi
 cd "$PROJECT_DIR"
 
 # Launch swiftgen via its script in the Automation/Scripts folder
+mkdir -p Kit/Common/Resources/Generated
+mkdir -p Store/Common/Resources/Generated
+mkdir -p POS/Common/Resources/Generated
 swiftgen config run --config swiftgen.yml
 
 # Run xcodegen via its script in the Automation/Scripts folder

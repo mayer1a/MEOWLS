@@ -1,6 +1,7 @@
 name: CI/CD Pipeline
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - develop
@@ -10,8 +11,6 @@ on:
       - develop
       - master
 
-  workflow_dispatch:
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -19,92 +18,96 @@ concurrency:
 jobs:
   check_merge_request:
     name: Check merge request availability
-    runs-on: macos-latest
+    runs-on: self-hosted
     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'develop'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.6.10'
+      - name: TEST
+        run: |
+            echo "TEST"
+            echo "${{ github.event_name }}"
 
       - name: Install dependencies
         run: |
-          brew install bundler
-          gem install bundler --user-install
-          bundle install --deployment
+            brew bundle
+            gem install bundler
+            bundle install --deployment --path vendor/bundle
 
       - name: Pull Develop Branch
         run: |
-          git remote set-url origin https://github.com/${{ secrets.GITHUB_TOKEN }}@github.com/meowls.git
-          git fetch origin
-          git checkout develop
-          git reset --hard origin/develop
-          git pull --force origin develop --allow-unrelated-histories
+            git remote set-url origin https://github.com/mayer1a/MEOWLS.git
+            git fetch origin
+            git checkout develop
+            git reset --hard origin/develop
+            git pull --force origin develop --allow-unrelated-histories
 
       - name: Merge Strategy
         run: |
-          git merge origin/${{ github.event.pull_request.head.ref }} --no-commit --no-ff
-
-      - name: Change directory to automation scripts
-        run: |
-          echo "$(ls ./)"
-          cd Automation/Scripts
+            git merge origin/${{ github.event.pull_request.head.ref }} --no-commit --no-ff
 
       - name: Make project
+        working-directory: ./Automation/Scripts
         run: |
-          ./setup
+            ./setup
 
       - name: Run debug builds
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios debug_build_store
-          bundle exec fastlane ios debug_build_pos
+            bundle exec fastlane ios debug_build_store
+            bundle exec fastlane ios debug_build_pos
 
       - name: Check warnings in logs
+        working-directory: ./MEOWLS
         run: |
-          if [ "$(grep 'warning:' 'Store-Store Debug.log' | sort -u | grep -c -v 'Pods\|.swiftsourceinfo')" -gt 1 ]; then
-            grep 'warning:' 'Store-Store Debug.log' | sort -u | grep -v 'Pods\|.swiftsourceinfo'
-            echo "\e[31mВорнингов в проекте Store стало больше допустимого значения.\e"
-            echo "Стало: $(grep "warning:" "Store-Store Debug.log" | sort -u | grep -c -v "Pods\|.swiftsourceinfo")"
-            echo "Допустимое значение: 1"
-            exit 1
-          fi
+            if [ "$(grep 'warning:' 'Store-Store Debug.log' | sort -u | grep -c -v 'Pods\|.swiftsourceinfo')" -gt 1 ]; then
+              grep 'warning:' 'Store-Store Debug.log' | sort -u | grep -v 'Pods\|.swiftsourceinfo'
+              echo "\e[31mВорнингов в проекте Store стало больше допустимого значения.\e"
+              echo "Стало: $(grep "warning:" "Store-Store Debug.log" | sort -u | grep -c -v "Pods\|.swiftsourceinfo")"
+              echo "Допустимое значение: 1"
+              exit 1
+            fi
 
-          if [ "$(grep 'warning:' 'POS-POS Debug.log' | sort -u | grep -c -v 'Pods\|.swiftsourceinfo')" -gt 5 ]; then
-            grep 'warning:' 'POS-POS Debug.log' | sort -u | grep -v 'Pods\|.swiftsourceinfo'
-            echo "\e[31mВорнингов в проекте POS стало больше допустимого значения.\e"
-            echo "Стало: $(grep "warning:" "POS-POS Debug.log" | sort -u | grep -c -v "Pods\|.swiftsourceinfo")"
-            echo "Допустимое значение: 5"
-            exit 1
-          fi
+            if [ "$(grep 'warning:' 'POS-POS Debug.log' | sort -u | grep -c -v 'Pods\|.swiftsourceinfo')" -gt 5 ]; then
+              grep 'warning:' 'POS-POS Debug.log' | sort -u | grep -v 'Pods\|.swiftsourceinfo'
+              echo "\e[31mВорнингов в проекте POS стало больше допустимого значения.\e"
+              echo "Стало: $(grep "warning:" "POS-POS Debug.log" | sort -u | grep -c -v "Pods\|.swiftsourceinfo")"
+              echo "Допустимое значение: 5"
+              exit 1
+            fi
 
       - name: Run API, Unit and UI tests for debug
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios api_tests_store
-          bundle exec fastlane ios unit_tests_store
-          bundle exec fastlane ios ui_tests_store
-          bundle exec fastlane ios api_tests_pos
-          bundle exec fastlane ios unit_tests_pos
-          bundle exec fastlane ios ui_tests_pos
+            bundle exec fastlane ios api_tests_store
+            bundle exec fastlane ios unit_tests_store
+            bundle exec fastlane ios ui_tests_store
+            bundle exec fastlane ios api_tests_pos
+            bundle exec fastlane ios unit_tests_pos
+            bundle exec fastlane ios ui_tests_pos
 
   testflight_feature_store_build:
     name: Emulate debug Store pushing to testflight
-    runs-on: macos-latest
+    runs-on: self-hosted
     needs: check_merge_request
-    if: github.ref == 'refs/heads/develop' && github.event_name == 'workflow_dispatch'
+    if: github.event.ref == 'refs/heads/develop' && github.event_name == 'workflow_dispatch'
     steps:
+      - name: TEST
+        run: |
+            echo "${{ github.event_name }}"
+
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Run Store Unit Tests
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_feature_store
+            bundle exec fastlane ios emulate_testflight_pushing_feature_store
 
   testflight_feature_pos_build:
     name: Emulate debug POS pushing to testflight
-    runs-on: macos-latest
+    runs-on: self-hosted
     needs: check_merge_request
     if: github.ref == 'refs/heads/develop' && github.event_name == 'workflow_dispatch'
     steps:
@@ -112,92 +115,91 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run POS Unit Tests
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_feature_pos
+            bundle exec fastlane ios emulate_testflight_pushing_feature_pos
 
   testflight_release_store_build:
     name: Emulate release Store pushing to testflight
-    runs-on: macos-latest
-    needs: tests_store_build
+    runs-on: self-hosted
+    needs: check_merge_request
     if: github.ref == 'refs/heads/develop' && github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Release Store
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_release_store
+            bundle exec fastlane ios emulate_testflight_pushing_release_store
 
   testflight_release_pos_build:
     name: Emulate release POS pushing to testflight
-    runs-on: macos-latest
-    needs: tests_pos_build
+    runs-on: self-hosted
+    needs: check_merge_request
     if: github.ref == 'refs/heads/develop' && github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Release POS
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_release_pos
+            bundle exec fastlane ios emulate_testflight_pushing_release_pos
 
   check_hotfix_merge_request_job:
     name: Check hotfix merge request availability
-    runs-on: macos-latest
+    runs-on: self-hosted
     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.6.10'
-
       - name: Install dependencies
+        working-directory: ./MEOWLS
         run: |
-          brew install bundler
-          gem install bundler --user-install
-          bundle install --deployment
+            brew bundle
+            gem install bundler
+            bundle install --deployment --path vendor/bundle
 
       - name: Pull Master Branch
+        working-directory: ./MEOWLS
         run: |
-          git remote set-url origin https://github.com/${{ secrets.GITHUB_TOKEN }}@github.com/meowls.git
-          git fetch origin
-          git checkout master
-          git reset --hard origin/master
-          git pull --force origin master --allow-unrelated-histories
+            git remote set-url origin https://github.com/mayer1a/MEOWLS.git
+            git fetch origin
+            git checkout master
+            git reset --hard origin/master
+            git pull --force origin master --allow-unrelated-histories
 
       - name: Merge Strategy
+        working-directory: ./MEOWLS
         run: |
-          git merge origin/${{ github.event.pull_request.head.ref }} --no-commit --no-ff
-
-      - name: Change directory to automation scripts
-        run: |
-          echo "$(ls ./)"
-          cd Automation/Scripts
+            git merge origin/${{ github.event.pull_request.head.ref }} --no-commit --no-ff
 
       - name: Make project
+        working-directory: ./Automation/Scripts
         run: |
-          ./setup
+            ./setup
 
       - name: Run release builds
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios release_build_store
-          bundle exec fastlane ios release_build_pos
+            bundle exec fastlane ios release_build_store
+            bundle exec fastlane ios release_build_pos
 
       - name: Run API, Unit and UI tests for Store
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios api_tests_store
-          bundle exec fastlane ios unit_tests_store
-          bundle exec fastlane ios ui_tests_store
-          bundle exec fastlane ios api_tests_pos
-          bundle exec fastlane ios unit_tests_pos
-          bundle exec fastlane ios ui_tests_pos
+            bundle exec fastlane ios api_tests_store
+            bundle exec fastlane ios unit_tests_store
+            bundle exec fastlane ios ui_tests_store
+            bundle exec fastlane ios api_tests_pos
+            bundle exec fastlane ios unit_tests_pos
+            bundle exec fastlane ios ui_tests_pos
 
   testflight_hotfix_store_build:
     name: Emulate release Store hotfix pushing to testflight
-    runs-on: macos-latest
+    runs-on: self-hosted
     needs: check_hotfix_merge_request_job
     if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
     steps:
@@ -205,12 +207,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Hotfix Store
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_release_store
+            bundle exec fastlane ios emulate_testflight_pushing_release_store
 
   testflight_hotfix_pos_build:
     name: Emulate release POS hotfix pushing to testflight
-    runs-on: macos-latest
+    runs-on: self-hosted
     needs: check_hotfix_merge_request_job
     if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
     steps:
@@ -218,5 +221,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Hotfix POS
+        working-directory: ./MEOWLS
         run: |
-          bundle exec fastlane ios emulate_testflight_pushing_release_pos
+            bundle exec fastlane ios emulate_testflight_pushing_release_pos
