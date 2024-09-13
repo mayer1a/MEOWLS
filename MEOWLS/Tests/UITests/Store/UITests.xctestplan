@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E5BB8715-AD4A-4136-9538-0832C331806B",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MEOWLS.xcodeproj",
+        "identifier" : "C258EA5D56878E1C4A9945A8",
+        "name" : "StoreUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

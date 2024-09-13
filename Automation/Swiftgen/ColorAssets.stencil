@@ -1,0 +1,78 @@
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+
+{% if catalogs %}
+{% macro hasValuesBlock assets filter %}
+  {%- for asset in assets -%}
+    {%- if asset.type == filter -%}
+      1
+    {%- elif asset.items -%}
+      {% call hasValuesBlock asset.items filter %}
+    {%- endif -%}
+  {%- endfor -%}
+{% endmacro %}
+{% set enumName %}{{param.enumName|default:"ColorsAsset"}}{% endset %}
+{% set colorType %}{{param.colorTypeName|default:"ColorAsset"}}{% endset %}
+{% set forceNamespaces %}{{param.forceProvidesNamespaces|default:"false"}}{% endset %}
+#if os(macOS)
+
+import AppKit
+
+#elseif os(iOS) || os(tvOS) || os(watchOS)
+
+import UIKit
+
+#endif
+
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+#endif
+
+// swiftlint:disable superfluous_disable_command file_length implicit_return
+
+// MARK: - Asset Catalogs
+
+{% macro casesItemBlock assets %}
+
+{% for asset in assets %}
+{% if asset.type == "color" %}
+    static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{colorType}}(name: "{{asset.value}}")
+{% endif %}
+{% endfor %}
+
+{% endmacro %}
+{% macro casesBlock assets %}
+
+{% for asset in assets %}
+{% if asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
+extension {{enumName}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+    {% filter indent:0," ",true %}{% call casesBlock asset.items %}{% endfilter %}
+}
+{% endif %}
+{% endfor %}
+
+{% endmacro %}
+{% macro allValuesBlock assets filter prefix %}
+{% for asset in assets %}
+{% if asset.type == filter %}
+{{prefix}}{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}},
+{% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
+{% set prefix2 %}{{prefix}}{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.{% endset %}
+{% call allValuesBlock asset.items filter prefix2 %}
+{% elif asset.items %}
+{% call allValuesBlock asset.items filter prefix %}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+// swiftlint:disable identifier_name line_length nesting type_body_length type_name
+extension {{enumName}} {
+{% call casesItemBlock catalogs.first.assets %}
+}
+{% call casesBlock catalogs.first.assets %}
+
+// swiftlint:enable identifier_name line_length nesting type_body_length type_name
+{% else %}
+// No assets found
+{% endif %}
