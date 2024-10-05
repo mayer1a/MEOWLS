@@ -25,6 +25,8 @@ extension User: UserAuthorization {
         changeUserToken(accessToken, on: APIResourceService.store)
 
         keychainManager.phoneNumber = phone
+        settingsService[.isUserAuthorized] = true
+
         Task {
             do {
                 try await reloadCredentials()
@@ -95,6 +97,7 @@ extension User: UserAuthorization {
     }
 
     private func clearStoredData() {
+        settingsService.clear(allBut: [.isNotFirstLaunch, .userRegion, .clientId, .apiResourceServer])
         keychainManager.clear()
         cleanCurrentUserAccessData()
         keychainManager.clear(keys: APIResourceService.allCases.map({ $0.rawValue }))

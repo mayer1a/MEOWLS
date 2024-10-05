@@ -13,6 +13,7 @@ public final class User {
 
     @LazyInjected(\.apiWrapper) public var apiWrapper
     public var keychainManager: KeychainManagerProtocol = KeychainManager.common
+    public var settingsService: SettingsServiceProtocol = SettingsService.shared
 
     #if Store
 

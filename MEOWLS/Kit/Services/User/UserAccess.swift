@@ -10,6 +10,7 @@ import Foundation
 public protocol UserAccess {
 
     func accessToken(_ service: APIResourceService) -> String?
+    var isAuthorized: Bool { get }
 
 }
 
@@ -17,6 +18,10 @@ extension User: UserAccess {
 
     public func accessToken(_ service: APIResourceService) -> String? {
         UserTokenService.shared.getToken(service)
+    }
+
+    public var isAuthorized: Bool {
+        settingsService[.isUserAuthorized]
     }
 
     public func cleanCurrentUserAccessData() {
