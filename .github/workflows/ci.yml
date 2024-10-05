@@ -24,16 +24,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: TEST
-        run: |
-            echo "TEST"
-            echo "${{ github.event_name }}"
-
       - name: Install dependencies
         run: |
             brew bundle
-            gem install bundler
-            bundle install --deployment --path vendor/bundle
+            export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+            echo $PATH
+            gem install bundler --user-install
+            bundle install
 
       - name: Pull Develop Branch
         run: |
@@ -159,8 +156,10 @@ jobs:
         working-directory: ./MEOWLS
         run: |
             brew bundle
-            gem install bundler
-            bundle install --deployment --path vendor/bundle
+            export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+            echo $PATH
+            gem install bundler --user-install
+            bundle install
 
       - name: Pull Master Branch
         working-directory: ./MEOWLS

@@ -272,9 +272,10 @@ targets:
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
     sources:
       - path: Kit
-      - path: Store
         excludes:
           - "Common/Resources/Info.plist"
+          - "**/UserEmployee.swift"
+      - path: Store
 
 #    postBuildScripts:
 #      - script: "${PODS_ROOT}/FirebaseCrashlytics/run"
@@ -309,9 +310,11 @@ targets:
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
     sources:
       - path: Kit
-      - path: POS
         excludes:
           - "Common/Resources/Info.plist"
+          - "**/UserAuthorization.swift"
+          - "**/UserStore.swift"
+      - path: POS
 
 #    postBuildScripts:
 #      - script: "${PODS_ROOT}/FirebaseCrashlytics/run"
