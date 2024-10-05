@@ -17,6 +17,8 @@ public final class User {
 
     #if Store
 
+    @LazyInjected(\.favoritesService) public var favoritesService
+
     private let networkManager: NetworkReachabilityManager?
     // Was the user status updated after the application was restarted
     private var userSessionUpdated: Bool = false

@@ -94,6 +94,7 @@ extension User: UserAuthorization {
     }
 
     private func mergeFavorites() async throws {
+        try await favoritesService.merge()
     }
 
     private func clearStoredData() {
