@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private(set) var isUIInit = false
     private var lastUserActivity: Date = Date.distantPast
+    private static let pincodeRequestTimeout = 120.0
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -23,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = UIViewController()//resolve(\.introBuilder).build(with: .init())
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
 

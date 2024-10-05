@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = resolve(\.introBuilder).build(with: .init())
+        window?.rootViewController = UIViewController()//resolve(\.introBuilder).build(with: .init())
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
 
@@ -47,6 +47,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
+//        if KeychainManager.common.isPincodeAccessAllowed {
+//            Router.showPincodeVerification()
+//        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
