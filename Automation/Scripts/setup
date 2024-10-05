@@ -45,4 +45,6 @@ pod install --repo-update
 sleep 2
 
 # Open the updated Xcode workspace
-open ./*.xcworkspace
+if [[ $1 == "open" ]]; then
+    open ./*.xcworkspace
+fi
