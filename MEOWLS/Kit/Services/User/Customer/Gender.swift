@@ -35,6 +35,7 @@ public extension UserCredential {
             }
         }
 
+        #warning("LOCALIZE!")
         public var localizableDescription: String {
             switch self {
             case .man:

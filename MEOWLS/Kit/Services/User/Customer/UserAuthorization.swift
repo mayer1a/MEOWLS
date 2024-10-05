@@ -63,6 +63,10 @@ extension User: UserAuthorization {
             } else {
                 self?.forceLogout()
                 self?.clearStoredData()
+                
+                if isSilent {
+                    Router.showAuthorization()
+                }
             }
         }
     }
@@ -91,6 +95,7 @@ extension User: UserAuthorization {
     }
 
     private func mergeCart() async throws {
+//        try await cartService.uploadLocal()
     }
 
     private func mergeFavorites() async throws {
@@ -99,6 +104,7 @@ extension User: UserAuthorization {
 
     private func clearStoredData() {
         settingsService.clear(allBut: [.isNotFirstLaunch, .userRegion, .clientId, .apiResourceServer])
+//        cartService.clear()
         keychainManager.clear()
         cleanCurrentUserAccessData()
         keychainManager.clear(keys: APIResourceService.allCases.map({ $0.rawValue }))

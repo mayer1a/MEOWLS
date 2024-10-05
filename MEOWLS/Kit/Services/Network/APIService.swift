@@ -11,7 +11,11 @@ import Factory
 
 public class APIService: APIServiceProtocol {
 
-    typealias User = UserAccess & UserRegion & UserAuthorization
+    #if Store
+        typealias User = UserAccess & UserRegion & UserAuthorization
+    #else
+        typealias User = UserAccess & UserRegion
+    #endif
 
     private static let contentType = "application/json"
 
@@ -204,13 +208,23 @@ private extension APIService {
                     user.refreshToken(isSilent: false)
                 #elseif POS
                     if let expiredToken = response.request?.headers.value(for: "Authorization") {
-                        if expiredToken == User.shared.accessToken(.pos) {
-                            User.shared.refreshToken(isSilent: false)
+                        if expiredToken == user.accessToken(.pos) {
+//                            User.shared.refreshToken(isSilent: false)
                         }
+//                        if SellerService.shared.customerToken != nil {
+//                            SellerService.shared.invalidateCustomer(needRetry: true)
+                            #warning("REPLACE TO .invalidateCustomer(needRetry: true)")
+//                            Router.showAuthorization(.pageSheet(required: false))
+//                        }
                     }
+                #else
+//                    assertionFailure("Code 401 behaviour not implemented")
                 #endif
                 return
             } else if statusCode == 403 {
+                #if POS
+//                    AccessService.shared.forbidden()
+                #endif
             }
 
             var errorMessages: [String] = []
