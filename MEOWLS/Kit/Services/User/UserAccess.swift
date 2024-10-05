@@ -39,11 +39,19 @@ private class UserTokenService {
     // кэшируются данные до перезагрузки
     private var store: [String: String?] = [:]
 
+    private lazy var keychainManager: KeychainManagerProtocol = KeychainManager.common
+
     func getToken(_ service: APIResourceService) -> String? {
         let storedToken = store[service.rawValue]
 
         if let storedToken {
             return storedToken.map({ String(format: "Token %@", $0) })
+        }
+
+        let token: String? = keychainManager.getValue(forKey: service.rawValue)
+
+        if token != nil {
+            store[service.rawValue] = token
         }
 
         return token.map({ String(format: "Token %@", $0) })
@@ -52,6 +60,7 @@ private class UserTokenService {
     // данные кладём в кэш и в кичейн
     func changeToken(_ token: String?, on service: APIResourceService) {
         store[service.rawValue] = token
+        keychainManager.set(value: token, forKey: service.rawValue)
     }
 
     func cleanAll() {

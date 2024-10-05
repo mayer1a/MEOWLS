@@ -24,6 +24,7 @@ extension User: UserAuthorization {
     public func login(with phone: String, accessToken: String, completion: @escaping ParameterClosure<UserAuthError?>) {
         changeUserToken(accessToken, on: APIResourceService.store)
 
+        keychainManager.phoneNumber = phone
         Task {
             do {
                 try await reloadCredentials()
@@ -78,6 +79,10 @@ extension User: UserAuthorization {
                 }
                 credentials = response.data
 
+                if keychainManager.phoneNumber.isNilOrEmpty {
+                    keychainManager.phoneNumber = response.data?.phone
+                }
+
                 continuation.resume()
             }
         }
@@ -90,7 +95,9 @@ extension User: UserAuthorization {
     }
 
     private func clearStoredData() {
+        keychainManager.clear()
         cleanCurrentUserAccessData()
+        keychainManager.clear(keys: APIResourceService.allCases.map({ $0.rawValue }))
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     

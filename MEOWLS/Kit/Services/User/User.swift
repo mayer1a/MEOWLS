@@ -12,6 +12,7 @@ import Factory
 public final class User {
 
     @LazyInjected(\.apiWrapper) public var apiWrapper
+    public var keychainManager: KeychainManagerProtocol = KeychainManager.common
 
     #if Store
 
