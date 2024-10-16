@@ -53,6 +53,14 @@ public final class Router {
 
     #endif
 
+    /// Region selection screen
+    static func regionViewController(with inputModel: RegionModel.InputModel) -> UINavigationController? {
+        let builder = resolve(\.regionBuilder)
+        let viewController = builder.build(with: inputModel)
+
+        return viewController as? UINavigationController
+    }
+
     #if Store
 
     static func showAuthorization() {

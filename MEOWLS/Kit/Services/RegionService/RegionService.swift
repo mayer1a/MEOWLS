@@ -65,6 +65,14 @@ public final class RegionService: RegionServiceProtocol {
                                      selectedRegion: City?,
                                      completion: VoidClosure?) -> UIViewController? {
 
+        let model = RegionModel.InputModel(cities: regions, selectedCity: selectedRegion) { [weak self] selected in
+            self?.region?.currentRegion = selectedRegion
+            completion?()
+        }
+        if let nav = Router.regionViewController(with: model) {
+            viewController?.present(nav, animated: true, completion: nil)
+            return nav.topViewController as? RegionViewController
+        }
         return nil
     }
 
@@ -75,8 +83,8 @@ public final class RegionService: RegionServiceProtocol {
 public extension Container {
 
     struct RegionServiceInput {
-        let viewController: UIViewController?
-        let currentRegion: UserRegion?
+        public let viewController: UIViewController?
+        public let currentRegion: UserRegion?
     }
 
     var regionService: ParameterFactory<RegionServiceInput, RegionServiceProtocol> {
