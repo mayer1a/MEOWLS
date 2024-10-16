@@ -73,7 +73,7 @@ platform :ios do
     scan(
       scheme: "Store Debug",
       testplan: "APITests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
@@ -88,7 +88,7 @@ platform :ios do
     scan(
       scheme: "Store Debug",
       testplan: "UnitTests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
@@ -103,7 +103,7 @@ platform :ios do
     scan(
       scheme: "Store Debug",
       testplan: "UITests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
@@ -168,7 +168,7 @@ platform :ios do
     scan(
       scheme: "POS Debug",
       testplan: "APITests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
@@ -183,7 +183,7 @@ platform :ios do
     scan(
       scheme: "POS Debug",
       testplan: "UnitTests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
@@ -198,7 +198,7 @@ platform :ios do
     scan(
       scheme: "POS Debug",
       testplan: "UITests",
-      device: "iPhone 15 Pro Max",
+      device: "iPhone 15 Pro Max (17.5)",
       code_coverage: true,
       output_types: "html",
       skip_build: true,
