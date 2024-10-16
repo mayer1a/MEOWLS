@@ -12,16 +12,16 @@ public enum SettingsKey: String, CaseIterable {
     case isUserAuthorized
     case userCredentials
     case userRegion
+    /// Products with a specific description from the cart
     case cartItems
+    /// Cart
     case cartFull
+    /// List of viewed products
     case viewed
+    /// List of selected product IDs
     case favorites
+    /// Current ApiResourceServer
     case apiResourceServer
-    case appInstanceId
-    case clientId
-    case storeAnalyticEventSaveServiceConfig
-    case storeAnalyticForcedCollection
-    case attributions
 
     // System info
     case localizationCode
