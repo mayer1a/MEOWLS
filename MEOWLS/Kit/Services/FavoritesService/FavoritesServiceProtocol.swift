@@ -24,7 +24,7 @@ public protocol FavoritesServiceProtocol: AnyObject {
     var favoritesTogglePublisher: CurrentValueSubject<([FavoriteItem]?, Bool), Never> { get }
 
     func isFavorite(item: FavoriteItem) -> Bool
-    func toggle(item: FavoriteItem, completion: ToogleCompletion?) -> Bool
+    @discardableResult func toggle(item: FavoriteItem, completion: ToogleCompletion?) -> Bool
     func merge() async throws
 
     #if Store

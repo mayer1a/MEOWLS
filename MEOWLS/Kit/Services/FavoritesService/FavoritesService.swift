@@ -68,6 +68,7 @@ public final class FavoritesService: FavoritesServiceProtocol {
 
         guard user.isAuthorized else {
             mark(item: item, favorite: toggled)
+            favoritesTogglePublisher.send(([item], toggled))
             completion?(toggled)
             return toggled
         }
