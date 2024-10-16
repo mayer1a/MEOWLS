@@ -73,7 +73,7 @@ extension User: UserAuthorization {
 
     public func reloadCredentials() async throws {
         guard isAuthorized else {
-            throw NSError(domain: "User is unauthorized", code: 0)
+            return
         }
 
         try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
@@ -103,7 +103,7 @@ extension User: UserAuthorization {
     }
 
     private func clearStoredData() {
-        settingsService.clear(allBut: [.isNotFirstLaunch, .userRegion, .clientId, .apiResourceServer])
+        settingsService.clear(allBut: [.isNotFirstLaunch, .userRegion, .apiResourceServer])
 //        cartService.clear()
         keychainManager.clear()
         cleanCurrentUserAccessData()

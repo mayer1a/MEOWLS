@@ -40,6 +40,10 @@ public struct ItemImage: Codable {
         ImageSize.allCases.sorted(by: { (left, right) in left.rawValue < right.rawValue })
     }
 
+    public var smallest: String? {
+        small ?? medium ?? large ?? original
+    }
+
 }
 
 public extension ItemImage {

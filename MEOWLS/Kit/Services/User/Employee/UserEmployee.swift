@@ -25,7 +25,7 @@ public protocol UserEmployee {
     var position: String? { get }
     var roles: [EmployeeRole]? { get }
 
-    func reloadCredentials() async throws -> UserEmployeeError?
+    func reloadCredentials() async throws
 
 }
 
@@ -56,6 +56,6 @@ extension User: UserEmployee {
     public var position: String? { credentials?.position }
     public var roles: [EmployeeRole]? { credentials?.roles }
 
-    public func reloadCredentials() async throws -> UserEmployeeError? { nil }
+    public func reloadCredentials() async throws { }
 
 }

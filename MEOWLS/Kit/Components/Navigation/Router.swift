@@ -10,6 +10,11 @@ import Factory
 
 public final class Router {
 
+    /// An intro screen that is visually consistent and follows immediately after the launchscreen
+    static func introViewController() -> UIViewController {
+        resolve(\.introBuilder).build(with: .init())
+    }
+
     #if Store
 
     static func showMainController(atTab tab: RootTabController.Tab = .defaultTab) {
@@ -29,6 +34,22 @@ public final class Router {
     }
 
     #else
+
+    static func showMainController(atTab tab: RootTabController.Tab = .defaultTab) {
+        UIApplication.shared.hideKeyboard()
+
+        let rootTabController: UITabBarController
+
+        if let rootController = UIApplication.shared.keyWindow?.rootViewController as? RootTabController {
+            // Otherwise the modal window is held by the controller
+            rootTabController = rootController
+        } else {
+            rootTabController = RootTabController()
+        }
+
+        rootTabController.selectedIndex = tab.rawValue
+        show(rootController: rootTabController)
+    }
 
     #endif
 
