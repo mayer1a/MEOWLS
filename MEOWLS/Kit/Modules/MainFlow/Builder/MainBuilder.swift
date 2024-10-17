@@ -17,7 +17,8 @@ final class MainBuilder: MainBuilderProtocol {
 
     func build(with model: MainModel.InputModel) -> UIViewController {
         let router: MainRouterProtocol = MainRouter()
-        let apiService: MainApiServiceProtocol = MainApiService(apiService: resolve(\.apiService))
+        let apiService: MainApiServiceProtocol = MainApiService(apiService: resolve(\.apiService),
+                                                                apiWrapper: resolve(\.apiWrapper))
         let initialModel = MainModel.InitialModel(inputModel: model,
                                                   router: router,
                                                   apiService: apiService,

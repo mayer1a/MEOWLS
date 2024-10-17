@@ -46,7 +46,7 @@ final class MainViewController: NiblessViewController {
         table.separatorStyle = .none
         table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         table.showsVerticalScrollIndicator = false
-        table.register(cell: DomainHeaderWithButtonCell.self)
+        table.register(cell: DomainHeaderWithButtonTableCell.self)
         table.showsVerticalScrollIndicator = false
 
         return table
@@ -200,7 +200,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch rowSource.item(at: indexPath) {
         case .header(let model):
-            let cell = tableView.dequeueReusable(cell: DomainHeaderWithButtonCell.self, for: indexPath)
+            let cell = tableView.dequeueReusable(cell: DomainHeaderWithButtonTableCell.self, for: indexPath)
             cell.configureWith(model)
 
             return cell

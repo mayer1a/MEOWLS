@@ -24,7 +24,7 @@ extension MainModel {
     typealias Section = ItemsDataSource<MainModel.Row>.Section<MainModel.Row>
 
     enum Row: Item {
-        case header(DomainHeaderWithButtonCell.ViewModel)
+        case header(DomainHeaderWithButtonTableCell.ViewModel)
         case slider(SliderModel)
         case productsSlider(SliderModel)
         case tagsSlider(SliderModel)
@@ -49,10 +49,6 @@ extension MainModel {
         case webView(URL)
         case sale(_ sale: Sale)
         case pushSubscriptionDialog
-    }
-
-    enum LoadingStatus {
-        case startLoading, stopLoading
     }
 
     enum DeeplinkHandle {
@@ -91,6 +87,10 @@ extension MainModel {
         case triggerRefresh
         case deeplinkInput
         case close
+    }
+
+    enum LoadingStatus {
+        case startLoading, stopLoading
     }
 
 }
