@@ -10,7 +10,7 @@ import Foundation
 public struct Redirect: Codable {
 
     public let redirectType: RedirectType
-    public let objectID: UUID?
+    public let objectID: String?
     public let objectType: ObjectType?
     public let productsSet: ProductsSet?
     public let url: String?
