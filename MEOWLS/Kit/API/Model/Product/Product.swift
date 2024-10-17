@@ -45,6 +45,18 @@ extension Product: Equatable, Identifiable {
 
 }
 
+extension Product: Favoritable {
+
+    public var starred: Bool? {
+        #if Store
+            resolve(\.user).favoriteProducts?.contains(identifier) ?? false
+        #else
+            nil
+        #endif
+    }
+
+}
+
 public extension Product {
 
     var isVariablePrice: Bool {

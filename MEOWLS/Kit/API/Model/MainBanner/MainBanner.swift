@@ -11,7 +11,7 @@ public struct MainBanner: Codable {
 
     public let id: String
     public let title: String?
-    public let placeType: PlaceType
+    public let placeType: PlaceType?
     public let redirect: Redirect?
     public let uiSettings: UISettings?
     public let categories: [Category]?

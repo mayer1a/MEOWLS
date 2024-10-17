@@ -15,6 +15,15 @@ public extension MainBanner {
         public let cornerRadiuses: CornerRadius?
         public let autoSlidingTimeout: Int?
         public let metrics: [Metric]?
+
+        enum CodingKeys: String, CodingKey {
+            case backgroundColor = "background_color"
+            case spasings
+            case cornerRadiuses = "corner_radiuses"
+            case autoSlidingTimeout = "auto_sliding_timeout"
+            case metrics
+        }
+
     }
 
 }

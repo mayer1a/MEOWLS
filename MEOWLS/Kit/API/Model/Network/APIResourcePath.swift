@@ -39,9 +39,10 @@ public enum APIResourcePath: CustomStringConvertible {
 
     case search
 
-    // MARK: - Category
+    // MARK: - Catalogue
 
     case category(String)
+    case products
 
     // MARK: - Sale
 
@@ -73,6 +74,7 @@ public enum APIResourcePath: CustomStringConvertible {
         case .search: return "api/\(apiVersion)/search/suggestions"
 
         case .category(let id): return "/api/\(apiVersion)/categories?category_id=\(id)"
+        case .products: return "/api/\(apiVersion)/products"
 
         case .sales: return "api/\(apiVersion)/sales"
         case .sale(let id): return "api/\(apiVersion)/sales/\(id)"
