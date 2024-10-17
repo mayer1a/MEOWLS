@@ -38,6 +38,7 @@ public enum APIResourcePath: CustomStringConvertible {
     // MARK: - Search
 
     case search
+    case popularSearches
 
     // MARK: - Catalogue
 
@@ -72,6 +73,7 @@ public enum APIResourcePath: CustomStringConvertible {
         case .banners: return "api/\(apiVersion)/main_page/"
 
         case .search: return "api/\(apiVersion)/search/suggestions"
+        case .popularSearches: return "api/\(apiVersion)/search/popular"
 
         case .category(let id): return "/api/\(apiVersion)/categories?category_id=\(id)"
         case .products: return "/api/\(apiVersion)/products"

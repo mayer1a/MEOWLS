@@ -46,6 +46,37 @@ public final class Strings {
         public enum Filters {
             public static let done = "Catalogue.Filters.done".localized()
         }
+        public enum Searching {
+            public static let title = "Catalogue.Searching.title".localized()
+            public static let noResultsHeader = "Catalogue.Searching.noResultsHeader".localized()
+            public static let noResultDetails = "Catalogue.Searching.noResultDetails".localized()
+            public static let findGood = "Catalogue.Searching.findGood".localized()
+            public static let findGoods = "Catalogue.Searching.findGoods".localized()
+            public static let itemsCount = "Catalogue.Searching.itemsCount".localizedFormat()
+            public static let showAll = "Catalogue.Searching.showAll".localized()
+        }
+    }
+    public enum Cart {
+        public enum Payment {
+            public static let bankCardTitle = "Cart.Payment.bankCardTitle".localized()
+            public static let cashTitle = "Cart.Payment.cashTitle".localized()
+            public static let paySubtitle = "Cart.Payment.paySubtitle".localized()
+            public static let promocode = "Cart.Payment.promocode".localized()
+            public static let totalPrice = "Cart.Payment.totalPrice".localized()
+            public static let discount = "Cart.Payment.discount".localized()
+            public static let itemsWithoutDiscount = "Cart.Payment.itemsWithoutDiscount".localized()
+        }
+        public enum Delivery {
+            public static let delivery = "Cart.Delivery.delivery".localized()
+        }
+        public enum Order {
+            public enum Status {
+                public static let new = "Cart.Order.Status.new".localized()
+                public static let inProgress = "Cart.Order.Status.inProgress".localized()
+                public static let completed = "Cart.Order.Status.completed".localized()
+                public static let canceled = "Cart.Order.Status.canceled".localized()
+            }
+        }
     }
     public enum Profile {
         public enum UserProfile {

@@ -7,4 +7,11 @@
 
 import Foundation
 
+// MARK: - Design system
+
 public typealias HEXColor = String
+
+// MARK: - API
+
+public typealias ProductsResponse = ResponseHandler<PaginationResponse<Product>>
+public typealias SalesResponse = ResponseHandler<PaginationResponse<Sale>>
