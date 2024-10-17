@@ -1,5 +1,5 @@
 //
-//  DomainHeaderWithButtonCell.swift
+//  DomainHeaderWithButtonTableCell.swift
 //  MEOWLS
 //
 //  Created by Artem Mayer on 04.10.2024.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public final class DomainHeaderWithButtonCell: NiblessTableViewCell {
+public final class DomainHeaderWithButtonTableCell: NiblessTableViewCell {
 
     private var tapButtonClosure: VoidClosure?
 
@@ -64,7 +64,7 @@ public final class DomainHeaderWithButtonCell: NiblessTableViewCell {
 
 }
 
-public extension DomainHeaderWithButtonCell {
+public extension DomainHeaderWithButtonTableCell {
 
     func configureWith(_ model: ViewModel) {
         titleLabel.text = model.title
@@ -87,7 +87,7 @@ public extension DomainHeaderWithButtonCell {
 
 }
 
-private extension DomainHeaderWithButtonCell {
+private extension DomainHeaderWithButtonTableCell {
 
     func setupUI() {
         selectionStyle = .none
