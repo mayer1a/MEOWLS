@@ -82,10 +82,7 @@ public class APIWrapper: APIWrapperProtocol {
 
     // MARK: - Sales
 
-    public func sales(type: Sale.SaleType,
-                      page: Int,
-                      perPage: Int? = nil,
-                      handler: @escaping ResponseHandler<PaginationResponse<Sale>>) {
+    public func sales(type: Sale.SaleType, page: Int, perPage: Int? = nil, handler: @escaping SalesResponse) {
 
         var parameters: Parameters = ["sale_type": type, "page": page]
 

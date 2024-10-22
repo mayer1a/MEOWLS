@@ -7,11 +7,11 @@
 
 import Combine
 
-enum RegionModel {}
+public enum RegionModel {}
 
 extension RegionModel {
 
-    struct InputModel {
+    public struct InputModel {
         let cities: [City]
         let selectedCity: City?
         let selectedCityHandler: ((City?) -> Void)?

@@ -9,36 +9,11 @@ import UIKit
 
 final class RegionCell: NiblessTableViewCell {
 
-    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setupUI()
     }
-
-    private lazy var stackContainerView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.spacing = 10
-        return stackView
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(resource: .textPrimary)
-        label.lineBreakMode = .byWordWrapping
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        return label
-    }()
-
-    private lazy var subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(resource: .textSecondary)
-        label.textAlignment = .right
-        label.isHidden = true
-        return label
-    }()
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -47,6 +22,32 @@ final class RegionCell: NiblessTableViewCell {
         subtitleLabel.text = nil
         subtitleLabel.isHidden = true
     }
+
+    private lazy var stackContainerView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 10
+
+        return stackView
+    }()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor(resource: .textPrimary)
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .left
+        label.numberOfLines = 0
+
+        return label
+    }()
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor(resource: .textSecondary)
+        label.textAlignment = .right
+        label.isHidden = true
+        
+        return label
+    }()
 
 }
 
@@ -84,8 +85,8 @@ private extension RegionCell {
         stackContainerView.addArrangedSubview(subtitleLabel)
 
         stackContainerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.bottom.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(10)
         }
         titleLabel.snp.contentHuggingHorizontalPriority = 250
         subtitleLabel.snp.contentHuggingHorizontalPriority = 251

@@ -190,8 +190,9 @@ private extension APIService {
         } catch let error {
             handler(APIResponse(error: error.localizedDescription, code: code))
             let jsonDictionary = try? JSONSerialization.jsonObject(with: data, options: [])
-            print("JSON decoding error to \(D.self) - \(error.localizedDescription)")
+            print("JSON decoding localized error to \(D.self) - \(error.localizedDescription)")
             print("RAW: \(jsonDictionary ?? "Unable to get raw JSON")")
+            print("Unlocalized error \(error)")
         }
     }
 
@@ -245,7 +246,7 @@ private extension APIService {
 
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ru_US")
-        let dateFormats = ["yyyy-MM-dd", "dd.MM.yyyy"]
+        let dateFormats = ["yyyy-MM-dd", "dd.MM.yyyy", "yyyy-MM-dd'T'HH:mm:ssZ", "dd.MM.yyyy'T'HH:mm:ssZ"]
 
         for format in dateFormats {
             formatter.dateFormat = format

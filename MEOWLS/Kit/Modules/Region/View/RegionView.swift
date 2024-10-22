@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SnapKit
 
-final class RegionViewController: NiblessTableViewController, UISearchBarDelegate {
+final class RegionViewController: NiblessTableViewController {
 
     private var viewModel: RegionViewModelProtocol
     private let viewAction = PassthroughSubject<RegionModel.ViewAction, Never>()
@@ -33,16 +33,26 @@ final class RegionViewController: NiblessTableViewController, UISearchBarDelegat
         binding()
     }
 
-    @objc private func actionClose(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
-    @objc private func getUserLocation() {
+}
+
+private extension RegionViewController {
+
+    @objc
+    func actionClose(_ sender: UIBarButtonItem) {
+        dismiss()
+    }
+
+    @objc
+    func getUserLocation() {
         viewAction.send(.requestLocation)
     }
 
     @objc
-    private func close() {
+    func close() {
         viewAction.send(.close)
     }
 
@@ -86,11 +96,11 @@ private extension RegionViewController {
             make.edges.equalToSuperview()
         }
         searchBarContainer.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(tableView.snp.top)
         }
         tableView.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
     }
@@ -107,9 +117,9 @@ private extension RegionViewController {
 
 }
 
-extension RegionViewController {
+private extension RegionViewController {
 
-    private func binding() {
+    func binding() {
         let input = RegionModel.BindingInput(viewAction: viewAction)
         let output = viewModel.binding(input: input)
 
@@ -188,7 +198,7 @@ private extension RegionViewController {
 
         searchBar.endEditing(true)
 
-        dismiss(animated: true) { [weak self] in
+        dismiss { [weak self] in
             self?.viewAction.send(.tapCell(selectedRow))
         }
     }
@@ -235,7 +245,7 @@ extension RegionViewController {
 
 // MARK: - UISearchBarDelegate
 
-extension RegionViewController {
+extension RegionViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewAction.send(.inputText(searchText))
