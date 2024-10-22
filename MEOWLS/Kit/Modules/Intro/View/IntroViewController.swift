@@ -14,23 +14,6 @@ final class IntroViewController<VM: IntroViewModelProtocol>: NiblessViewControll
     private var viewModel: VM
     private var cancellables: Set<AnyCancellable> = []
 
-    private lazy var brandTextLogoView = {
-        let view = UIImageView(image: UIImage(resource: .brandTextLogo))
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    private lazy var loaderView = UIImageView(image: UIImage(resource: .loader))
-    
-    #if POS
-
-    private lazy var posView = {
-        let view = UIImageView(image: UIImage(resource: .posLogo))
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-
-    #endif
-
     required init(viewModel: VM) {
         self.viewModel = viewModel
         super.init()
@@ -51,16 +34,40 @@ final class IntroViewController<VM: IntroViewModelProtocol>: NiblessViewControll
         viewModel.viewDidAppear()
     }
 
-    private func setupUI() {
+    private lazy var brandTextLogoView = {
+        let view = UIImageView(image: UIImage(resource: .brandTextLogo))
+        view.contentMode = .scaleAspectFit
+
+        return view
+    }()
+    private lazy var loaderView = UIImageView(image: UIImage(resource: .loader))
+
+    #if POS
+
+    private lazy var posView = {
+        let view = UIImageView(image: UIImage(resource: .posLogo))
+        view.contentMode = .scaleAspectFit
+
+        return view
+    }()
+
+    #endif
+
+}
+
+private extension IntroViewController {
+
+    func setupUI() {
         if viewModel.isStore {
             view.backgroundColor = ColorsAsset.Background.backgroundWhite.color
         } else {
             view.backgroundColor = ColorsAsset.Background.backgroundDark.color
         }
+
         setupConstraints()
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         view.addSubview(brandTextLogoView)
         view.addSubview(loaderView)
 
@@ -88,14 +95,15 @@ final class IntroViewController<VM: IntroViewModelProtocol>: NiblessViewControll
 
 }
 
-extension IntroViewController {
+private extension IntroViewController {
 
-
-    private func binding() {
+    func binding() {
         viewModel.isLoadingPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isLoading in
-                guard let self else { return }
+                guard let self else {
+                    return 
+                }
 
                 if isLoading {
                     loaderView.rotate()

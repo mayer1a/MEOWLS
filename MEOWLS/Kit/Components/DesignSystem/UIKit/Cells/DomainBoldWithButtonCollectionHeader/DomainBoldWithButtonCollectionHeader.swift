@@ -14,13 +14,18 @@ public final class DomainBoldWithButtonCollectionHeader: NiblessCollectionReusab
 
     private var buttonTapHandler: VoidClosure?
 
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setupUI()
+    }
+
     private lazy var containerView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .backgroundWhite)
 
         return view
     }()
-
     private lazy var stackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
@@ -28,7 +33,6 @@ public final class DomainBoldWithButtonCollectionHeader: NiblessCollectionReusab
 
         return stackView
     }()
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -37,71 +41,62 @@ public final class DomainBoldWithButtonCollectionHeader: NiblessCollectionReusab
 
         return label
     }()
-
     private lazy var moreButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("more", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.setTitleColor(UIColor(resource: .accentPrimary), for: .normal)
+        let button = UIButton(configuration: .filled())
+        button.configuration?.baseForegroundColor = UIColor(resource: .iconPrimary)
+        button.configuration?.baseBackgroundColor = UIColor(resource: .backgroundPrimary)
+        button.configuration?.image = UIImage(resource: .arrowRight).withRenderingMode(.alwaysTemplate)
+        button.configuration?.imagePadding = 10
+        button.configuration?.imagePlacement = .trailing
+        button.configuration?.contentInsets = .init(top: 20, leading: 10, bottom: 20, trailing: 10)
         button.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        button.configuration?.background.cornerRadius = 15
 
         return button
     }()
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setupUI()
-        setupConstraints()
-    }
-
-    @objc private func buttonTap() {
-        buttonTapHandler?()
-    }
 
 }
 
 public extension DomainBoldWithButtonCollectionHeader {
 
     func configure(with model: ViewModel) {
-        self.titleLabel.text = model.title
-        self.moreButton.setTitle(model.buttonTitle, for: .normal)
-        self.moreButton.isHidden = model.buttonTitle == nil
-        self.buttonTapHandler = model.buttonTapHandler
+        titleLabel.text = model.title
+        moreButton.configuration?.attributedTitle = model.buttonTitle
+        moreButton.isHidden = model.buttonTitle == nil
+        buttonTapHandler = model.buttonTapHandler
     }
 
+}
+
+private extension DomainBoldWithButtonCollectionHeader {
+
+    @objc
+    private func buttonTap() {
+        buttonTapHandler?()
+    }
 
 }
 
 private extension DomainBoldWithButtonCollectionHeader {
 
     func setupUI() {
+        setupConstraints()
+    }
+
+    func setupConstraints() {
+        addSubview(containerView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(moreButton)
         containerView.addSubview(stackView)
 
-        addSubview(containerView)
-    }
-
-    func setupConstraints() {
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
         stackView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-10)
             make.top.greaterThanOrEqualToSuperview().offset(10)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(28)
-        }
-
-        moreButton.snp.makeConstraints { make in
-            make.height.equalTo(28)
-            make.width.equalTo(107)
         }
     }
 

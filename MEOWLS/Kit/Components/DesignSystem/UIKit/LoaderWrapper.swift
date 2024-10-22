@@ -8,14 +8,9 @@
 import UIKit
 import SnapKit
 
-final class LoaderWrapper {
+public final class LoaderWrapper {
 
-    enum LoaderSize: CGFloat {
-        case standard = 26.0
-        case large = 48.0
-    }
-
-    init(loaderSize: LoaderSize = .large) {
+    public init(loaderSize: LoaderSize = .large) {
         self.loaderSize = loaderSize
         self.loadingImage = UIImage(resource: .loader)
     }
@@ -24,7 +19,7 @@ final class LoaderWrapper {
     private let loadingImage: UIImage?
     private let loaderSize: LoaderSize
 
-    func showLoadingOnCenter(inView view: UIView) {
+    public func showLoadingOnCenter(inView view: UIView) {
         hideLoading()
 
         let loadingView = UIImageView(image: loadingImage)
@@ -36,7 +31,7 @@ final class LoaderWrapper {
         loadingView.snp.makeConstraints { make in
             make.centerX.equalTo(view.layoutMarginsGuide.snp.centerX)
             make.centerY.equalTo(view.layoutMarginsGuide.snp.centerY)
-            make.height.width.equalTo(loaderSize.rawValue)
+            make.size.equalTo(loaderSize.rawValue)
         }
 
         self.loadingView = loadingView
@@ -44,10 +39,20 @@ final class LoaderWrapper {
         view.layoutIfNeeded()
     }
 
-    func hideLoading() {
+    public func hideLoading() {
         loadingView?.stopRotating()
         loadingView?.removeFromSuperview()
         loadingView = nil
+    }
+
+}
+
+public extension LoaderWrapper {
+
+    enum LoaderSize: CGFloat {
+        case standard = 26.0
+        case favoritesIconSize = 29.0
+        case large = 48.0
     }
 
 }

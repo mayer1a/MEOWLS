@@ -12,10 +12,10 @@ public extension DomainBoldWithButtonCollectionHeader {
     struct ViewModel {
 
         public let title: String
-        public let buttonTitle: String?
+        public let buttonTitle: AttributedString?
         public let buttonTapHandler: VoidClosure?
 
-        public init(title: String, buttonTitle: String? = nil, buttonTapHandler: VoidClosure? = nil) {
+        public init(title: String, buttonTitle: AttributedString? = nil, buttonTapHandler: VoidClosure? = nil) {
             self.title = title
             self.buttonTitle = buttonTitle
             self.buttonTapHandler = buttonTapHandler
