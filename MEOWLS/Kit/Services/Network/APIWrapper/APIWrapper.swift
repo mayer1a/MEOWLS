@@ -57,6 +57,18 @@ public class APIWrapper: APIWrapperProtocol {
         apiService.post(resource: .userAddress, service: service, parameters: nil, headers: nil, handler: handler)
     }
 
+    // MARK: - Catalogue
+
+    public func products(by ids: [String],
+                         with parameters: Parameters?,
+                         handler: @escaping ProductsResponse) -> DataRequest? {
+        
+        var parameters = parameters ?? [:]
+        parameters["products_ids"] = ids.joined(separator: ",")
+
+        return apiService.get(resource: .products, service: nil, parameters: parameters, headers: nil, handler: handler)
+    }
+
     // MARK: - Favorites
 
     public func favoritesCount(handler: @escaping ResponseHandler<FavoritesCount>) {

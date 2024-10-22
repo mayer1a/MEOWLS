@@ -25,6 +25,10 @@ public protocol APIWrapperProtocol {
     func deleteProfile(handler: @escaping ResponseHandler<DummyResponse>)
     func userAddress(service: APIResourceService?, handler: @escaping ResponseHandler<Address>)
 
+    // MARK: - Catalogue
+
+    func products(by ids: [String], with parameters: Parameters?, handler: @escaping ProductsResponse) -> DataRequest?
+
     // MARK: - Favorites
 
     func favoritesCount(handler: @escaping ResponseHandler<FavoritesCount>)
