@@ -7,14 +7,14 @@
 
 import UIKit
 
-public protocol CustomImageSource {
+public protocol CustomImageSourceProtocol {
 
     var url: String? { get }
     var video: String? { get }
 
 }
 
-public struct ImageSource: CustomImageSource {
+public struct CustomImageSource: CustomImageSourceProtocol {
 
     public var url: String?
     public var video: String?
@@ -48,11 +48,11 @@ public struct ItemImage: Codable {
 
 public extension ItemImage {
 
-    func scale(factor: ImageScaleFactor) -> CustomImageSource {
+    func scale(factor: ImageScaleFactor) -> CustomImageSourceProtocol {
         let accuracy: CGFloat = 0.9
         switch factor {
         case .original:
-            return ImageSource(url: original)
+            return CustomImageSource(url: original)
 
         case .screen:
             let fullWidth = UIScreen.main.bounds.width * UIScreen.main.scale
@@ -68,7 +68,7 @@ public extension ItemImage {
         }
     }
 
-    private func suitableImage(width: CGFloat) -> CustomImageSource {
+    private func suitableImage(width: CGFloat) -> CustomImageSourceProtocol {
         let imageStringURL: String?
         if let suitableImage = scaledSorted.first(where: { CGFloat($0.rawValue) >= width }) {
             switch suitableImage {
@@ -88,7 +88,7 @@ public extension ItemImage {
         } else {
             imageStringURL = original
         }
-        return ImageSource(url: imageStringURL)
+        return CustomImageSource(url: imageStringURL ?? original)
     }
 
     private enum ImageSize: Int, CaseIterable {

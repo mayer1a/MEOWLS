@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (5.9.1)
   - Factory (2.3.2)
+  - ImageSlideshow (1.9.2):
+    - ImageSlideshow/Core (= 1.9.2)
+  - ImageSlideshow/Core (1.9.2)
   - Kingfisher (7.10.2)
   - PhoneNumberKit (3.3.3):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.3.3)
@@ -13,6 +16,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.9.0)
   - Factory (~> 2.3.2)
+  - ImageSlideshow (~> 1.9.0)
   - Kingfisher (~> 7.10.1)
   - PhoneNumberKit (= 3.3.3)
   - SnapKit
@@ -21,6 +25,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Factory
+    - ImageSlideshow
     - Kingfisher
     - PhoneNumberKit
     - SnapKit
@@ -28,10 +33,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   Factory: 3a9d0809910130d609b34d4554828e6ecce519ff
+  ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Kingfisher: 99edc495d3b7607e6425f0d6f6847b2abd6d716d
   PhoneNumberKit: 4ce83273551c4d2ae10b7361162f4283dd02835f
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
-PODFILE CHECKSUM: 9c55dfc118cae1b8ee1e7f7600eabcb5355ccad0
+PODFILE CHECKSUM: 9d9ca3b4d6cb7e5d6660be5e121491637f74df2c
 
 COCOAPODS: 1.15.2

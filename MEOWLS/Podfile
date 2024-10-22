@@ -13,6 +13,7 @@ def kit_pods
   pod 'PhoneNumberKit', '3.3.3'
   pod 'Alamofire', '~> 5.9.0'
   pod 'Kingfisher', '~> 7.10.1'
+  pod 'ImageSlideshow', '~> 1.9.0'
 #  pod 'FirebaseCore'
 #  pod 'FirebaseMessaging'
 #  pod 'FirebaseCrashlytics'
