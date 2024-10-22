@@ -68,7 +68,7 @@ public extension Product {
             return variants.first
         }
 
-        return variants.first(where: { $0.id == defaultVariantArticle })
+        return variants.first(where: { $0.article == defaultVariantArticle })
     }
 
     func discountFormatted(for variant: ProductVariant? = nil) -> String? {

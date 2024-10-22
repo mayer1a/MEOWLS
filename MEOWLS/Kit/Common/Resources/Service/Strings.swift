@@ -33,6 +33,7 @@ public final class Strings {
         public static let cart = "RootTabBar.cart".localized()
         public static let favorites = "RootTabBar.favorites".localized()
         public static let profile = "RootTabBar.profile".localized()
+        public static let tasks = "RootTabBar.tasks".localized()
     }
     public enum Main {
         public static let search = "Main.search".localized()
@@ -54,6 +55,9 @@ public final class Strings {
             public static let findGoods = "Catalogue.Searching.findGoods".localized()
             public static let itemsCount = "Catalogue.Searching.itemsCount".localizedFormat()
             public static let showAll = "Catalogue.Searching.showAll".localized()
+        }
+        public enum Categories {
+            public static let all = "Catalogue.Categories.all".localized()
         }
     }
     public enum Cart {
@@ -90,6 +94,10 @@ public final class Strings {
 
             public static let pushWarningAlertTitle = "Profile.UserProfile.pushWarningAlertTitle".localized()
             public static let pushWarningAlertMessage = "Profile.UserProfile.pushWarningAlertMessage".localized()
+        }
+        public enum Edit {
+            public static let woman = "Profile.Edit.female".localized()
+            public static let man = "Profile.Edit.male".localized()
         }
         public enum Logout {
             public static let errorTitle = "Profile.Logout.errorTitle".localized()
