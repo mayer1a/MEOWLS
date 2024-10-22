@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension BannerVerticalCollectionCell {
+public extension BannerVerticalCollectionCell {
 
     struct ViewModel {
         let collectionInset: UIEdgeInsets

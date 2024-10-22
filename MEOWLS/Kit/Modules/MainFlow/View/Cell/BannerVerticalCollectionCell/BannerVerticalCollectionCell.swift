@@ -8,9 +8,15 @@
 import UIKit
 import SnapKit
 
-final class BannerVerticalCollectionCell: NiblessTableViewCell {
+public final class BannerVerticalCollectionCell: NiblessTableViewCell {
 
     private var dataSource = [CollectionItem]()
+
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        self.setupUI()
+    }
 
     private lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -30,15 +36,9 @@ final class BannerVerticalCollectionCell: NiblessTableViewCell {
         return collectionView
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        self.setupUI()
-    }
-
 }
 
-extension BannerVerticalCollectionCell {
+public extension BannerVerticalCollectionCell {
 
     func configure(with model: ViewModel) {
         flowLayout.sectionInset = model.collectionInset
@@ -72,12 +72,12 @@ private extension BannerVerticalCollectionCell {
 
 extension BannerVerticalCollectionCell: UICollectionViewDataSource {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView,
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusable(cell: BannerCollectionViewCell.self, for: indexPath)
         cell.configure(with: dataSource[indexPath.row].cellModel)
@@ -89,9 +89,9 @@ extension BannerVerticalCollectionCell: UICollectionViewDataSource {
 
 extension BannerVerticalCollectionCell: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView,
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         dataSource[indexPath.row].size
     }

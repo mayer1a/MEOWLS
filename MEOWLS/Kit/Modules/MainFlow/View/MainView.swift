@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SnapKit
 
-final class MainViewController: NiblessViewController {
+public final class MainViewController: NiblessViewController {
 
     private var viewModel: MainViewModelProtocol
     private let viewAction = PassthroughSubject<MainModel.ViewAction, Never>()
@@ -17,19 +17,20 @@ final class MainViewController: NiblessViewController {
     private var lastBannersIDs = [String]()
     private var cancellables: Set<AnyCancellable> = []
 
-    required init(viewModel: MainViewModelProtocol) {
+    public required init(viewModel: MainViewModelProtocol) {
         self.viewModel = viewModel
+
         super.init()
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
         binding()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -44,7 +45,7 @@ final class MainViewController: NiblessViewController {
         table.delegate = self
         table.dataSource = self
         table.separatorStyle = .none
-        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         table.showsVerticalScrollIndicator = false
         table.register(cell: DomainHeaderWithButtonTableCell.self)
         table.showsVerticalScrollIndicator = false
@@ -52,8 +53,14 @@ final class MainViewController: NiblessViewController {
         return table
     }()
 
-    @objc private func onRefresh() {
-        viewAction.send(.triggerRefresh)
+
+}
+
+private extension MainViewController {
+
+    @objc
+    func onRefresh() {
+        viewAction.send(.triggerRefresh(.banners(nil)))
         refreshControl.endRefreshingControl(resetOffset: false)
     }
 
@@ -73,12 +80,11 @@ private extension MainViewController {
         view.addSubview(searchBar)
 
         searchBar.snp.makeConstraints { make in
-            make.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide)
         }
-
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
@@ -140,12 +146,18 @@ private extension MainViewController {
 
     func makeLabel(_ label: MainModel.Label?) {
         switch label {
-        case .showError(let message):
+        case .showError(let errorType):
+            let errorMessage: String?
+
+            switch errorType {
+            case .banners(let message), .sale(let message, _):
+                errorMessage = message
+            }
             showNetworkError(title: Strings.Common.FailedRequestView.title,
-                             message: message,
+                             message: errorMessage,
                              repeatTitle: Strings.Common.FailedRequestView.button) { [weak self] in
 
-                self?.viewAction.send(.triggerRefresh)
+                self?.viewAction.send(.triggerRefresh(errorType))
             }
 
         default:
@@ -189,15 +201,15 @@ private extension MainViewController {
 
 extension MainViewController: UITableViewDataSource {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         rowSource.numberOfSections()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         rowSource.numberOfRowsIn(section: section)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch rowSource.item(at: indexPath) {
         case .header(let model):
             let cell = tableView.dequeueReusable(cell: DomainHeaderWithButtonTableCell.self, for: indexPath)
@@ -234,7 +246,7 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch rowSource.item(at: indexPath) {
         case .header(let model):
             return model.cellHeight
@@ -251,7 +263,7 @@ extension MainViewController: UITableViewDelegate {
         }
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > .zero {
             searchBar.configureShadow(needDisplay: true)
         } else if scrollView.contentOffset.y <= .zero {

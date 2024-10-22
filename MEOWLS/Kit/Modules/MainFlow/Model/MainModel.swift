@@ -8,11 +8,11 @@
 import UIKit
 import Combine
 
-enum MainModel {}
+public enum MainModel {}
 
 extension MainModel {
 
-    struct InputModel {}
+    public struct InputModel {}
 
     struct InitialModel {
         let inputModel: InputModel
@@ -21,23 +21,23 @@ extension MainModel {
         let favoritesService: FavoritesServiceProtocol
     }
 
-    typealias Section = ItemsDataSource<MainModel.Row>.Section<MainModel.Row>
+    public typealias Section = ItemsDataSource<MainModel.Row>.Section<MainModel.Row>
 
-    enum Row: Item {
+    public enum Row: Item {
         case header(DomainHeaderWithButtonTableCell.ViewModel)
         case slider(SliderModel)
         case productsSlider(SliderModel)
         case tagsSlider(SliderModel)
         case verticalBanners(VerticalModel)
 
-        struct SliderModel {
-            let cellModel: BannerHorizontalCollectionCell.ViewModel
-            let bannerID: String
+        public struct SliderModel {
+            public let cellModel: BannerHorizontalCollectionCell.ViewModel
+            public let bannerID: String
         }
 
-        struct VerticalModel {
-            let cellModel: BannerVerticalCollectionCell.ViewModel
-            let bannerID: String
+        public struct VerticalModel {
+            public let cellModel: BannerVerticalCollectionCell.ViewModel
+            public let bannerID: String
         }
     }
 
@@ -51,56 +51,56 @@ extension MainModel {
         case pushSubscriptionDialog
     }
 
-    enum DeeplinkHandle {
-        case banner(slug: String)
-    }
-
 }
 
 extension MainModel {
 
-    struct BindingInput {
+    public struct BindingInput {
         let viewAction: PassthroughSubject<ViewAction, Never>
     }
 
-    struct BindingOutput {
+    public struct BindingOutput {
         let label: AnyPublisher<Label?, Never>
         let viewState: AnyPublisher<ViewState, Never>
     }
 
-    enum Label {
-        case showError(String?)
+    public enum Label {
+        case showError(_ errorType: LoadingErrorType)
     }
 
-    enum ViewState {
+    public enum LoadingErrorType {
+        case banners(_ message: String?)
+        case sale(_ message: String?, _ saleID: String)
+    }
+
+    public enum ViewState {
         case initial(DomainSearchBar.ViewModel?)
         case loading(LoadingStatus)
         case fillingDataState(FillingDataState)
 
-        struct FillingDataState {
-            let items: [Section]
+        public struct FillingDataState {
+            public let items: [Section]
         }
     }
 
-    enum ViewAction {
+    public enum ViewAction {
         case viewDidLoad(_ size: CGSize)
-        case triggerRefresh
-        case deeplinkInput
+        case triggerRefresh(_ errorType: LoadingErrorType)
         case close
     }
 
-    enum LoadingStatus {
+    public enum LoadingStatus {
         case startLoading, stopLoading
     }
 
 }
 
-extension MainModel {
+public extension MainModel {
 
     enum Constants {
 
-        static let commonInsets = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
-        
+        static let commonInsets = UIEdgeInsets(top: 4, left: horizontalInset, bottom: 24, right: horizontalInset)
+
         private static let horizontalInset: CGFloat = 16.0
 
         enum DomainHeader {
@@ -112,28 +112,27 @@ extension MainModel {
             static let spacing: CGFloat = 12.0
             /// To calculate the banner size relative to the screen
             static let itemInset = UIEdgeInsets(top: 0.0, left: 28.0, bottom: 0.0, right: 28.0)
-            // width / height
-            static let itemRatio: CGFloat = 319.0 / 390.0
+            static let autoSlidingTimeout: Double = 5000
 
             static func inset(for spacings: MainBanner.UISettings.Spacing?) -> UIEdgeInsets {
                 guard let spacings else {
                     return commonInsets
                 }
-                return UIEdgeInsets(top: CGFloat(spacings.top),
-                                    left: horizontalInset,
-                                    bottom: CGFloat(spacings.bottom),
-                                    right: horizontalInset)
+                let top = spacings.top.toCGFloat
+                let bottom = spacings.bottom.toCGFloat
+                return UIEdgeInsets(top: top, left: horizontalInset, bottom: bottom, right: horizontalInset)
+            }
+
+            static func autoSlidingTimeout(for settings: MainBanner.UISettings?) -> Double {
+                guard let timeout = settings?.autoSlidingTimeout?.toDouble, timeout != 0 else {
+                    return autoSlidingTimeout
+                }
+                return timeout
             }
         }
 
         enum ProductsSlider {
             static let itemWidth: CGFloat = 180.0
-            static let itemHeight: CGFloat = 297.0
-        }
-
-        enum SmallSlider {
-            static let insets = UIEdgeInsets(top: 24.0, left: horizontalInset, bottom: 0.0, right: horizontalInset)
-            static let spacing: CGFloat = 8.0
         }
 
         enum VerticalBanners {
@@ -154,10 +153,9 @@ extension MainModel {
                 guard let spacings else {
                     return commonInsets
                 }
-                return UIEdgeInsets(top: CGFloat(spacings.top),
-                                    left: horizontalInset,
-                                    bottom: CGFloat(spacings.bottom),
-                                    right: horizontalInset)
+                let top = spacings.top.toCGFloat
+                let bottom = spacings.bottom.toCGFloat
+                return UIEdgeInsets(top: top, left: horizontalInset, bottom: bottom, right: horizontalInset)
             }
         }
 

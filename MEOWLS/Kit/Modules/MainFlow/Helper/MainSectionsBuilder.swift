@@ -7,19 +7,111 @@
 
 import UIKit
 
-struct MainSectionsBuilder {
+final class MainSectionsBuilder {
+
+    private let newPriceAttributes: [NSAttributedString.Key: Any] = {
+        [.font: UIFont.systemFont(ofSize: 16, weight: .semibold), .foregroundColor: UIColor(resource: .textPrimary)]
+    }()
+    private let oldPriceAttributes: [NSAttributedString.Key: Any] = {
+        [
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: UIColor(resource: .textSecondary),
+            .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+            .strikethroughColor: UIColor(resource: .textSecondary)
+        ]
+    }()
 
     typealias Constants = MainModel.Constants
     typealias Row = MainModel.Row
-    typealias NavigationHandler = (MainBanner.PlaceType?, Redirect?, _ value: Any?) -> ()
     typealias VerticalItemModel = BannerVerticalCollectionCell.CollectionItem
     typealias VerticalModel = BannerVerticalCollectionCell.ViewModel
     typealias HorizontalModel = BannerHorizontalCollectionCell.ViewModel
     typealias SliderModel = BannerCollectionViewCell.ViewModel
-    typealias ProductModel = BannerProductCollectionViewCell.ViewModel
     typealias TagModel = BannerTagsCollectionCell.ViewModel
+    typealias NavigationHandler = (MainBanner.PlaceType?, Redirect?, _ value: Any?) -> ()
 
-    static func buildHeader(_ banner: MainBanner, completion: NavigationHandler?) -> Row? {
+    private var banners: [MainBanner] = []
+    private var viewSize: CGSize?
+    private var imagesSize: [String: CGSize] = [:]
+    private var favoritesService: FavoritesServiceProtocol?
+    private var navigationHandler: NavigationHandler?
+
+    @discardableResult
+    func setBanners(_ banners: [MainBanner]) -> Self {
+        self.banners = banners
+        return self
+    }
+
+    @discardableResult
+    func setViewSize(_ viewSize: CGSize) -> Self {
+        self.viewSize = viewSize
+        return self
+    }
+
+    @discardableResult
+    func setImagesSize(_ imagesSize: [String: CGSize]) -> Self {
+        self.imagesSize = imagesSize
+        return self
+    }
+
+    @discardableResult
+    func setFavoritesService(_ favoritesService: FavoritesServiceProtocol) -> Self {
+        self.favoritesService = favoritesService
+        return self
+    }
+
+    @discardableResult
+    func setNavigationHandler(_ navigationHandler: @escaping NavigationHandler) -> Self {
+        self.navigationHandler = navigationHandler
+        return self
+    }
+
+    func build() -> [MainModel.Section] {
+        guard let viewSize, let favoritesService, navigationHandler != nil, !banners.isEmpty else {
+            return []
+        }
+
+        var section = MainModel.Section()
+
+        banners.forEach { banner in
+            let isKnownType = banner.placeType != .undefined
+            if let headerRow = buildHeader(banner, completion: navigationHandler), isKnownType {
+                section.append(headerRow)
+            }
+
+            let row: MainModel.Row?
+
+            switch banner.placeType {
+            case .bannersHorizontal:
+                row = buildSlider(banner, viewSize: viewSize)
+
+            case .productsCollection:
+                row = buildProductsSlider(banner, favoritesService: favoritesService)
+
+            case .bannersVertical, .singleBanner:
+                row = buildVertical(banner, viewSize: viewSize)
+
+            case .categories:
+                row = buildTags(banner)
+
+            default:
+                row = nil
+
+            }
+
+            if let row {
+                section.append(row)
+            }
+        }
+
+        return [section]
+    }
+
+}
+
+private extension MainSectionsBuilder {
+
+    func buildHeader(_ banner: MainBanner, completion: NavigationHandler?) -> Row? {
         guard let headerTitle = banner.title else {
             return nil
         }
@@ -30,26 +122,57 @@ struct MainSectionsBuilder {
         return .header(.init(title: headerTitle, edge: Constants.DomainHeader.inset, cellHeight: height))
     }
 
-    static func buildTags(_ banner: MainBanner, completion: NavigationHandler?) -> Row {
+    func buildSlider(_ banner: MainBanner, viewSize: CGSize) -> Row? {
+        guard let banners = banner.banners else {
+            return nil
+        }
 
-        let itemHeight = Constants.Tags.itemHeight
-        let itemSize = CGSize(width: Constants.Tags.estimatedItemWidth, height: itemHeight)
-        let spacing = Constants.Tags.spacing
-        let imageWidth = Constants.Tags.imageWidth
-
-        let collectionInset = Constants.Tags.inset(for: banner.uiSettings?.spasings)
+        let imageSize = imagesSize[banner.id]
+        let itemWidth = viewSize.width - Constants.Slider.itemInset.left - Constants.Slider.itemInset.right
+        let itemAspectRatio = (imageSize?.height ?? 1) / (imageSize?.width ?? 1)
+        let itemHeight = round(itemWidth * itemAspectRatio)
+        let itemSize = CGSize(width: itemWidth, height: itemHeight)
+        let collectionInset = Constants.Slider.inset(for: banner.uiSettings?.spasings)
         let collectionHeight = itemHeight + collectionInset.top + collectionInset.bottom
+        let slidingTimeout = Constants.Slider.autoSlidingTimeout(for: banner.uiSettings)
 
-        var dataSource = [TagModel]()
-
-        banner.categories?.forEach { category in
-            let url = getImageURL(for: category.image, with: imageWidth)
-
-            let tapClosure: VoidClosure? = { [completion] in
-                completion?(banner.placeType, nil, category)
+        let dataSource = banners.compactMap { childBanner -> SliderModel? in
+            let url = getImageURL(for: childBanner.image, with: itemWidth)
+            let tapClosure: VoidClosure = { [weak self] in
+                self?.navigationHandler?(banner.placeType, childBanner.redirect, nil)
             }
 
-            dataSource.append(.init(url: url, label: category.name, tapClosure: tapClosure))
+            return .init(url: url, tapClosure: tapClosure)
+        }
+
+        let model = HorizontalModel(collectionInset: collectionInset,
+                                    itemSize: itemSize,
+                                    collectionHeight: collectionHeight,
+                                    minimumLineSpacing: Constants.Slider.spacing,
+                                    needAutoCorrection: true,
+                                    state: .automaticSlider(dataSource: dataSource, scrollingInterval: slidingTimeout))
+
+        return .slider(.init(cellModel: model, bannerID: banner.id))
+    }
+
+    func buildTags(_ banner: MainBanner) -> Row? {
+        guard let categories = banner.categories else {
+            return nil
+        }
+
+        let itemSize = CGSize(width: Constants.Tags.estimatedItemWidth, height: Constants.Tags.itemHeight)
+        let spacing = Constants.Tags.spacing
+        let imageWidth = Constants.Tags.imageWidth
+        let collectionInset = Constants.Tags.inset(for: banner.uiSettings?.spasings)
+        let collectionHeight = Constants.Tags.itemHeight + collectionInset.top + collectionInset.bottom
+
+        let dataSource = categories.map { category -> TagModel in
+            let url = getImageURL(for: category.image, with: imageWidth)
+            let tapClosure: VoidClosure = { [weak self] in
+                self?.navigationHandler?(banner.placeType, nil, category)
+            }
+
+            return .init(url: url, label: category.name, tapClosure: tapClosure)
         }
 
         let model = HorizontalModel(collectionInset: collectionInset,
@@ -62,94 +185,38 @@ struct MainSectionsBuilder {
         return .tagsSlider(.init(cellModel: model, bannerID: banner.id))
     }
 
-    static func buildSlider(_ banner: MainBanner,
-                            imageSize: CGSize?,
-                            size: CGSize,
-                            completion: NavigationHandler?) -> Row {
-
-        let itemWidth = size.width - Constants.Slider.itemInset.left - Constants.Slider.itemInset.right
-        let itemAspectRatio = (imageSize?.height ?? 1) / (imageSize?.width ?? 1)
-        let itemHeight = itemWidth * itemAspectRatio
-        let itemSize = CGSize(width: itemWidth, height: itemHeight)
-        let spacing = Constants.Slider.spacing
-
-        let collectionInset = Constants.Slider.inset(for: banner.uiSettings?.spasings)
-        let collectionHeight = itemHeight + collectionInset.top + collectionInset.bottom
-
-        var dataSource = [SliderModel]()
-
-        banner.banners?.forEach { childBanner in
-            guard let url = getImageURL(for: childBanner.image, with: itemWidth) else {
-                return
-            }
-
-            let tapClosure: VoidClosure? = { [completion] in
-                completion?(banner.placeType, childBanner.redirect, nil)
-            }
-            dataSource.append(.init(url: url, tapClosure: tapClosure))
-        }
-
-        var slidingTimeout: Double = 5000
-
-        if let interval = banner.uiSettings?.autoSlidingTimeout?.toDouble, interval != 0 {
-            slidingTimeout = interval
-        }
-
-        let model = HorizontalModel(collectionInset: collectionInset,
-                                    itemSize: itemSize,
-                                    collectionHeight: collectionHeight,
-                                    minimumLineSpacing: spacing,
-                                    needAutoCorrection: true,
-                                    state: .automaticSlider(dataSource: dataSource, scrollingInterval: slidingTimeout))
-
-        return .slider(.init(cellModel: model, bannerID: banner.id))
-    }
-
-    static func buildProductsSlider(_ banner: MainBanner,
-                                    favoritesService: FavoritesServiceProtocol,
-                                    completion: NavigationHandler?) -> Row? {
-
+    func buildProductsSlider(_ banner: MainBanner, favoritesService: FavoritesServiceProtocol) -> Row? {
         guard let products = banner.products else {
             return nil
         }
 
-        let itemHeight = Constants.ProductsSlider.itemHeight
-        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: itemHeight)
-        let spacing = Constants.Slider.spacing
-
+        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: ProductCell.compactSize.height)
         let hasHeader = banner.title != nil
         var collectionInset = Constants.commonInsets
         collectionInset.top = hasHeader ? 0 : collectionInset.top
-        let collectionHeight = itemHeight + collectionInset.top + collectionInset.bottom
+        let collectionHeight = ProductCell.compactSize.height + collectionInset.top + collectionInset.bottom
 
-        let dataSource = getProductModel(products, favoritesService: favoritesService, completion: completion)
+        let dataSource = getProductModel(products, favoritesService: favoritesService)
 
         let model = HorizontalModel(collectionInset: collectionInset,
                                     itemSize: itemSize,
                                     collectionHeight: collectionHeight,
-                                    minimumLineSpacing: spacing,
+                                    minimumLineSpacing: Constants.Slider.spacing,
                                     needAutoCorrection: false,
                                     state: .productSlider(dataSource: dataSource))
 
         return .productsSlider(.init(cellModel: model, bannerID: banner.id))
     }
 
-    static func buildVertical(_ banner: MainBanner, size: CGSize, completion: NavigationHandler?) -> Row {
-        let wideItemWidth = size.width - Constants.commonInsets.left - Constants.commonInsets.right
-        var gridNumbers = [Double]()
-
-        if let gridArray = banner.uiSettings?.metrics {
-            gridNumbers = gridArray.compactMap { $0.width }
-        }
-
-        let settings = VerticalSettings(gridNumbers: gridNumbers, wideItemWidth: wideItemWidth, completion: completion)
-        let verticalModel = buildVerticalDataSource(from: banner, settings: settings)
+    func buildVertical(_ banner: MainBanner, viewSize: CGSize) -> Row {
+        let itemWidth = viewSize.width - Constants.commonInsets.left - Constants.commonInsets.right
+        let gridNumbers = banner.uiSettings?.metrics?.compactMap({ $0.width }) ?? []
+        let verticalModel = buildVerticalDataSource(from: banner, gridNumbers: gridNumbers, itemWidth: itemWidth)
 
         return .verticalBanners(.init(cellModel: verticalModel, bannerID: banner.id))
     }
 
-    private static func buildVerticalDataSource(from banner: MainBanner, settings: VerticalSettings) -> VerticalModel {
-
+    func buildVerticalDataSource(from banner: MainBanner, gridNumbers: [Double], itemWidth: CGFloat) -> VerticalModel {
         let hasHeader = banner.title != nil
         var collectionInset = Constants.commonInsets
         collectionInset.top = hasHeader ? 0 : collectionInset.top
@@ -157,21 +224,21 @@ struct MainSectionsBuilder {
         let minimumInteritemSpacing = Constants.VerticalBanners.verticalSpacing
         let minimumLineSpacing = Constants.VerticalBanners.horizontalSpacing
 
-        let shortItemWidth = settings.wideItemWidth - minimumLineSpacing
+        let shortItemWidth = itemWidth - minimumLineSpacing
 
         var collectionHeight: CGFloat = 0
-        var lineCount: CGFloat = 0
+        var lineCount = 0
         var currentLine = 0
-        var dataSource: [MainSectionsBuilder.VerticalItemModel] = []
+        var dataSource: [VerticalItemModel] = []
 
         if let childBanners = banner.banners {
-            let itemHeight = settings.wideItemWidth / Constants.VerticalBanners.multipleItemsRatio
+            let itemHeight = itemWidth / Constants.VerticalBanners.multipleItemsRatio
 
             dataSource = childBanners.enumerated().compactMap { (index, childBanner) -> VerticalItemModel? in
-                let itemWidth: CGFloat
+                let computedItemWidth: CGFloat
 
-                if let gridItemWidth = settings.gridNumbers[safe: index], gridItemWidth != 1 {
-                    itemWidth = shortItemWidth * gridItemWidth
+                if let gridItemWidth = gridNumbers[safe: index], gridItemWidth != 1 {
+                    computedItemWidth = shortItemWidth * gridItemWidth
 
                     if currentLine == 0 {
                         lineCount += 1
@@ -182,38 +249,34 @@ struct MainSectionsBuilder {
                     }
 
                 } else {
-                    itemWidth = settings.wideItemWidth
+                    computedItemWidth = itemWidth
                     currentLine = 0
                     lineCount += 1
                     collectionHeight += itemHeight
                 }
 
-                guard let url = getImageURL(for: childBanner.image, with: itemWidth) else {
-                    return nil
+                let url = getImageURL(for: childBanner.image, with: computedItemWidth)
+                let tapClosure: VoidClosure? = { [weak self] in
+                    self?.navigationHandler?(childBanner.placeType, childBanner.redirect, nil)
                 }
-
-                let tapClosure: VoidClosure? = { [completion = settings.completion] in
-                    completion?(childBanner.placeType, childBanner.redirect, nil)
-                }
-                let size = CGSize(width: itemWidth, height: itemHeight)
+                let size = CGSize(width: computedItemWidth, height: itemHeight)
 
                 return .init(cellModel: .init(url: url, tapClosure: tapClosure), size: size)
             }
-        } else if let url = getImageURL(for: banner.image, with: settings.wideItemWidth) {
+        } else if let url = getImageURL(for: banner.image, with: itemWidth) {
 
-            let itemHeight = settings.wideItemWidth / Constants.VerticalBanners.singleItemRatio
-            let size = CGSize(width: settings.wideItemWidth, height: itemHeight)
-
-            let tapClosure: VoidClosure? = { [completion = settings.completion] in
-                completion?(banner.placeType, banner.redirect, nil)
+            let itemHeight = itemWidth / Constants.VerticalBanners.singleItemRatio
+            let size = CGSize(width: itemWidth, height: itemHeight)
+            let tapClosure: VoidClosure? = { [weak self] in
+                self?.navigationHandler?(banner.placeType, banner.redirect, nil)
             }
 
-            collectionHeight += itemHeight
+            collectionHeight = itemHeight
             dataSource = [.init(cellModel: .init(url: url, tapClosure: tapClosure), size: size)]
         }
 
         if lineCount > 1 {
-            collectionHeight += (lineCount - 1) * minimumInteritemSpacing
+            collectionHeight += (CGFloat(lineCount) - 1) * minimumInteritemSpacing
         }
         collectionHeight += collectionInset.top + collectionInset.bottom
 
@@ -228,53 +291,18 @@ struct MainSectionsBuilder {
 
 private extension MainSectionsBuilder {
 
-    struct VerticalSettings {
-        let gridNumbers: [Double]
-        let wideItemWidth: CGFloat
-        let completion: NavigationHandler?
-    }
-
-}
-
-private extension MainSectionsBuilder {
-
-    static func getProductModel(_ products: [Product],
-                                favoritesService: FavoritesServiceProtocol,
-                                completion: NavigationHandler?) -> [ProductModel] {
-
-        products.compactMap { product -> ProductModel? in
-            let defaultImageEdge: CGFloat = 148
-            let edge = defaultImageEdge * UIScreen.main.scale
-
-            guard let imageURL = product.images.first?.scale(factor: .pixels(edge)).url?.toURL else {
-                return nil
+    func getProductModel(_ products: [Product], favoritesService: FavoritesServiceProtocol) -> [ProductCell.ViewModel] {
+        products.compactMap { product -> ProductCell.ViewModel? in
+            let productTapClosure: VoidClosure = { [weak self] in
+                self?.navigationHandler?(.productsCollection, nil, product)
             }
-
-            let productTapClosure: VoidClosure = { [completion] in
-                completion?(.productsCollection, nil, product)
+            let checkedIsFavoriteHandler: () -> Bool = { [favoritesService] in
+                favoritesService.isFavorite(item: product)
             }
-
-            let checkedIsFavoriteClosure: () -> Bool = { [favoritesService] in
-                return favoritesService.isFavorite(item: product)
-            }
-
-            let favoriteTapClosure: VoidClosure = { [favoritesService] in
+            let favoritesTapHandler: VoidClosure = { [favoritesService] in
                 favoritesService.toggle(item: product, completion: nil)
             }
-
-            var oldPriceFormatted = product.oldPrice()
-            var newPriceFormatted = product.newPrice()
-
-            if oldPriceFormatted == newPriceFormatted {
-                oldPriceFormatted = nil
-            }
-
-            if let price = newPriceFormatted {
-                let priceFrom = Strings.Catalogue.Product.priceFrom
-                newPriceFormatted = product.isVariablePrice ? String(format: priceFrom, price) : price
-            }
-
-            let favoritesTogglePublisher = favoritesService.favoritesTogglePublisher
+            let favoritesPublisher = favoritesService.favoritesTogglePublisher
                 .filter { favorites, _ in
                     favorites?.contains(where: { $0.identifier == product.id }) ?? false
                 }
@@ -283,22 +311,44 @@ private extension MainSectionsBuilder {
                 }
                 .eraseToAnyPublisher()
 
-            return ProductModel(productImageURL: imageURL,
-                                productTapClosure: productTapClosure,
-                                checkedIsFavoriteClosure: checkedIsFavoriteClosure,
-                                favoriteTapClosure: favoriteTapClosure,
-                                favoritePublisher: favoritesTogglePublisher,
-                                badges: product.defaultVariant?.badges,
-                                oldPrice: oldPriceFormatted,
-                                specialSale: product.discountFormatted(),
-                                price: newPriceFormatted,
-                                description: product.name)
+            var attributedNewPrice: NSAttributedString?
+            var attributedOldPrice: NSAttributedString?
+            var newPrice = product.newPrice()?.asPrice()
+            var oldPriceFormatted = product.oldPrice()?.asPrice()
+            oldPriceFormatted = oldPriceFormatted?.replacingOccurrences(of: " ", with: "\u{00a0}")
+
+            if product.isVariablePrice == true, let price = newPrice {
+                newPrice = String(format: Strings.Catalogue.Product.priceFrom, price)
+            }
+
+            if let newPrice {
+                attributedNewPrice = NSMutableAttributedString(string: newPrice, attributes: newPriceAttributes)
+
+                if let oldPrice = oldPriceFormatted {
+                    attributedOldPrice = NSMutableAttributedString(string: oldPrice, attributes: oldPriceAttributes)
+                }
+            }
+
+            return ProductCell.ViewModel(cellViewType: .compact,
+                                         isTransparent: false,
+                                         isBordered: true,
+                                         images: product.images,
+                                         isVariablePrice: product.isVariablePrice,
+                                         newPrice: attributedNewPrice,
+                                         oldPrice: attributedOldPrice,
+                                         discount: product.discountFormatted(),
+                                         badges: product.defaultVariant?.badges,
+                                         productName: product.name,
+                                         favoritesPublisher: favoritesPublisher,
+                                         favoritesTapHandler: favoritesTapHandler,
+                                         checkedIsFavoriteClosure: checkedIsFavoriteHandler,
+                                         cartTapHandler: nil,
+                                         productTapHandler: productTapClosure)
         }
     }
 
-    static func getImageURL(for itemImage: ItemImage?, with width: CGFloat) -> URL? {
+    func getImageURL(for itemImage: ItemImage?, with width: CGFloat) -> URL? {
         let edge = width * UIScreen.main.scale
-
         return itemImage?.scale(factor: .pixels(edge)).url?.toURL ?? itemImage?.original?.toURL
     }
 

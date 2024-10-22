@@ -5,9 +5,9 @@
 //  Created Artem Mayer on 02.10.2024.
 //
 
-import Foundation
+import Combine
 
-protocol MainViewModelProtocol: AnyObject {
+public protocol MainViewModelProtocol: AnyObject {
 
     typealias Model = MainModel
     typealias Constants = MainModel.Constants

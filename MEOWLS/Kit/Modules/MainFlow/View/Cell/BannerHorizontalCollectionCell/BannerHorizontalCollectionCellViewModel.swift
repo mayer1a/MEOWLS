@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension BannerHorizontalCollectionCell {
+public extension BannerHorizontalCollectionCell {
 
     struct ViewModel {
         let collectionInset: UIEdgeInsets
@@ -25,7 +25,7 @@ extension BannerHorizontalCollectionCell {
             /// Regular collection with banners
             case slider(dataSource: [BannerCollectionViewCell.ViewModel])
             /// Regular collection with product cells
-            case productSlider(dataSource: [BannerProductCollectionViewCell.ViewModel])
+            case productSlider(dataSource: [ProductCell.ViewModel])
             /// Regular collection with tags cells
             case tagsSlider(dataSource: [BannerTagsCollectionCell.ViewModel])
         }

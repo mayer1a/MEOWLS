@@ -17,7 +17,7 @@ final class MainViewModel: MainViewModelProtocol {
     var viewStatePublisher: Published<Model.ViewState>.Publisher { $viewState }
     var labelPublisher: Published<Model.Label?>.Publisher { $label }
 
-    private var sidersSizes: [String: CGSize] = [:]
+    private var slidersSizes: [String: CGSize] = [:]
     private var contentSize = UIScreen.main.bounds.size
 
     private var banners: [MainBanner] = []
@@ -25,15 +25,13 @@ final class MainViewModel: MainViewModelProtocol {
     private let downloadGroup = DispatchGroup()
     private let router: MainRouterProtocol
     private let apiService: MainApiServiceProtocol
-    private let favoriteService: FavoritesServiceProtocol
+    private let favoritesService: FavoritesServiceProtocol
     private var cancellables: Set<AnyCancellable> = []
 
     init(with model: Model.InitialModel) {
         self.router = model.router
         self.apiService = model.apiService
-        self.favoriteService = model.favoritesService
-
-        self.setupInitialSearchBarState()
+        self.favoritesService = model.favoritesService
     }
 
 }
@@ -50,17 +48,19 @@ extension MainViewModel {
         return .init(label: labelPublisher.eraseToAnyPublisher(), viewState: viewStatePublisher.eraseToAnyPublisher())
     }
 
-    private func execute(action: Model.ViewAction) {
+}
+
+private extension MainViewModel {
+
+    func execute(action: Model.ViewAction) {
         switch action {
         case .viewDidLoad(let contentSize):
             self.contentSize = contentSize
+            setupInitialSearchBarState()
             loadData()
 
-        case .triggerRefresh:
-            loadData()
-
-        case .deeplinkInput:
-            break
+        case .triggerRefresh(let errorType):
+            handleRefreshing(errorType)
 
         case .close:
             router.close()
@@ -68,9 +68,16 @@ extension MainViewModel {
         }
     }
 
-}
+    func handleRefreshing(_ errorType: Model.LoadingErrorType) {
+        switch errorType {
+        case .banners:
+            loadData()
 
-private extension MainViewModel {
+        case .sale(_, let saleID):
+            loadSale(with: saleID, handler: openSale)
+
+        }
+    }
 
     func loadingState(_ status: Model.LoadingStatus) {
         viewState = .loading(status)
@@ -94,48 +101,14 @@ private extension MainViewModel {
 private extension MainViewModel {
 
     func createSections() -> [Model.Section] {
-        var section = Model.Section()
-
-        banners.forEach { banner in
-            let isKnownType = banner.placeType != .undefined
-            if let headerRow = MainSectionsBuilder.buildHeader(banner, completion: navigateWith), isKnownType {
-                section.append(headerRow)
-            }
-
-            switch banner.placeType {
-            case .bannersHorizontal:
-                let sliderRow = MainSectionsBuilder.buildSlider(banner,
-                                                                imageSize: sidersSizes[banner.id],
-                                                                size: contentSize,
-                                                                completion: navigateWith)
-                section.append(sliderRow)
-
-            case .productsCollection:
-                let sliderRow = MainSectionsBuilder.buildProductsSlider(banner,
-                                                                        favoritesService: favoriteService,
-                                                                        completion: navigateWith)
-                if let sliderRow {
-                    section.append(sliderRow)
-                }
-
-            case .bannersVertical, .singleBanner:
-                let verticalRow = MainSectionsBuilder.buildVertical(banner, size: contentSize, completion: navigateWith)
-
-                section.append(verticalRow)
-
-            case .categories:
-                let tags = MainSectionsBuilder.buildTags(banner, completion: navigateWith)
-                section.append(tags)
-
-            default:
-                break
-
-            }
-        }
-
-        return [section]
+        MainSectionsBuilder()
+            .setBanners(banners)
+            .setViewSize(contentSize)
+            .setImagesSize(slidersSizes)
+            .setFavoritesService(favoritesService)
+            .setNavigationHandler(navigateWith)
+            .build()
     }
-
 
 }
 
@@ -187,20 +160,21 @@ private extension MainViewModel {
             break
 
         case .sale where redirect.objectID != nil:
-            loadSale(with: redirect.objectID!) { [weak self] sale in
-                self?.router.open(.sale(sale))
-            }
+            loadSale(with: redirect.objectID!, handler: openSale)
 
         case .sale where redirect.url != nil:
-            guard let url = redirect.url?.toURL else {
-                return
+            if let url = redirect.url?.toURL {
+                router.open(.webView(url))
             }
-            router.open(.webView(url))
 
         default:
             break
 
         }
+    }
+
+    func openSale(_ sale: Sale) {
+        router.open(.sale(sale))
     }
 
     func handleProductsCollectionRedirect(_ redirect: Redirect) {
@@ -220,13 +194,7 @@ private extension MainViewModel {
 private extension MainViewModel {
 
     func askPushNotifications() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-
-        #if Store
-        let waitSeconds: Int = 0
-        #else
         let waitSeconds = 2678400
-        #endif
 
         let center = UNUserNotificationCenter.current()
 
@@ -265,7 +233,7 @@ private extension MainViewModel {
                     }
                 }
             } else {
-                self.label = .showError(response.error)
+                self.label = .showError(.banners(response.error))
                 self.loadingState(.stopLoading)
             }
         }
@@ -284,7 +252,7 @@ private extension MainViewModel {
             if let promotion = response.data {
                 handler(promotion)
             } else {
-                self.label = .showError(Strings.Main.promotionDoesntExist)
+                self.label = .showError(.sale(Strings.Main.promotionDoesntExist, id))
             }
         }
     }
@@ -309,7 +277,7 @@ private extension MainViewModel {
                     return
                 }
 
-                self.sidersSizes[banner.id] = size
+                self.slidersSizes[banner.id] = size
                 self.downloadGroup.leave()
             }
         }
