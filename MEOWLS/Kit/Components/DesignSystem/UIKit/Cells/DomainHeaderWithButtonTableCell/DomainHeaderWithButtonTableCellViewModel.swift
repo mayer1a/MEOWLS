@@ -1,5 +1,5 @@
 //
-//  DomainHeaderWithButtonTableViewCellViewModel.swift
+//  DomainHeaderWithButtonTableCellViewModel.swift
 //  MEOWLS
 //
 //  Created by Artem Mayer on 04.10.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension DomainHeaderWithButtonCell {
+public extension DomainHeaderWithButtonTableCell {
 
     struct ViewModel {
 
@@ -27,7 +27,7 @@ public extension DomainHeaderWithButtonCell {
 
 }
 
-public extension DomainHeaderWithButtonCell.ViewModel {
+public extension DomainHeaderWithButtonTableCell.ViewModel {
 
     struct ButtonModel {
         public let title: String

@@ -10,9 +10,11 @@ import Foundation
 final class MainApiService: MainApiServiceProtocol {
 
     private let apiService: APIServiceProtocol
+    private let apiWrapper: APIWrapperProtocol
 
-    init(apiService: APIServiceProtocol) {
+    init(apiService: APIServiceProtocol, apiWrapper: APIWrapperProtocol) {
         self.apiService = apiService
+        self.apiWrapper = apiWrapper
     }
 
     func loadBanners(handler: @escaping ResponseHandler<[MainBanner]>) {
@@ -24,7 +26,7 @@ final class MainApiService: MainApiServiceProtocol {
     }
 
     func loadSale(id: String, handler: @escaping ResponseHandler<Sale>) {
-        apiService.get(resource: .sale(id), service: nil, parameters: nil, headers: nil, handler: handler)
+        apiWrapper.sale(saleID: id, handler: handler)
     }
 
 }

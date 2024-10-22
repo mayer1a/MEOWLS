@@ -63,34 +63,3 @@ final class IntroChildViewModel: IntroChildViewModelProtocol {
     }
 
 }
-
-extension UIApplication {
-
-    var topViewController: UIViewController? {
-        topViewController(from: connectedScenes)
-    }
-
-    private func topViewController(from scenes: Set<UIScene>) -> UIViewController? {
-        guard let scene = scenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-            return nil
-        }
-        return topViewController(rootViewController: scene.windows.first?.rootViewController)
-    }
-
-    private func topViewController(rootViewController: UIViewController?) -> UIViewController? {
-        if let navigationController = rootViewController as? UINavigationController {
-            return topViewController(rootViewController: navigationController.visibleViewController)
-        }
-
-        if let tabBarController = rootViewController as? UITabBarController {
-            return topViewController(rootViewController: tabBarController.selectedViewController)
-        }
-
-        if let presentedViewController = rootViewController?.presentedViewController {
-            return topViewController(rootViewController: presentedViewController)
-        }
-
-        return rootViewController
-    }
-
-}

@@ -11,13 +11,13 @@ import Factory
 public final class Router {
 
     /// An intro screen that is visually consistent and follows immediately after the launchscreen
-    static func introViewController() -> UIViewController {
+    public static func introViewController() -> UIViewController {
         resolve(\.introBuilder).build(with: .init())
     }
 
     #if Store
 
-    static func showMainController(atTab tab: RootTabController.Tab = .defaultTab) {
+    public static func showMainController(atTab tab: RootTab = .defaultTab) {
         UIApplication.shared.hideKeyboard()
 
         let rootTabController: UITabBarController
@@ -35,7 +35,7 @@ public final class Router {
 
     #else
 
-    static func showMainController(atTab tab: RootTabController.Tab = .defaultTab) {
+    public static func showMainController(atTab tab: RootTab = .defaultTab) {
         UIApplication.shared.hideKeyboard()
 
         let rootTabController: UITabBarController
@@ -54,7 +54,7 @@ public final class Router {
     #endif
 
     /// Region selection screen
-    static func regionViewController(with inputModel: RegionModel.InputModel) -> UINavigationController? {
+    public static func regionViewController(with inputModel: RegionModel.InputModel) -> UINavigationController? {
         let builder = resolve(\.regionBuilder)
         let viewController = builder.build(with: inputModel)
 
@@ -63,14 +63,14 @@ public final class Router {
 
     #if Store
 
-    static func showAuthorization() {
+    public static func showAuthorization() {
     }
 
     #endif
 
     // MARK: - Window switches
 
-    static func isMainControllerAtRoot() -> Bool {
+    public static func isMainControllerAtRoot() -> Bool {
         UIApplication.shared.keyWindow?.rootViewController is RootTabController
     }
 

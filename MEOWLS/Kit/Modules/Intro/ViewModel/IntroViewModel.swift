@@ -40,7 +40,6 @@ final class IntroViewModel<ChildVM: IntroChildViewModelProtocol>: IntroViewModel
             .store(in: &cancellables)
 
         childVM.showRoutePublisher
-            .receive(on: DispatchQueue.main)
             .delay(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { [weak self] path in
                 guard let self, let path else { return }

@@ -28,8 +28,8 @@ public final class DomainSearchBar: NiblessView {
 
     private let stackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .horizontal
         view.spacing = 4
+
         return view
     }()
 
@@ -38,17 +38,21 @@ public final class DomainSearchBar: NiblessView {
         view.backgroundColor = UIColor(resource: .backgroundPrimary)
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
+
         return view
     }()
 
     private lazy var searchFieldStackView: UIStackView = {
         let view = UIStackView()
-        view.axis = .horizontal
         view.spacing = 6
         view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(textFieldTap))
+        view.addGestureRecognizer(tapGesture)
+
         return view
     }()
 
+    private lazy var loupeImageContainer = UIView()
     private lazy var loupeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(resource: .search).withRenderingMode(.alwaysTemplate)
@@ -59,37 +63,29 @@ public final class DomainSearchBar: NiblessView {
     }()
 
     private lazy var textField: UITextField = {
-        let view = UITextField()
-        view.tintColor = UIColor(resource: .accentPrimary)
-        view.font = UIFont.systemFont(ofSize: 16)
-        view.textColor = UIColor(resource: .textPrimary)
-        view.clearButtonMode = .always
-        return view
+        let textField = UITextField()
+        textField.tintColor = UIColor(resource: .accentPrimary)
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.textColor = UIColor(resource: .textPrimary)
+        textField.clearButtonMode = .always
+        textField.isUserInteractionEnabled = false
+        textField.delegate = self
+
+        return textField
     }()
 
     private lazy var cancelButtonContainer = UIView()
     private lazy var cancelButton: UIButton = {
-        let view = UIButton()
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        view.setTitleColor(UIColor(resource: .accentPrimary), for: .normal)
-        view.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
-        view.snp.contentHuggingHorizontalPriority = 999
-        view.snp.contentCompressionResistanceHorizontalPriority = 999
-        return view
-    }()
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.setTitleColor(UIColor(resource: .accentPrimary), for: .normal)
+        button.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
 
+        return button
+    }()
+    private var cancelButtonConstraint: Constraint?
     private var textFielTapHandler: VoidClosure?
     private var cancelHandler: VoidClosure?
-
-    @objc
-    private func textFieldTap() {
-        textFielTapHandler?()
-    }
-
-    @objc
-    private func cancelButtonTap() {
-        cancelHandler?()
-    }
 
 }
 
@@ -105,25 +101,27 @@ public extension DomainSearchBar {
 
         switch model.state {
         case .initial(let model):
-            let gr = UITapGestureRecognizer(target: self, action: #selector(textFieldTap))
-            searchFieldStackView.addGestureRecognizer(gr)
-            textField.isUserInteractionEnabled = false
             textFielTapHandler = model.tapHandler
             cancelButtonContainer.isHidden = true
 
         case .searching(let model):
+            searchFieldStackView.gestureRecognizers?.removeAll()
+            textField.isUserInteractionEnabled = true
             cancelHandler = model.cancelHandler
             cancelButton.setTitle(model.cancelTitle, for: [])
+
             if let subject = model.textFieldSubject {
-                textField.publisher(for: \.text)
-                    .compactMap { $0 }
-                    .throttle(for: .seconds(2), scheduler: RunLoop.main, latest: true)
+                textField.becomeFirstResponder()
+
+                textField.textPublisher
+                    .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
                     .removeDuplicates()
                     .sink(receiveValue: { subject.send($0) })
                     .store(in: &cancellables)
-
-                textField.becomeFirstResponder()
             }
+
+            animateCancelButton()
+
         }
     }
 
@@ -137,8 +135,24 @@ public extension DomainSearchBar {
 
 private extension DomainSearchBar {
 
+    @objc
+    private func textFieldTap() {
+        textFielTapHandler?()
+    }
+
+    @objc
+    private func cancelButtonTap() {
+        animateCancelButton(isShow: false)
+        cancelHandler?()
+    }
+
+}
+
+private extension DomainSearchBar {
+
     func setupUI() {
         backgroundColor = UIColor(resource: .backgroundWhite)
+        
         setupConstraints()
     }
 
@@ -146,7 +160,8 @@ private extension DomainSearchBar {
         addSubview(stackView)
         stackView.addArrangedSubview(searchFieldBackgoundView)
         searchFieldBackgoundView.addSubview(searchFieldStackView)
-        searchFieldStackView.addArrangedSubview(loupeImageView)
+        searchFieldStackView.addArrangedSubview(loupeImageContainer)
+        loupeImageContainer.addSubview(loupeImageView)
         searchFieldStackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(cancelButtonContainer)
         cancelButtonContainer.addSubview(cancelButton)
@@ -154,24 +169,35 @@ private extension DomainSearchBar {
         self.snp.makeConstraints { make in
             make.height.equalTo(64)
         }
-
         stackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.bottom.equalToSuperview().inset(12)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(12)
         }
-
         searchFieldStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(8)
         }
-
         loupeImageView.snp.makeConstraints { make in
             make.size.equalTo(20)
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
         }
-
         cancelButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(12)
-            make.trailing.equalToSuperview()
-            make.top.bottom.equalToSuperview().inset(10)
+            cancelButtonConstraint = make.trailing.equalToSuperview().offset(100).constraint
+            make.verticalEdges.equalToSuperview().inset(10)
+        }
+        cancelButton.snp.contentHuggingHorizontalPriority = 999
+        cancelButton.snp.contentCompressionResistanceHorizontalPriority = 999
+    }
+
+    func animateCancelButton(isShow: Bool = true) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + (isShow ? 0.1 : 0)) { [weak self] in
+            self?.cancelButtonContainer.isHidden = false
+            self?.cancelButtonConstraint?.update(offset: isShow ? 0 : 100)
+
+            UIView.animate(withDuration: 0.33) { [weak self] in
+                self?.layoutIfNeeded()
+            }
         }
     }
 
@@ -195,6 +221,15 @@ private extension DomainSearchBar {
         animation.duration = 0.15
         layer.add(animation, forKey: animation.keyPath)
         layer.shadowOpacity = needDisplay ? 1.0 : 0.0
+    }
+
+}
+
+extension DomainSearchBar: UITextFieldDelegate {
+
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
 }

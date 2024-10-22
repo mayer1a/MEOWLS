@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class BannerHorizontalCollectionCell: NiblessTableViewCell {
+public final class BannerHorizontalCollectionCell: NiblessTableViewCell {
 
     private var state: ViewModel.State = .slider(dataSource: [])
 
@@ -18,9 +18,32 @@ final class BannerHorizontalCollectionCell: NiblessTableViewCell {
     private var lastVisibleCellPath: IndexPath?
     private var isScrolling = false
 
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        setupUI()
+    }
+
+    deinit {
+        timer?.invalidate()
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if case .automaticSlider = state, let lastVisibleCellPath {
+            // Dispatch is needed to fix mixing on some devices
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionView.scrollToItem(at: lastVisibleCellPath, at: .centeredHorizontally, animated: false)
+            }
+        }
+    }
+
     private lazy var flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = 12
+        flowLayout.minimumLineSpacing = 12
 
         return flowLayout
     }()
@@ -32,36 +55,15 @@ final class BannerHorizontalCollectionCell: NiblessTableViewCell {
         collectionView.decelerationRate = .fast
         collectionView.delegate = self
         collectionView.register(cell: BannerCollectionViewCell.self)
-        collectionView.register(cell: BannerProductCollectionViewCell.self)
+        collectionView.register(cell: ProductCell.self)
         collectionView.register(cell: BannerTagsCollectionCell.self)
 
         return collectionView
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        setupUI()
-    }
-
-    deinit {
-        timer?.invalidate()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if case .automaticSlider = state, let lastVisibleCellPath {
-            // Dispatch is needed to fix mixing on some devices
-            DispatchQueue.main.async { [weak self] in
-                self?.collectionView.scrollToItem(at: lastVisibleCellPath, at: .centeredHorizontally, animated: false)
-            }
-        }
-    }
-
 }
 
-extension BannerHorizontalCollectionCell {
+public extension BannerHorizontalCollectionCell {
 
     func configure(with model: ViewModel) {
         state = model.state
@@ -147,7 +149,7 @@ private extension BannerHorizontalCollectionCell {
 
 extension BannerHorizontalCollectionCell: UICollectionViewDataSource {
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch state {
         case .automaticSlider:
             return Int.max
@@ -164,8 +166,8 @@ extension BannerHorizontalCollectionCell: UICollectionViewDataSource {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView,
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         switch state {
         case .automaticSlider(let dataSource, _):
@@ -181,7 +183,7 @@ extension BannerHorizontalCollectionCell: UICollectionViewDataSource {
             return cell
 
         case .productSlider(let dataSource):
-            let cell = collectionView.dequeueReusable(cell: BannerProductCollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusable(cell: ProductCell.self, for: indexPath)
             cell.configure(with: dataSource[indexPath.row])
 
             return cell
@@ -199,16 +201,16 @@ extension BannerHorizontalCollectionCell: UICollectionViewDataSource {
 
 extension BannerHorizontalCollectionCell: UICollectionViewDelegate {
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isScrolling = true
         timer?.invalidate()
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         finishScrolling()
     }
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             finishScrolling()
         }
@@ -232,17 +234,16 @@ extension BannerHorizontalCollectionCell: UICollectionViewDelegate {
 
             collectionView.scrollToItem(at: visibleIndexPath, at: .centeredHorizontally, animated: true)
             lastVisibleCellPath = visibleIndexPath
-
         }
 
         isScrolling = false
         setupAutomaticScrolling()
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch state {
         case .productSlider(let dataSource):
-            dataSource[indexPath.row].productTapClosure?()
+            dataSource[indexPath.row].productTapHandler?()
 
         default:
             break

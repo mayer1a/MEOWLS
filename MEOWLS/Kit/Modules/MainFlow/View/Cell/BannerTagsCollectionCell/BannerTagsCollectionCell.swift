@@ -13,6 +13,20 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
 
     private var tapClosure: VoidClosure?
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setupUI()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        imageView.image = nil
+        tapClosure = nil
+        label.isHidden = true
+    }
+
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .backgroundWhite)
@@ -53,25 +67,6 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
         return label
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setupUI()
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        imageView.image = nil
-        tapClosure = nil
-        label.isHidden = true
-    }
-
-    @objc
-    private func tagTapped() {
-        tapClosure?()
-    }
-
 }
 
 extension BannerTagsCollectionCell {
@@ -86,6 +81,15 @@ extension BannerTagsCollectionCell {
             label.text = title
             label.isHidden = false
         }
+    }
+
+}
+
+private extension BannerTagsCollectionCell {
+
+    @objc
+    func tagTapped() {
+        tapClosure?()
     }
 
 }

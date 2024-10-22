@@ -10,63 +10,6 @@ import Factory
 
 final class RootTabController: NiblessTabBarController {
 
-    enum Tab: Int, CaseIterable {
-        case main
-        case catalogue
-        case cart
-        case favorites
-        case profile
-
-        static var defaultTab: Tab {
-            .main
-        }
-
-        var title: String {
-            switch self {
-            case .main:
-                return Strings.RootTabBar.main
-
-            case .catalogue:
-                return Strings.RootTabBar.catalogue
-
-            case .cart:
-                return Strings.RootTabBar.cart
-
-            case .favorites:
-                return Strings.RootTabBar.favorites
-
-            case .profile:
-                return Strings.RootTabBar.profile
-
-            }
-        }
-
-        var image: UIImage {
-            switch self {
-            case .main:
-                return UIImage(resource: .details)
-                // UIImage(resource: .mainTab)
-
-            case .catalogue:
-                return UIImage(resource: .details)
-                // UIImage(resource: catalogueTab)
-
-            case .cart:
-                return UIImage(resource: .details)
-                // UIImage(resource: cartTab)
-
-            case .favorites:
-                return UIImage(resource: .details)
-                // UIImage(resource: heartUnchecked)
-
-            case .profile:
-                return UIImage(resource: .details)
-                // UIImage(resource: profileTab)
-
-            }
-        }
-    }
-
 //    var footerBanner: LegacyBanner? {
 //        didSet {
 //            if let viewController = selectedViewController {
@@ -138,7 +81,7 @@ final class RootTabController: NiblessTabBarController {
 //        }
     }
 
-    func popToTop(tab: Tab) {
+    func popToTop(tab: RootTab) {
         guard
             let count = viewControllers?.count, count > tab.rawValue,
             let nav = viewControllers?[tab.rawValue] as? UINavigationController,
@@ -150,11 +93,11 @@ final class RootTabController: NiblessTabBarController {
         nav.popToRootViewController(animated: false)
     }
 
-    func select(tab: Tab) {
+    func select(tab: RootTab) {
         selectedIndex = tab.rawValue
     }
 
-    func addBadgeValue(tab: Tab, value: Int) {
+    func addBadgeValue(tab: RootTab, value: Int) {
         let strValue: String? = value > 0 ? String(value) : nil
 
         guard
@@ -190,7 +133,7 @@ final class RootTabController: NiblessTabBarController {
 
     private func setupTabs() {
         var viewControllers = [UIViewController]()
-        let tabs = Tab.allCases
+        let tabs = RootTab.allCases
 
         tabs.forEach { tab in
             let navVC = UINavigationController()
@@ -210,6 +153,9 @@ final class RootTabController: NiblessTabBarController {
 //                let mainVC = builder.build(.init())
 //                navVC.viewControllers = [mainVC]
 
+            case .tasks:
+                break
+
             case .catalogue:
                 break
 //                navVC.viewControllers = [CategoriesViewController.controller()]
@@ -219,10 +165,6 @@ final class RootTabController: NiblessTabBarController {
 //                @Injected var builder: DomainCartBuilderProtocol
 //                let vc = builder.build(.init())
 //                navVC.viewControllers = [vc]
-
-            case .favorites:
-                break
-//                navVC.viewControllers = [FavoritesBuilder.build()]
 
             case .profile:
                 break
@@ -266,7 +208,7 @@ final class RootTabController: NiblessTabBarController {
         tabBar.scrollEdgeAppearance = tabBarAppearance
 
         additionalSafeAreaInsets.bottom = 1
-        let navVc = viewControllers?[Tab.cart.rawValue] as? UINavigationController
+        let navVc = viewControllers?[RootTab.cart.rawValue] as? UINavigationController
 
         if let navigationBar = navVc?.navigationBar  {
             setupBarShadow(for: navigationBar)

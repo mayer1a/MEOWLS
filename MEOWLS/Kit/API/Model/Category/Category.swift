@@ -16,11 +16,13 @@ public final class Category: Codable {
     public let products: [Product]?
     public let hasChildren: Bool
     public let image: ItemImage?
+    public let productsCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, code, name, parent, products
         case hasChildren = "has_children"
         case image
+        case productsCount = "products_count"
     }
 
 }

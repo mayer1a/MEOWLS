@@ -1,83 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%u article(s)" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u item"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u items"
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u item"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u item"
-                }
-              },
-              "zero" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u items"
-                }
-              }
-            }
-          }
-        },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u товара"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u товаров"
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u товар"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u товара"
-                }
-              },
-              "zero" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%u товаров"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "%u day(s)" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -652,7 +575,6 @@
       }
     },
     "About.title" : {
-      "comment" : "About",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -823,7 +745,6 @@
       }
     },
     "Address.placeholder" : {
-      "comment" : "Address",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1044,57 +965,6 @@
         }
       }
     },
-    "Alert.ImagePicker.addPhoto" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить фотографию"
-          }
-        }
-      }
-    },
-    "Alert.ImagePicker.camera" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Take a photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сделать фото"
-          }
-        }
-      }
-    },
-    "Alert.ImagePicker.choosePhoto" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose from gallery"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать из галереи"
-          }
-        }
-      }
-    },
     "Alert.Maps.open" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1198,8 +1068,7 @@
       }
     },
     "Alert.NetworkError.title" : {
-      "comment" : "Alert",
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1233,7 +1102,6 @@
       }
     },
     "Authorization.PhoneVerification.countdown" : {
-      "comment" : "Phone Verification",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1246,57 +1114,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Вы сможете запросить код заново через %@"
-          }
-        }
-      }
-    },
-    "bank" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bank"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Банк"
-          }
-        }
-      }
-    },
-    "bank_identifier_code" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bank Identifier Code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "БИК"
-          }
-        }
-      }
-    },
-    "Cart.Bonuses.use" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use bonuses"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Использовать бонусы"
           }
         }
       }
@@ -1352,23 +1169,6 @@
         }
       }
     },
-    "Cart.Delivery.addedEmployee" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Specify consultant"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Указать консультанта"
-          }
-        }
-      }
-    },
     "Cart.Delivery.cartchanged" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1382,40 +1182,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "После авторизации изменилось наполнение Вашей корзины. Пожалуйста, проверьте."
-          }
-        }
-      }
-    },
-    "Cart.Delivery.chooseAnotherPickupPoint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show available points"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показать доступные пункты"
-          }
-        }
-      }
-    },
-    "Cart.Delivery.chooseAnotherShop" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show available stores"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показать доступные магазины"
           }
         }
       }
@@ -1522,40 +1288,6 @@
         }
       }
     },
-    "Cart.Delivery.deliveryShop" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick up in store"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Забрать в магазине"
-          }
-        }
-      }
-    },
-    "Cart.Delivery.disclaimer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please provide real information - you may be asked for an ID before receiving the order."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пожалуйста, указывайте реальные данные — у Вас могут попросить паспорт, прежде чем вручить заказ."
-          }
-        }
-      }
-    },
     "Cart.Delivery.editAddress" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1586,23 +1318,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Адрес электронной почты"
-          }
-        }
-      }
-    },
-    "Cart.Delivery.employee" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Consultant"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Консультант"
           }
         }
       }
@@ -1760,23 +1475,6 @@
         }
       }
     },
-    "Cart.Delivery.passportWarning" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please note that you will need an ID to receive your order."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Обращаем внимание, что при получении заказа Вам потребуется паспорт."
-          }
-        }
-      }
-    },
     "Cart.Delivery.phoneRequired" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1807,23 +1505,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Доставить курьером"
-          }
-        }
-      }
-    },
-    "Cart.Delivery.pickupShop" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick up in store"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Забрать в магазине"
           }
         }
       }
@@ -1913,23 +1594,6 @@
         }
       }
     },
-    "Cart.Delivery.wasAddedEmployee" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Consultant added"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Консультант добавлен"
-          }
-        }
-      }
-    },
     "Cart.Delivery.wish" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1943,6 +1607,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Уточнение или пожелание"
+          }
+        }
+      }
+    },
+    "Cart.empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cart is empty"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Корзина пуста"
           }
         }
       }
@@ -1981,23 +1662,6 @@
         }
       }
     },
-    "Cart.Empty.header" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart is empty"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина пуста"
-          }
-        }
-      }
-    },
     "Cart.Empty.unauthorizedAction" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2032,23 +1696,6 @@
         }
       }
     },
-    "Cart.emptyCart" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart is empty"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина пуста"
-          }
-        }
-      }
-    },
     "Cart.Fail.cart" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2079,108 +1726,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ошибка удаления товара"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.add" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add certificate"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить сертификат"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.Alert.buttonTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apply"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Применить"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.Alert.textFieldTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Certificate number"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Номер сертификата"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.Alert.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gift certificate"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подарочный сертификат"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.delete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Remove gift certificate %@?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Убрать подарочный сертификат %@?"
-          }
-        }
-      }
-    },
-    "Cart.GiftCards.promocodes" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gift certificates"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подарочные сертификаты"
           }
         }
       }
@@ -2355,23 +1900,6 @@
         }
       }
     },
-    "Cart.Order.disclaimerPickup" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can follow the status of the order in the “My Orders” section."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы можете следить за состоянием статуса заказа в разделе «Мои заказы»."
-          }
-        }
-      }
-    },
     "Cart.Order.header.details" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2423,40 +1951,6 @@
         }
       }
     },
-    "Cart.Order.outlet" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delivery store"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Магазин самовывоза"
-          }
-        }
-      }
-    },
-    "Cart.Order.paid" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Payment made"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Внесена оплата"
-          }
-        }
-      }
-    },
     "Cart.Order.payLater" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2470,40 +1964,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Оплата при получении"
-          }
-        }
-      }
-    },
-    "Cart.Order.payNow" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pay now"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплата сейчас"
-          }
-        }
-      }
-    },
-    "Cart.Order.payNowButton" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pay for the order now"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплатить заказ сейчас"
           }
         }
       }
@@ -2525,7 +1985,58 @@
         }
       }
     },
-    "Cart.Order.status.new" : {
+    "Cart.Order.Status.canceled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canceled"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменен"
+          }
+        }
+      }
+    },
+    "Cart.Order.Status.completed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completed"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выполнен"
+          }
+        }
+      }
+    },
+    "Cart.Order.Status.inProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый"
+          }
+        }
+      }
+    },
+    "Cart.Order.Status.new" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -2538,23 +2049,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Успешно оформлен"
-          }
-        }
-      }
-    },
-    "Cart.Order.title.cash" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cash payment"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплата наличными"
           }
         }
       }
@@ -2593,6 +2087,23 @@
         }
       }
     },
+    "Cart.Payment.bankCardTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bank card"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Банковская карта"
+          }
+        }
+      }
+    },
     "Cart.Payment.cashButton" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2623,6 +2134,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Оплата наличными"
+          }
+        }
+      }
+    },
+    "Cart.Payment.CashTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cash"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Наличные"
           }
         }
       }
@@ -2695,36 +2223,36 @@
         }
       }
     },
-    "Cart.Payment.failed" : {
+    "Cart.Payment.itemsWithoutDiscount" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Payment unsuccessful"
+            "value" : "Products without discount"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Неуспешная оплата"
+            "value" : "Товары без скидки"
           }
         }
       }
     },
-    "Cart.Payment.mustSelectAddressOrOutlet" : {
+    "Cart.Payment.mustSelectAddress" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You must select a delivery address or store"
+            "value" : "You must select a delivery address"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Вам необходимо выбрать адрес доставки или магазин"
+            "value" : "Вам необходимо выбрать адрес доставки"
           }
         }
       }
@@ -2742,23 +2270,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "На каждый товар может действовать только один промокод. Промокоды применяются в порядке их ввода."
-          }
-        }
-      }
-    },
-    "Cart.Payment.pay" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pay"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплатить"
           }
         }
       }
@@ -2797,23 +2308,6 @@
         }
       }
     },
-    "Cart.Payment.paymentListTopError" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Payment did not go through. Try again or change the payment method"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплата не прошла. Попробуйте снова или измените способ оплаты"
-          }
-        }
-      }
-    },
     "Cart.Payment.paymentTypeWarning" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2831,19 +2325,19 @@
         }
       }
     },
-    "Cart.Payment.paymentWarning" : {
+    "Cart.Payment.paySubtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Some banks may experience failures with Apple Pay and Google Pay payments. We recommend using a bank card."
+            "value" : "upon receipt"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "У некоторых банков могут наблюдаться сбои при оплате Apple Pay и Google Pay. Рекомендуем использовать банковскую карту."
+            "value" : "при получении"
           }
         }
       }
@@ -2865,7 +2359,7 @@
         }
       }
     },
-    "Cart.Payment.promoCode" : {
+    "Cart.Payment.promocode" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -2912,40 +2406,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "скидка"
-          }
-        }
-      }
-    },
-    "Cart.Payment.sellForOnline" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Online payment discount"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скидка за онлайн оплату"
-          }
-        }
-      }
-    },
-    "Cart.Payment.sellForPaymentType" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Online payment"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Онлайн оплата"
           }
         }
       }
@@ -3018,23 +2478,6 @@
         }
       }
     },
-    "Cart.Payment.wrongCardNumber" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incorrect card number"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Неправильный номер карты"
-          }
-        }
-      }
-    },
     "Cart.popupCountHeader" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3065,40 +2508,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Цена за %@"
-          }
-        }
-      }
-    },
-    "Cart.priceTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total cost"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Итоговая стоимость"
-          }
-        }
-      }
-    },
-    "Cart.promoCodes" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promo codes"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокоды"
           }
         }
       }
@@ -3154,23 +2563,6 @@
         }
       }
     },
-    "Cart.Promocodes.Alert.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promo code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокод"
-          }
-        }
-      }
-    },
     "Cart.Promocodes.delete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3218,23 +2610,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Неправильный промокод."
-          }
-        }
-      }
-    },
-    "Cart.Promocodes.promocodes" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promo codes"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокоды"
           }
         }
       }
@@ -3307,42 +2682,7 @@
         }
       }
     },
-    "Cart.sales" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Product discount"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скидка на товары"
-          }
-        }
-      }
-    },
-    "Cart.takeIn" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick up in"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Самовывоз из"
-          }
-        }
-      }
-    },
     "Cart.title" : {
-      "comment" : "Cart",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -3372,23 +2712,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Недоступные для заказа"
-          }
-        }
-      }
-    },
-    "Cart.unavailableDisclaimer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "These items are only available for pickup from specific stores or they are out of stock."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Эти товары можно забрать только из определенных магазинов, либо их нет в наличии."
           }
         }
       }
@@ -3530,7 +2853,6 @@
       }
     },
     "Catalogue.Article.article" : {
-      "comment" : "Article",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -3543,23 +2865,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Артикул"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.availableIn" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick up in"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Самовывоз из"
           }
         }
       }
@@ -3577,23 +2882,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Бренд"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.CallMeAlert.message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As soon as the item is in stock we will definitely notify you."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Как только изделие появится в наличии мы обязательно Вас уведомим."
           }
         }
       }
@@ -3666,42 +2954,7 @@
         }
       }
     },
-    "Catalogue.Article.compilation" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "From the same collection"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Из этой же коллекции"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.delivery" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delivery"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Доставка"
-          }
-        }
-      }
-    },
     "Catalogue.Article.Details.title" : {
-      "comment" : "Details",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -3714,23 +2967,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Подробное описание"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.documents" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Documents and instructions"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Документы и инструкции"
           }
         }
       }
@@ -3765,23 +3001,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Подробное описание"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.guarantee" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warranty and returns"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Гарантия и возврат"
           }
         }
       }
@@ -3956,53 +3175,19 @@
         }
       }
     },
-    "Catalogue.Article.sellersTitle" : {
+    "Catalogue.Article.returns" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sellers"
+            "value" : "Returns"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Продавцы"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.set" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Often bought with this"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "С этим часто покупают"
-          }
-        }
-      }
-    },
-    "Catalogue.Article.similar" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Similar products"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Похожие товары"
+            "value" : "Возврат"
           }
         }
       }
@@ -4110,7 +3295,6 @@
       }
     },
     "Catalogue.Categories.title" : {
-      "comment" : "Catalogue",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4264,7 +3448,6 @@
       }
     },
     "Catalogue.Goods.Filters.title" : {
-      "comment" : "Filters",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4350,7 +3533,6 @@
       }
     },
     "Catalogue.Goods.FiltersBar.popular" : {
-      "comment" : "Filters  Bar",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4402,7 +3584,6 @@
       }
     },
     "Catalogue.Goods.ProductCell.new" : {
-      "comment" : "Product Cell",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4454,7 +3635,6 @@
       }
     },
     "Catalogue.Goods.SortVariants.popular" : {
-      "comment" : "Sort Variants",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4641,6 +3821,83 @@
         }
       }
     },
+    "Catalogue.Searching.itemsCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u item"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u items"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u item"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u items"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u товара"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u товаров"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u товар"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u товара"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%u товаров"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Catalogue.Searching.noResultDetails" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4693,7 +3950,6 @@
       }
     },
     "Catalogue.Searching.title" : {
-      "comment" : "Searching",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4740,23 +3996,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выбрать регион"
-          }
-        }
-      }
-    },
-    "Common.AnotherRegionView.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose the nearest region to use the calculator"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выберите ближайший к Вам регион, чтобы воспользоваться калькулятором"
           }
         }
       }
@@ -4898,7 +4137,6 @@
       }
     },
     "Common.systemOptions" : {
-      "comment" : "Common",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -4950,7 +4188,6 @@
       }
     },
     "Conditions.title" : {
-      "comment" : "Conditions",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5053,7 +4290,6 @@
       }
     },
     "Contacts.title" : {
-      "comment" : "Contacts",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5066,23 +4302,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Контактная информация"
-          }
-        }
-      }
-    },
-    "Contacts.viber" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Viber"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Viber"
           }
         }
       }
@@ -5100,57 +4319,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "WhatsApp"
-          }
-        }
-      }
-    },
-    "correct_data" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correct data"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Исправить данные"
-          }
-        }
-      }
-    },
-    "correspondent_account" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correspondent Account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корреспондентский счет"
-          }
-        }
-      }
-    },
-    "current_account" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Current Account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Расчетный счет"
           }
         }
       }
@@ -5173,7 +4341,6 @@
       }
     },
     "Error.DataSource.pullingFail" : {
-      "comment" : "Error",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5242,7 +4409,6 @@
       }
     },
     "Favorites.title" : {
-      "comment" : "Favorites",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5362,7 +4528,6 @@
       }
     },
     "History.Alert.title" : {
-      "comment" : "History Orders",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5448,7 +4613,6 @@
       }
     },
     "Intro.Alert.title" : {
-      "comment" : "Intro",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5465,26 +4629,7 @@
         }
       }
     },
-    "legal_entity" : {
-      "comment" : "My documents",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Legal Entity"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Юридическое лицо"
-          }
-        }
-      }
-    },
     "Main.categorydoesntexist" : {
-      "comment" : "Main",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5531,23 +4676,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Коллекции"
-          }
-        }
-      }
-    },
-    "Main.Menu.delivery" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delivery"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Доставка"
           }
         }
       }
@@ -5655,7 +4783,6 @@
       }
     },
     "Navigation.cantOpen" : {
-      "comment" : "Navigation",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5668,23 +4795,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Не получается произвести переход, убедитесь что необходимое приложение установлено"
-          }
-        }
-      }
-    },
-    "organization_name" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Organization Name"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наименование организации"
           }
         }
       }
@@ -5724,7 +4834,6 @@
       }
     },
     "Payment.selectPaymentType" : {
-      "comment" : "Payment",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5737,23 +4846,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выберите способ оплаты"
-          }
-        }
-      }
-    },
-    "personal_entity" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Personal"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Физическое лицо"
           }
         }
       }
@@ -5775,59 +4867,7 @@
         }
       }
     },
-    "PersonalManagers.error.subtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your personal managers may appear later."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Возможно, ваши персональные менеджеры появятся позже."
-          }
-        }
-      }
-    },
-    "PersonalManagers.error.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No one here yet"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Здесь пока что никого нет"
-          }
-        }
-      }
-    },
-    "PersonalManagers.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Personal Managers"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Персональные менеджеры"
-          }
-        }
-      }
-    },
     "PhoneInput.incorrectNumberEnteredError" : {
-      "comment" : "Phone input",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -5840,57 +4880,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Введен некорректный номер"
-          }
-        }
-      }
-    },
-    "Profile.Bonuses.balance" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "bonus points"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "бонусных баллов"
-          }
-        }
-      }
-    },
-    "Profile.Bonuses.balanceOn" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "bonus points on %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "бонусных баллов на %@"
-          }
-        }
-      }
-    },
-    "Profile.Bonuses.emptyHistory" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You don't have any bonus points yet"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "У вас пока нет бонусных баллов"
           }
         }
       }
@@ -6592,23 +5581,6 @@
         }
       }
     },
-    "Profile.History.Details.outlet" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delivery store"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Магазин доставки"
-          }
-        }
-      }
-    },
     "Profile.History.Details.partPayment" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6643,23 +5615,6 @@
         }
       }
     },
-    "Profile.History.Details.paymentwarning" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Be careful: the order will be cancelled %@, if payment is not received."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Будьте внимательны: заказ отменится %@, если оплата не поступит."
-          }
-        }
-      }
-    },
     "Profile.History.Details.paymentwarningAt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6673,40 +5628,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "в"
-          }
-        }
-      }
-    },
-    "Profile.History.Details.pickupPointTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pickup point"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пункт выдачи"
-          }
-        }
-      }
-    },
-    "Profile.History.Details.pickupTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Self-pickup"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Самовывоз"
           }
         }
       }
@@ -6728,23 +5649,6 @@
         }
       }
     },
-    "Profile.History.Details.seller" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seller:"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Продавец:"
-          }
-        }
-      }
-    },
     "Profile.History.Details.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6762,42 +5666,7 @@
         }
       }
     },
-    "Profile.History.Details.toPay" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pay %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оплатить %@"
-          }
-        }
-      }
-    },
-    "Profile.History.Details.writeReview" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Write a review"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Напишите отзыв"
-          }
-        }
-      }
-    },
     "Profile.History.title" : {
-      "comment" : "Order History flow",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -6848,57 +5717,6 @@
         }
       }
     },
-    "Profile.Items.bidding" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bidding"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Торги"
-          }
-        }
-      }
-    },
-    "Profile.Items.bonuses" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bonus points"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Бонусные баллы"
-          }
-        }
-      }
-    },
-    "Profile.Items.cart" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина"
-          }
-        }
-      }
-    },
     "Profile.Items.contacts" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6929,23 +5747,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Адрес электронной почты не подтвержден"
-          }
-        }
-      }
-    },
-    "Profile.Items.favorites" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favorites"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Избранное"
           }
         }
       }
@@ -6984,23 +5785,6 @@
         }
       }
     },
-    "Profile.Items.myDocuments" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "My documents"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Мои документы"
-          }
-        }
-      }
-    },
     "Profile.Items.options" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7014,23 +5798,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Настройки"
-          }
-        }
-      }
-    },
-    "Profile.Items.promo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promocodes"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокоды"
           }
         }
       }
@@ -7082,40 +5849,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Просмотренные товары"
-          }
-        }
-      }
-    },
-    "Profile.Level.stateNoAccess" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No access"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нет доступа"
-          }
-        }
-      }
-    },
-    "Profile.Level.stateOnApproval" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "On approval"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "На проверке"
           }
         }
       }
@@ -7239,23 +5972,6 @@
         }
       }
     },
-    "Profile.Manual.forAttendee" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "For store employee"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Для сотрудника магазина"
-          }
-        }
-      }
-    },
     "Profile.Manual.supportTime" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7375,23 +6091,6 @@
         }
       }
     },
-    "Profile.Promocodes.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promocode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокод"
-          }
-        }
-      }
-    },
     "Profile.UserProfile.deleteAccountAlertMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7494,25 +6193,7 @@
         }
       }
     },
-    "Profile.UserProfile.qrTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your QR code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ваш QR-код"
-          }
-        }
-      }
-    },
     "Profile.UserProfile.title" : {
-      "comment" : "Profile",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -7734,7 +6415,6 @@
       }
     },
     "Promotion.fromto" : {
-      "comment" : "Promotion",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -7815,23 +6495,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Товары в акции"
-          }
-        }
-      }
-    },
-    "Promotion.promocode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Promo code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Промокод"
           }
         }
       }
@@ -8023,23 +6686,6 @@
         }
       }
     },
-    "Region.Default.region" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moscow"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Москва"
-          }
-        }
-      }
-    },
     "Region.Request.isCorrect" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8075,7 +6721,6 @@
       }
     },
     "Region.Request.title" : {
-      "comment" : "Region",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8127,7 +6772,6 @@
       }
     },
     "RootContainer.NotificationSetting.message" : {
-      "comment" : "RootContainer",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8161,23 +6805,6 @@
         }
       }
     },
-    "RootTabBar.cart" : {
-      "extractionState" : "migrated",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина"
-          }
-        }
-      }
-    },
     "RootTabBar.catalogue" : {
       "extractionState" : "migrated",
       "localizations" : {
@@ -8195,26 +6822,8 @@
         }
       }
     },
-    "RootTabBar.favorites" : {
-      "extractionState" : "migrated",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Favorites"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Избранное"
-          }
-        }
-      }
-    },
     "RootTabBar.main" : {
-      "comment" : "RootTabBar",
-      "extractionState" : "migrated",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -8247,331 +6856,7 @@
         }
       }
     },
-    "Scanner.PopUp.size" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Size"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Размер"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.addProductToCart" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Product added to check"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Товар добавлен в чек"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.countError" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mismatch in stock"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Несовпадение остатков"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.courierQRScan" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scan the courier's QR code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отсканируйте QR-код курьера"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.errorOnScan" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error occurred during scanning"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "При сканировании произошла ошибка"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.fastCheckout" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quick order"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Быстрый заказ"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.incorrectCode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incorrect code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Некорректный код"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.incorrectCodeForCart" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This code cannot be applied to this cart!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Этот код нельзя применить к этой корзине!"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.incorrectPromoCode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This promo code has already been applied!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Этот промокод уже применен!"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.scanOrHand" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scan the barcode or enter it manually"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отсканируйте штрихкод или введите его вручную"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.scanProduct" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Product scanned"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Товар отсканирован"
-          }
-        }
-      }
-    },
-    "Scanner.Universal.shareError" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to create a link to share"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось создать ссылку, чтобы поделиться ей"
-          }
-        }
-      }
-    },
-    "Shop.Details.activities" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Available services"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Доступные услуги"
-          }
-        }
-      }
-    },
-    "Shop.Details.address" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Address"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адрес"
-          }
-        }
-      }
-    },
-    "Shop.Details.schedule" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Working hours"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Режим работы"
-          }
-        }
-      }
-    },
-    "Shop.Details.subways" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Subway"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Метро"
-          }
-        }
-      }
-    },
-    "Shop.filters" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filters"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Фильтры"
-          }
-        }
-      }
-    },
-    "Shop.region" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Region"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Регион"
-          }
-        }
-      }
-    },
-    "Shop.takeHere" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pick up here"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Самовывоз здесь"
-          }
-        }
-      }
-    },
     "SingleLocation.authorizedAlways" : {
-      "comment" : "SingleLocation",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8674,7 +6959,6 @@
       }
     },
     "Sort.title" : {
-      "comment" : "Sort View Controller",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8691,25 +6975,7 @@
         }
       }
     },
-    "tax_registration_reason_code" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tax Registration Reason Code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "КПП"
-          }
-        }
-      }
-    },
     "Verification.EnterPincode.information" : {
-      "comment" : "Secure Enter via pincode",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8863,7 +7129,6 @@
       }
     },
     "Verification.FingerprintRequest.request" : {
-      "comment" : "Biometric Request",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -8915,7 +7180,6 @@
       }
     },
     "Verification.NewPincode.pincodePlease" : {
-      "comment" : "New Pincode",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -9001,7 +7265,6 @@
       }
     },
     "Viewed.title" : {
-      "comment" : "Viewed",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -9086,40 +7349,6 @@
         }
       }
     },
-    "WarningView.Cart.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart is empty"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина пуста"
-          }
-        }
-      }
-    },
-    "WarningView.Cart.titleUnauthorized" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cart is empty"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Корзина пуста"
-          }
-        }
-      }
-    },
     "WarningView.Catalogue.action" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -9155,7 +7384,6 @@
       }
     },
     "WarningView.Catalogue.title" : {
-      "comment" : "Warning View",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

@@ -10,58 +10,6 @@ import Factory
 
 final class RootTabController: NiblessTabBarController {
 
-    enum Tab: Int, CaseIterable {
-        case main
-        case catalogue
-        case cart
-        case favorites
-        case profile
-
-        static var defaultTab: Tab {
-            .main
-        }
-
-        var title: String {
-            switch self {
-            case .main:
-                return Strings.RootTabBar.main
-
-            case .catalogue:
-                return Strings.RootTabBar.catalogue
-
-            case .cart:
-                return Strings.RootTabBar.cart
-
-            case .favorites:
-                return Strings.RootTabBar.favorites
-
-            case .profile:
-                return Strings.RootTabBar.profile
-
-            }
-        }
-
-        var image: UIImage {
-            switch self {
-            case .main:
-                return UIImage(resource: .details)
-
-            case .catalogue:
-                return UIImage(resource: .details)
-
-            case .cart:
-                return UIImage(resource: .details)
-
-            case .favorites:
-                return UIImage(resource: .details)
-
-            case .profile:
-                return UIImage(resource: .details)
-
-            }
-        }
-    }
-
     private var favoritesService = resolve(\.favoritesService)
 
     override init() {
@@ -101,7 +49,7 @@ final class RootTabController: NiblessTabBarController {
         addBadgeValue(tab: .favorites, value: favoritesService.amount)
     }
 
-    func popToTop(tab: Tab) {
+    func popToTop(tab: RootTab) {
         guard
             let count = viewControllers?.count, count > tab.rawValue,
             let nav = viewControllers?[tab.rawValue] as? UINavigationController,
@@ -113,11 +61,11 @@ final class RootTabController: NiblessTabBarController {
         nav.popToRootViewController(animated: false)
     }
 
-    func select(tab: Tab) {
+    func select(tab: RootTab) {
         selectedIndex = tab.rawValue
     }
 
-    func addBadgeValue(tab: Tab, value: Int) {
+    func addBadgeValue(tab: RootTab, value: Int) {
         let strValue: String? = value > 0 ? String(value) : nil
 
         guard
@@ -133,7 +81,7 @@ final class RootTabController: NiblessTabBarController {
 
     private func setupTabs() {
         var viewControllers = [UIViewController]()
-        let tabs = Tab.allCases
+        let tabs = RootTab.allCases
 
         tabs.forEach { tab in
             let navVC = UINavigationController()
@@ -148,7 +96,8 @@ final class RootTabController: NiblessTabBarController {
 
             switch tab {
             case .main:
-                break
+                let mainViewController = resolve(\.mainBuilder).build(with: .init())
+                navVC.viewControllers = [mainViewController]
 
             case .catalogue:
                 break
@@ -198,7 +147,7 @@ final class RootTabController: NiblessTabBarController {
         tabBar.scrollEdgeAppearance = tabBarAppearance
 
         additionalSafeAreaInsets.bottom = 1
-        let navVc = viewControllers?[Tab.cart.rawValue] as? UINavigationController
+        let navVc = viewControllers?[RootTab.cart.rawValue] as? UINavigationController
 
         if let navigationBar = navVc?.navigationBar  {
             setupBarShadow(for: navigationBar)

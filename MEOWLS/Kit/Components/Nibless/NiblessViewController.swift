@@ -23,4 +23,9 @@ public class NiblessViewController: UIViewController {
         fatalError("Loading this view controller from a nib is unsupported")
     }
 
+    @objc
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
 }

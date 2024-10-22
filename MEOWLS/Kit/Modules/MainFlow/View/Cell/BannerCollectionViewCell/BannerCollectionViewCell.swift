@@ -13,6 +13,26 @@ final class BannerCollectionViewCell: NiblessCollectionViewCell {
 
     private var imageTappedClosure: VoidClosure?
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setup()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        imageView.image = nil
+        imageTappedClosure = nil
+        label.isHidden = true
+    }
+
+    override func setup() {
+        super.setup()
+
+        setupUI()
+    }
+
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -44,31 +64,6 @@ final class BannerCollectionViewCell: NiblessCollectionViewCell {
         return label
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setup()
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        imageView.image = nil
-        imageTappedClosure = nil
-        label.isHidden = true
-    }
-
-    override func setup() {
-        super.setup()
-
-        setupUI()
-    }
-
-    @objc
-    private func imageTapped() {
-        imageTappedClosure?()
-    }
-
 }
 
 extension BannerCollectionViewCell {
@@ -91,14 +86,23 @@ extension BannerCollectionViewCell {
 
 private extension BannerCollectionViewCell {
 
+    @objc
+    func imageTapped() {
+        imageTappedClosure?()
+    }
+
+}
+
+private extension BannerCollectionViewCell {
+
     func setupUI() {
         setupConstraints()
     }
 
     func setupConstraints() {
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(label)
-        contentView.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

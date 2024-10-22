@@ -35,14 +35,13 @@ public extension UserCredential {
             }
         }
 
-        #warning("LOCALIZE!")
         public var localizableDescription: String {
             switch self {
             case .man:
-                return "Мужской"
+                return Strings.Profile.Edit.man
 
             case .woman:
-                return "Женский"
+                return Strings.Profile.Edit.woman
 
             }
         }
