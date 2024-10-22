@@ -150,7 +150,7 @@ public final class ProductCell: NiblessCollectionViewCell {
 
 public extension ProductCell {
 
-    func configure(with model: ProductCell.ViewModel?) {
+    func configure(with model: ViewModel?) {
         #if POS
             imageSlider.favoritesContainerIsHidden = true
         #endif
