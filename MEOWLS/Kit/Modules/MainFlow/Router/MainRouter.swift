@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Factory
 
 final class MainRouter: CommonRouter, MainRouterProtocol {
 
@@ -40,6 +41,16 @@ final class MainRouter: CommonRouter, MainRouterProtocol {
 private extension MainRouter {
 
     func showSearch() {
+        let searchViewController = resolve(\.searchBuilder).build(with: .init())
+        let navigationViewController = UINavigationController(rootViewController: searchViewController)
+        navigationViewController.modalTransitionStyle = .crossDissolve
+        navigationViewController.modalPresentationStyle = .overCurrentContext
+
+        if let tabViewController = viewController?.tabBarController {
+            tabViewController.present(navigationViewController)
+        } else {
+            present(navigationViewController)
+        }
     }
 
     func showProduct(_ product: Product) {
