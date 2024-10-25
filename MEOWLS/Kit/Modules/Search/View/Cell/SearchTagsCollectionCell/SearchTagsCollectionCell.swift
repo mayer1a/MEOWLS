@@ -66,7 +66,7 @@ private extension SearchTagsCollectionCell {
 
     func setupConstraints() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
     }
 

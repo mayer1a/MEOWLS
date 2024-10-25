@@ -90,7 +90,7 @@ private extension DomainBoldWithButtonCollectionHeader {
         containerView.addSubview(stackView)
 
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
         stackView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(21)

@@ -59,6 +59,7 @@ public class APIWrapper: APIWrapperProtocol {
 
     // MARK: - Catalogue
 
+    @discardableResult
     public func products(by ids: [String],
                          with parameters: Parameters?,
                          handler: @escaping ProductsResponse) -> DataRequest? {

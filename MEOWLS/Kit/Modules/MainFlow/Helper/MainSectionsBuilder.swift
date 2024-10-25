@@ -190,11 +190,11 @@ private extension MainSectionsBuilder {
             return nil
         }
 
-        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: ProductCell.compactSize.height)
+        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: ProductCell.standartSize.height)
         let hasHeader = banner.title != nil
         var collectionInset = Constants.commonInsets
         collectionInset.top = hasHeader ? 0 : collectionInset.top
-        let collectionHeight = ProductCell.compactSize.height + collectionInset.top + collectionInset.bottom
+        let collectionHeight = ProductCell.standartSize.height + collectionInset.top + collectionInset.bottom
 
         let dataSource = getProductModel(products, favoritesService: favoritesService)
 
@@ -313,9 +313,8 @@ private extension MainSectionsBuilder {
 
             var attributedNewPrice: NSAttributedString?
             var attributedOldPrice: NSAttributedString?
-            var newPrice = product.newPrice()?.asPrice()
-            var oldPriceFormatted = product.oldPrice()?.asPrice()
-            oldPriceFormatted = oldPriceFormatted?.replacingOccurrences(of: " ", with: "\u{00a0}")
+            var newPrice = product.newPrice()?.asPrice
+            let oldPrice = product.oldPrice()?.asPrice
 
             if product.isVariablePrice == true, let price = newPrice {
                 newPrice = String(format: Strings.Catalogue.Product.priceFrom, price)
@@ -324,12 +323,12 @@ private extension MainSectionsBuilder {
             if let newPrice {
                 attributedNewPrice = NSMutableAttributedString(string: newPrice, attributes: newPriceAttributes)
 
-                if let oldPrice = oldPriceFormatted {
+                if let oldPrice {
                     attributedOldPrice = NSMutableAttributedString(string: oldPrice, attributes: oldPriceAttributes)
                 }
             }
 
-            return ProductCell.ViewModel(cellViewType: .compact,
+            return ProductCell.ViewModel(cellViewType: .expanded,
                                          isTransparent: false,
                                          isBordered: true,
                                          images: product.images,

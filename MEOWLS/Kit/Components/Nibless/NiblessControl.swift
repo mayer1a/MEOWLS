@@ -1,5 +1,5 @@
 //
-//  NiblessView.swift
+//  NiblessControl.swift
 //  MEOWLS
 //
 //  Created by Artem Mayer on 27.09.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class NiblessView: UIView {
+public class NiblessControl: UIControl {
 
     public init() {
         super.init(frame: .zero)
@@ -17,9 +17,9 @@ public class NiblessView: UIView {
         super.init(frame: frame)
     }
 
-    @available(*, unavailable, message: "Loading this view from a nib is unsupported")
+    @available(*, unavailable, message: "Loading this control from a nib is unsupported")
     public required init?(coder: NSCoder) {
-        fatalError("Loading this view from a nib is unsupported")
+        fatalError("Loading this control from a nib is unsupported")
     }
 
 }

@@ -80,11 +80,11 @@ private extension MainViewController {
         view.addSubview(searchBar)
 
         searchBar.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide)
+            make.directionalHorizontalEdges.top.equalTo(view.safeAreaLayoutGuide)
         }
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.directionalHorizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 

@@ -166,7 +166,9 @@ extension AlertViewController {
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(messageLabel)
 
-        dimmedEffectView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        dimmedEffectView.snp.makeConstraints { make in
+            make.directionalEdges.equalToSuperview()
+        }
         containerView.snp.makeConstraints { make in
             make.centerY.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview().inset(40)

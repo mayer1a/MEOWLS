@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Combine
 
-public final class DomainSearchBar: NiblessView {
+public final class DomainSearchBar: NiblessControl {
 
     private var shadowDidConfigure = false
     private var cancellables = Set<AnyCancellable>()
@@ -170,21 +170,21 @@ private extension DomainSearchBar {
             make.height.equalTo(64)
         }
         stackView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(12)
+            make.directionalHorizontalEdges.equalToSuperview().inset(16)
+            make.directionalVerticalEdges.equalToSuperview().inset(12)
         }
         searchFieldStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.directionalEdges.equalToSuperview().inset(8)
         }
         loupeImageView.snp.makeConstraints { make in
             make.size.equalTo(20)
             make.centerY.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
         }
         cancelButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(12)
             cancelButtonConstraint = make.trailing.equalToSuperview().offset(100).constraint
-            make.verticalEdges.equalToSuperview().inset(10)
+            make.directionalVerticalEdges.equalToSuperview().inset(10)
         }
         cancelButton.snp.contentHuggingHorizontalPriority = 999
         cancelButton.snp.contentCompressionResistanceHorizontalPriority = 999

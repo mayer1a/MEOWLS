@@ -1,5 +1,5 @@
 //
-//  ProductImageSlider.swift
+//  ProductImageView.swift
 //  MEOWLS
 //
 //  Created by Artem Mayer on 22.10.2024.
@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import ImageSlideshow
 
-final class ProductImageSlider: NiblessView {
+final class ProductImageView: NiblessControl {
 
     private var favoritesHandler: VoidClosure?
 
@@ -21,15 +20,14 @@ final class ProductImageSlider: NiblessView {
 
     private var favoriteImageConstraint: Constraint?
     private var promoBadgeStackContainerConstraint: Constraint?
+    private let defaultTopItemsInsets: CGFloat = 8
 
-    private lazy var imageSlider: ImageSlideshow = {
-        let slider = ImageSlideshow()
-        slider.pageIndicator = DomainPageControl()
-        slider.contentScaleMode = .scaleAspectFit
-        slider.layer.cornerRadius = 12
+    private lazy var imageSlider: DomainImageSlider = {
+        let slider = DomainImageSlider()
+        slider.showGradient = false
+        slider.isCircular = true
+        slider.layer.cornerRadius = 12.0
         slider.layer.masksToBounds = true
-        slider.preload = .fixed(offset: 1)
-        slider.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentFullScreenImage)))
 
         return slider
     }()
@@ -49,7 +47,7 @@ final class ProductImageSlider: NiblessView {
 
 }
 
-extension ProductImageSlider {
+extension ProductImageView {
 
     var promoContainerIsHidden: Bool {
         get { promoBadgeStackContainer.isHidden }
@@ -71,9 +69,9 @@ extension ProductImageSlider {
         set { favoriteContainer.isHidden = newValue }
     }
 
-    func updateHorizontalInset(_ inset: Double) {
-        favoriteImageConstraint?.update(inset: inset)
-        promoBadgeStackContainerConstraint?.update(inset: inset)
+    func updateHorizontalInset(_ inset: Double? = nil) {
+        favoriteImageConstraint?.update(inset: inset ?? defaultTopItemsInsets)
+        promoBadgeStackContainerConstraint?.update(inset: inset ?? defaultTopItemsInsets)
     }
 
     func setFavoriteValue(_ isFavorite: Bool) {
@@ -81,8 +79,8 @@ extension ProductImageSlider {
         favoriteButton.accessibilityValue = isFavorite ? "1" : "0"
     }
 
-    func setImageInputs(_ inputs: [InputSource]) {
-        imageSlider.setImageInputs(inputs)
+    func setImage(_ imageItems: [ItemImage]) {
+        imageSlider.set(imageSources: imageItems)
     }
 
     func setBadges(_ badges: [Product.ProductVariant.Badge]?) {
@@ -104,24 +102,16 @@ extension ProductImageSlider {
         favoriteLoader.hideLoading()
     }
 
-    func toSleep() {
-        imageSlider.toSleep()
-    }
-
-    func closeView() {
-        imageSlider.closeView()
-    }
-
     func reset() {
         removeBadges()
         promoBadgeStackContainer.isHidden = true
-        imageSlider.setImageInputs([])
+        imageSlider.set(imageSources: [])
         setFavoriteValue(false)
     }
 
 }
 
-private extension ProductImageSlider {
+private extension ProductImageView {
 
     func setupUI() {
         favoriteButton.backgroundColor = .clear
@@ -138,7 +128,7 @@ private extension ProductImageSlider {
         favoriteContainer.addSubview(favoriteButton)
 
         imageSlider.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
             make.height.greaterThanOrEqualTo(50)
             make.width.equalTo(imageSlider.snp.height)
         }
@@ -148,13 +138,13 @@ private extension ProductImageSlider {
         }
         favoriteImage.snp.makeConstraints { make in
             make.size.equalTo(20)
-            favoriteImageConstraint = make.top.trailing.equalToSuperview().inset(10).constraint
+            favoriteImageConstraint = make.top.trailing.equalToSuperview().inset(8).constraint
         }
         favoriteButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
         promoBadgeStackContainer.snp.makeConstraints { make in
-            promoBadgeStackContainerConstraint = make.leading.equalToSuperview().inset(10).constraint
+            promoBadgeStackContainerConstraint = make.leading.equalToSuperview().inset(8).constraint
             make.trailing.lessThanOrEqualTo(favoriteImage.snp.leading).offset(-10)
             make.centerY.equalTo(favoriteImage.snp.centerY)
         }
@@ -169,7 +159,7 @@ private extension ProductImageSlider {
 
 }
 
-private extension ProductImageSlider {
+private extension ProductImageView {
 
     @objc
     func tapFavorite() {
@@ -177,34 +167,6 @@ private extension ProductImageSlider {
         favoriteLoader.showLoadingOnCenter(inView: favoriteImage)
 
         favoritesHandler?()
-    }
-
-}
-
-private extension ProductImageSlider {
-
-    @objc
-    func presentFullScreenImage() {
-        guard let presentationViewController = presentationViewController(from: next) else {
-            return
-        }
-
-        let vc = imageSlider.presentFullScreenController(from: presentationViewController)
-        vc.closeButton.setImage(UIImage(resource: .navigationCloseRounded), for: .normal)
-    }
-
-    func presentationViewController(from responder: UIResponder?) -> UIViewController? {
-        guard let responder else {
-            return nil
-        }
-
-        if let viewController = responder as? UIViewController {
-            return viewController
-        } else if let navigationController = responder as? UINavigationController {
-            return navigationController
-        } else {
-            return presentationViewController(from: responder.next)
-        }
     }
 
 }

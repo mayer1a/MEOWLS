@@ -9,16 +9,16 @@ import UIKit
 import SnapKit
 import Kingfisher
 import Combine
-import ImageSlideshow
 
 public final class ProductCell: NiblessCollectionViewCell {
 
     public static var standartSize: CGSize {
-        CGSize(width: UIScreen.main.bounds.width / 2 - horizontalInsets, height: 315)
+        CGSize(width: UIScreen.main.bounds.width / 2 - horizontalInsets, height: 320)
     }
     public static var compactSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width / 2 - horizontalInsets, height: 285)
     }
+
     private static var horizontalInsets: CGFloat { horizontalPadding + horizontalPadding / 2 }
     private static let horizontalPadding: CGFloat = 20
     private var containerConstraint: Constraint?
@@ -30,26 +30,25 @@ public final class ProductCell: NiblessCollectionViewCell {
     private var isBordered = false {
         didSet {
             if isBordered {
-                containerConstraint?.update(inset: 16)
-                imageSlider.updateHorizontalInset(0)
+                containerConstraint?.update(inset: 12)
+                imageSlider.updateHorizontalInset(5)
                 contentView.layer.borderColor = UIColor(resource: .backgroundPrimary).cgColor
                 contentView.layer.cornerRadius = 12
                 contentView.layer.borderWidth = 1
             } else {
                 containerConstraint?.update(inset: 0)
-                imageSlider.updateHorizontalInset(10)
+                imageSlider.updateHorizontalInset()
                 contentView.layer.cornerRadius = 0
                 contentView.layer.borderWidth = 0
             }
         }
     }
     private var isCompact = true
+    private let buttonAttributes = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
 
     private var isAddedToCart: Bool = false {
         didSet {
-            let backgroundColor = UIColor(resource: isAddedToCart ? .accentFaded : .accentPrimary)
-            cartButton.configuration?.baseBackgroundColor = backgroundColor
-            cartButton.configuration?.image = UIImage(resource: isAddedToCart ? .check : .checkCircle)
+            setupConfiguration(to: cartButton)
         }
     }
     private var isFavorite: Bool = true {
@@ -77,11 +76,12 @@ public final class ProductCell: NiblessCollectionViewCell {
         newPriceLabel.attributedText = nil
         discountContainer.isHidden = true
         oldPriceContainer.isHidden = true
+        expandableContainer.isHidden = true
         imageSlider.reset()
     }
 
     private lazy var containerView = UIView()
-    private lazy var imageSlider = ProductImageSlider()
+    private lazy var imageSlider = ProductImageView()
     private lazy var priceStackContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -89,27 +89,11 @@ public final class ProductCell: NiblessCollectionViewCell {
 
         return stackView
     }()
-    private lazy var newPriceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(resource: .textPrimary)
-        label.lineBreakMode = .byTruncatingTail
-
-        return label
-    }()
+    private lazy var newPriceLabel = UILabel()
     private lazy var oldPriceContainer = UIView()
-    private lazy var oldPriceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(resource: .textPrimary)
-        label.lineBreakMode = .byTruncatingTail
-
-        return label
-    }()
+    private lazy var oldPriceLabel = UILabel()
     private lazy var discountContainer = UIView()
-    private lazy var discountBadge: DomainBadgeView = {
-        DomainBadgeView(with: .init(size: .small, type: .square, color: .red(opaque: false)))
-    }()
+    private lazy var discountBadge = DomainBadgeView(with: .init(type: .square, color: .red(opaque: false)))
     private lazy var descriptionStackContainer: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -122,29 +106,30 @@ public final class ProductCell: NiblessCollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(resource: .textPrimary)
         label.numberOfLines = 3
-        label.lineBreakMode = .byTruncatingTail
 
         return label
     }()
-    private lazy var expandableContainer: UIView = {
-        let view = UIView()
-        view.isHidden = true
-
-        return view
-    }()
+    private lazy var expandableContainer = UIView()
     private lazy var cartButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
-        configuration.image = UIImage(resource: .checkCircle).withRenderingMode(.alwaysTemplate)
-        configuration.baseBackgroundColor =  UIColor(resource: .accentPrimary)
-        configuration.baseForegroundColor = UIColor(resource: .iconDisabled)
-        configuration.contentInsets = .init(top: 5, leading: 0, bottom: 5, trailing: 0)
         configuration.background.cornerRadius = 8
 
         let button = UIButton(configuration: configuration)
         button.addTarget(self, action: #selector(actionTapCart), for: .touchUpInside)
+        setupConfiguration(to: button)
 
         return button
     }()
+
+    private func setupConfiguration(to button: UIButton) {
+        let newTitle = isAddedToCart ? Strings.Catalogue.inCart : Strings.Catalogue.toCart
+        let backgroundColor = UIColor(resource: isAddedToCart ? .accentFaded : .accentPrimary)
+        let foregroundColor = UIColor(resource: isAddedToCart ? .accentPrimary : .textWhite)
+        button.configuration?.baseBackgroundColor = backgroundColor
+        button.configuration?.baseForegroundColor = foregroundColor
+        button.configuration?.attributedTitle = AttributedString(newTitle, attributes: buttonAttributes)
+        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+    }
 
 }
 
@@ -187,21 +172,8 @@ public extension ProductCell {
         guard let itemImages = model?.images else {
             return
         }
-        let placeholder = UIImage(resource: .itemLong)
-        let edge = (isCompact ? Self.compactSize.width : Self.standartSize.width) * UIScreen.main.scale
 
-        let sourceImages: [InputSource]
-        if itemImages.isEmpty {
-            sourceImages = [ImageSource(image: placeholder)]
-        } else {
-            sourceImages = itemImages.compactMap {
-                KingfisherSource(urlString: $0.scale(factor: .pixels(edge)).url ?? "",
-                                 placeholder: placeholder,
-                                 options: .cachedFadedOptions(with: placeholder))
-            }
-        }
-
-        imageSlider.setImageInputs(sourceImages)
+        imageSlider.setImage(itemImages)
         contentView.layoutIfNeeded()
     }
 
@@ -223,18 +195,6 @@ public extension ProductCell {
 
     private func updateSpecialsBackgroundView() {
         discountContainer.isHidden = discount == nil
-    }
-
-}
-
-public extension ProductCell {
-
-    func toSleep() {
-        imageSlider.toSleep()
-    }
-
-    func dismiss() {
-        imageSlider.closeView()
     }
 
 }
@@ -272,24 +232,24 @@ private extension ProductCell {
         expandableContainer.addSubview(cartButton)
 
         containerView.snp.makeConstraints { make in
-            containerConstraint = make.edges.equalToSuperview().inset(0).constraint
+            containerConstraint = make.directionalEdges.equalToSuperview().inset(0).constraint
         }
         imageSlider.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalToSuperview()
+            make.directionalHorizontalEdges.top.equalToSuperview()
             make.bottom.equalTo(priceStackContainer.snp.top).offset(-4)
         }
         priceStackContainer.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
             make.bottom.equalTo(descriptionStackContainer.snp.top).offset(-4)
         }
         newPriceLabel.snp.makeConstraints { make in
-            make.height.equalTo(24)
+            make.height.equalTo(20)
         }
         oldPriceContainer.snp.makeConstraints { make in
             make.height.equalTo(20)
         }
         oldPriceLabel.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalToSuperview()
+            make.leading.directionalVerticalEdges.equalToSuperview()
             make.trailing.equalTo(discountContainer.snp.leading).offset(-4)
         }
         discountContainer.snp.makeConstraints { make in
@@ -297,21 +257,21 @@ private extension ProductCell {
             make.centerY.equalToSuperview()
         }
         discountBadge.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(4)
-            make.verticalEdges.equalToSuperview().inset(2)
+            make.directionalHorizontalEdges.equalToSuperview().inset(4)
+            make.directionalVerticalEdges.equalToSuperview()
         }
         descriptionStackContainer.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.lessThanOrEqualTo(expandableContainer.snp.top).offset(-5)
+            make.directionalHorizontalEdges.equalToSuperview()
+            make.bottom.lessThanOrEqualTo(expandableContainer.snp.top).offset(-8)
         }
         productNameLabel.snp.contentCompressionResistanceVerticalPriority = 751
         expandableContainer.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         cartButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(5)
-            make.verticalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview().inset(8)
+            make.directionalVerticalEdges.equalToSuperview()
         }
     }
 

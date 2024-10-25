@@ -36,6 +36,14 @@ public struct ItemImage: Codable {
     public let original: String?
     public let dimension: ImageDimensionDTO?
 
+    init(original: String? = nil) {
+        self.original = original
+        self.small = nil
+        self.medium = nil
+        self.large = nil
+        self.dimension = nil
+    }
+
     private var scaledSorted: [ImageSize] {
         ImageSize.allCases.sorted(by: { (left, right) in left.rawValue < right.rawValue })
     }
@@ -92,9 +100,9 @@ public extension ItemImage {
     }
 
     private enum ImageSize: Int, CaseIterable {
-        case small = 120
-        case medium = 360
-        case large = 640
+        case small = 192
+        case medium = 480
+        case large = 700
         case original = 1024
     }
 

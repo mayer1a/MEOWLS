@@ -106,7 +106,9 @@ final class RootTabController: NiblessTabBarController {
                 break
 
             case .favorites:
-                break
+                let favoritesViewController = resolve(\.favoritesBuilder).build()
+                navVC.viewControllers = [favoritesViewController]
+                setupBarShadow(for: navVC.navigationBar)
 
             case .profile:
                 break

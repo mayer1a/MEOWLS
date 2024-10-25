@@ -108,7 +108,7 @@ private extension BannerTagsCollectionCell {
 
     func setupConstraints() {
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(24.0)

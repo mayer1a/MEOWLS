@@ -103,7 +103,7 @@ private extension BannerHorizontalCollectionCell {
         contentView.addSubview(collectionView)
 
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
     }
 

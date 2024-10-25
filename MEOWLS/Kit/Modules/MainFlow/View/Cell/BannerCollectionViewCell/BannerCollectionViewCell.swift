@@ -105,7 +105,7 @@ private extension BannerCollectionViewCell {
         stackView.addArrangedSubview(label)
 
         stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
 
         label.snp.makeConstraints { make in

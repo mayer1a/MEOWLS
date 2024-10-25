@@ -14,6 +14,8 @@ public final class FavoritesService: FavoritesServiceProtocol {
     /// Publisher for favorite toggles
     public let favoritesTogglePublisher = CurrentValueSubject<([FavoriteItem]?, Bool), Never>((nil, false))
 
+    public var ids: [String] { items.compactMap({ $0.identifier }) }
+    
     #if Store
 
     public var amount: Int {
@@ -42,7 +44,6 @@ public final class FavoritesService: FavoritesServiceProtocol {
     private let user: UserAccess
     private let apiWrapper: APIWrapperProtocol
 
-    private var ids: [String] { items.compactMap({ $0.identifier }) }
     private var items: [FavoriteItem] {
         get {
             let savedValue: [FavoriteBox]? = SettingsService.shared[.favorites]
@@ -103,7 +104,7 @@ public final class FavoritesService: FavoritesServiceProtocol {
 
     public func merge() async throws {
         guard user.isAuthorized else {
-            let domain = "com.meowls.store.favoritesService"
+            let domain = "ru.artemayer.meowls.store.favoritesService"
             throw NSError(domain: domain, code: 401, userInfo: [NSLocalizedDescriptionKey: "Unauthorized"])
         }
 
@@ -112,7 +113,7 @@ public final class FavoritesService: FavoritesServiceProtocol {
         try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
 
             guard let self else {
-                let domain = "com.meowls.store.favoritesService"
+                let domain = "ru.artemayer.meowls.store.favoritesService"
                 let error = "Internal withCheckedThrowingContinuation error"
                 let nsError = NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: error])
                 continuation.resume(with: .failure(nsError))

@@ -85,8 +85,8 @@ private extension RegionCell {
         stackContainerView.addArrangedSubview(subtitleLabel)
 
         stackContainerView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.verticalEdges.equalToSuperview().inset(10)
+            make.directionalHorizontalEdges.equalToSuperview().inset(16)
+            make.directionalVerticalEdges.equalToSuperview().inset(10)
         }
         titleLabel.snp.contentHuggingHorizontalPriority = 250
         subtitleLabel.snp.contentHuggingHorizontalPriority = 251
