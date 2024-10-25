@@ -1,6 +1,6 @@
 name: MEOWLS
 options:
-  bundleIdPrefix: com.meowls
+  bundleIdPrefix: ru.artemayer.meowls
   generateEmptyDirectories: true
   xcodeVersion: 15.0
   groupOrdering:
@@ -127,6 +127,7 @@ targets:
     settings:
       INFOPLIST_FILE: Tests/APITests/Store/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.api-tests"
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
       SYSTEM_HEADER_SEARCH_PATHS:
         - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
@@ -150,6 +151,7 @@ targets:
     settings:
       INFOPLIST_FILE: Tests/APITests/POS/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.api-tests"
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
       SYSTEM_HEADER_SEARCH_PATHS:
         - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
@@ -173,6 +175,7 @@ targets:
     settings:
       INFOPLIST_FILE: Tests/UnitTests/Store/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.unit-tests"
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
       SYSTEM_HEADER_SEARCH_PATHS:
         - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
@@ -196,6 +199,7 @@ targets:
     settings:
       INFOPLIST_FILE: Tests/UnitTests/POS/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.unit-tests"
       EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
       SYSTEM_HEADER_SEARCH_PATHS:
         - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
@@ -220,7 +224,7 @@ targets:
       INFOPLIST_FILE: Tests/UITests/Store/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
       TEST_TARGET_NAME: "Store"
-      PRODUCT_BUNDLE_IDENTIFIER: "com.meowls.store.uITests"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.ui-tests"
     sources:
       - path: Tests
         excludes:
@@ -238,7 +242,7 @@ targets:
       INFOPLIST_FILE: Tests/UITests/POS/Info.plist
       DEVELOPMENT_TEAM: "277JX9R2RP"
       TEST_TARGET_NAME: "POS"
-      PRODUCT_BUNDLE_IDENTIFIER: "com.meowls.pos.uITests"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.ui-tests"
     sources:
       - path: Tests
         excludes:
@@ -266,7 +270,7 @@ targets:
         OTHER_SWIFT_FLAGS: "$(inherited) -DStore -no-verify-emitted-module-interface"
         DEVELOPMENT_TEAM: "277JX9R2RP"
 #        CODE_SIGN_ENTITLEMENTS: "Store/Store.entitlements"
-        PRODUCT_BUNDLE_IDENTIFIER: "com.meowls.store"
+        PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: 1
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
@@ -304,7 +308,7 @@ targets:
         OTHER_SWIFT_FLAGS: "$(inherited) -DPOS -no-verify-emitted-module-interface"
         DEVELOPMENT_TEAM: "277JX9R2RP"
 #        CODE_SIGN_ENTITLEMENTS: "POS/Pos.entitlements"
-        PRODUCT_BUNDLE_IDENTIFIER: "com.meowls.pos"
+        PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: 1
         DEBUG_INFORMATION_FORMAT: dwarf-with-dsym

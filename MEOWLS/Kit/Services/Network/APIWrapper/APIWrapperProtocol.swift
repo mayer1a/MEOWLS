@@ -27,6 +27,7 @@ public protocol APIWrapperProtocol {
 
     // MARK: - Catalogue
 
+    @discardableResult
     func products(by ids: [String], with parameters: Parameters?, handler: @escaping ProductsResponse) -> DataRequest?
 
     // MARK: - Favorites

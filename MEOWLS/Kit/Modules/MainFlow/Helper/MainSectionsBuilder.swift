@@ -190,11 +190,11 @@ private extension MainSectionsBuilder {
             return nil
         }
 
-        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: ProductCell.compactSize.height)
+        let itemSize = CGSize(width: Constants.ProductsSlider.itemWidth, height: ProductCell.standartSize.height)
         let hasHeader = banner.title != nil
         var collectionInset = Constants.commonInsets
         collectionInset.top = hasHeader ? 0 : collectionInset.top
-        let collectionHeight = ProductCell.compactSize.height + collectionInset.top + collectionInset.bottom
+        let collectionHeight = ProductCell.standartSize.height + collectionInset.top + collectionInset.bottom
 
         let dataSource = getProductModel(products, favoritesService: favoritesService)
 
@@ -329,7 +329,7 @@ private extension MainSectionsBuilder {
                 }
             }
 
-            return ProductCell.ViewModel(cellViewType: .compact,
+            return ProductCell.ViewModel(cellViewType: .expanded,
                                          isTransparent: false,
                                          isBordered: true,
                                          images: product.images,

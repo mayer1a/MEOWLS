@@ -22,6 +22,7 @@ public protocol FavoritesServiceProtocol: AnyObject {
     typealias ErrorCompletion = (_ error: String?, _ code: Int?) -> Void
 
     var favoritesTogglePublisher: CurrentValueSubject<([FavoriteItem]?, Bool), Never> { get }
+    var ids: [String] { get }
 
     func isFavorite(item: FavoriteItem) -> Bool
     @discardableResult func toggle(item: FavoriteItem, completion: ToogleCompletion?) -> Bool
