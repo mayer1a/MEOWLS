@@ -237,9 +237,8 @@ private extension SearchSectionsBuilder {
     func buildBaseProductCellModel(from product: Product) -> ProductCell.ViewModel {
         var attributedNewPrice: NSAttributedString?
         var attributedOldPrice: NSAttributedString?
-        var newPrice = product.newPrice()?.asPrice()
-        var oldPriceFormatted = product.oldPrice()?.asPrice()
-        oldPriceFormatted = oldPriceFormatted?.replacingOccurrences(of: " ", with: "\u{00a0}")
+        var newPrice = product.newPrice()?.asPrice
+        let oldPrice = product.oldPrice()?.asPrice
 
         if product.isVariablePrice == true, let price = newPrice {
             newPrice = String(format: Strings.Catalogue.Product.priceFrom, price)
@@ -248,7 +247,7 @@ private extension SearchSectionsBuilder {
         if let newPrice {
             attributedNewPrice = NSMutableAttributedString(string: newPrice, attributes: newPriceAttributes)
 
-            if let oldPrice = oldPriceFormatted {
+            if let oldPrice {
                 attributedOldPrice = NSMutableAttributedString(string: oldPrice, attributes: oldPriceAttributes)
             }
         }

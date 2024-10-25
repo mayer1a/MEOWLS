@@ -83,18 +83,18 @@ public extension Product {
         return "-\(discount)%"
     }
 
-    func newPrice(for variant: ProductVariant? = nil) -> String? {
+    func newPrice(for variant: ProductVariant? = nil) -> Double? {
         guard
             let variant = variant ?? variants.first(where: { $0.article == defaultVariantArticle }),
             let price = variant.price?.price
         else {
             return nil
         }
-        
-        return price.asPrice
+
+        return price
     }
 
-    func oldPrice(for variant: ProductVariant? = nil) -> String? {
+    func oldPrice(for variant: ProductVariant? = nil) -> Double? {
         guard
             let variant = variant ?? variants.first(where: { $0.article == defaultVariantArticle }),
             let price = variant.price
@@ -104,7 +104,7 @@ public extension Product {
 
         let oldPrice = price.originalPrice
         let isOldPriceGreaterThanNew = (oldPrice.asDecimal) > (price.price.asDecimal)
-        return isOldPriceGreaterThanNew ? oldPrice.asPrice : nil
+        return isOldPriceGreaterThanNew ? oldPrice : nil
     }
 
 }

@@ -44,7 +44,7 @@ public final class Strings {
         public static let toCart = "Catalogue.addToCart".localized()
         public static let inCart = "Catalogue.inCart".localized()
         public enum Product {
-            public static let priceFrom = "Catalogue.Product.priceFrom".localized()
+            public static let priceFrom = "Catalogue.Product.priceFrom".localizedFormat()
         }
         public enum Filters {
             public static let done = "Catalogue.Filters.done".localized()

@@ -135,7 +135,7 @@ private extension FavoritesView {
 private extension FavoritesView {
 
     func handleCartAction(for product: Product) {
-        if product.newPrice()?.asPrice() == nil {
+        if product.newPrice()?.asPrice == nil {
             viewModel.openItem(product: product)
         } else {
             viewModel.addToCart(product: product)

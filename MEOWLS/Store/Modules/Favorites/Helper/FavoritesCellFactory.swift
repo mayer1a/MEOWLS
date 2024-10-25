@@ -14,8 +14,8 @@ struct FavoritesCellFactory {
     private static func buildCellModel(from product: Product) -> ProductListingCell.ViewModel {
         ProductListingCell.ViewModel(product: product,
                                      name: product.name,
-                                     newPrice: product.newPrice() ?? "",
-                                     oldPrice: product.oldPrice(),
+                                     newPrice: product.newPrice()?.asPrice ?? "",
+                                     oldPrice: product.oldPrice()?.asPrice,
                                      discount: product.discountFormatted(),
                                      badges: product.defaultVariant?.badges,
                                      images: product.images)
