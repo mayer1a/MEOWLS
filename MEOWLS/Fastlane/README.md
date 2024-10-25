@@ -15,13 +15,37 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios testing_build_store
+### ios debug_build_store
 
 ```sh
-[bundle exec] fastlane ios testing_build_store
+[bundle exec] fastlane ios debug_build_store
 ```
 
-Testing build for «Store»
+Testing debug build for «Store»
+
+### ios release_build_store
+
+```sh
+[bundle exec] fastlane ios release_build_store
+```
+
+Release build for «Store»
+
+### ios emulate_testflight_pushing_feature_store
+
+```sh
+[bundle exec] fastlane ios emulate_testflight_pushing_feature_store
+```
+
+Emulate pushing debug build for «Store» to TestFlight
+
+### ios emulate_testflight_pushing_release_store
+
+```sh
+[bundle exec] fastlane ios emulate_testflight_pushing_release_store
+```
+
+Emulate pushing release build for «Store» to TestFlight
 
 ### ios api_tests_store
 
@@ -47,13 +71,37 @@ Run iOS Unit tests for «Store»
 
 Run iOS UI tests for «Store»
 
-### ios testing_build_pos
+### ios debug_build_pos
 
 ```sh
-[bundle exec] fastlane ios testing_build_pos
+[bundle exec] fastlane ios debug_build_pos
 ```
 
-Testing build for «POS»
+Testing debug build for «POS»
+
+### ios release_build_pos
+
+```sh
+[bundle exec] fastlane ios release_build_pos
+```
+
+Release build for «POS»
+
+### ios emulate_testflight_pushing_feature_pos
+
+```sh
+[bundle exec] fastlane ios emulate_testflight_pushing_feature_pos
+```
+
+Emulate pushing debug build for «POS» to TestFlight
+
+### ios emulate_testflight_pushing_release_pos
+
+```sh
+[bundle exec] fastlane ios emulate_testflight_pushing_release_pos
+```
+
+Emulate pushing release build for «POS» to TestFlight
 
 ### ios api_tests_pos
 
