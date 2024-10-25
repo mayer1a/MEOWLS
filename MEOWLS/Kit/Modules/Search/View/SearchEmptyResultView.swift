@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchEmptyResultView: NiblessView {
+final class SearchEmptyResultView: NiblessControl {
 
     private let title: String
     private let subtitle: String

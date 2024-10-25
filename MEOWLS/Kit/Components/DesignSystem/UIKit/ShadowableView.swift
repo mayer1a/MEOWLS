@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public final class ShadowableView: NiblessView {
+public final class ShadowableView: NiblessControl {
 
     public override init() {
         super.init()

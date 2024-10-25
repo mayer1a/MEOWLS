@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Combine
 
-public final class DomainSearchBar: NiblessView {
+public final class DomainSearchBar: NiblessControl {
 
     private var shadowDidConfigure = false
     private var cancellables = Set<AnyCancellable>()
