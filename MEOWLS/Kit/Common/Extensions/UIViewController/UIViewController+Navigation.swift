@@ -21,4 +21,8 @@ extension UIViewController {
         dismiss(animated: true, completion: completion)
     }
 
+    func setShadowOpacity(with value: Float) {
+        navigationController?.navigationBar.layer.shadowOpacity = value
+    }
+
 }

@@ -93,14 +93,14 @@ private extension RegionViewController {
 
         searchBarContainer.addCustomSubview(searchBar) { make in
             make.height.equalTo(56)
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
         searchBarContainer.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(tableView.snp.top)
         }
         tableView.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
     }

@@ -103,21 +103,21 @@ private extension SearchViewController {
         view.addSubview(searchBar)
 
         topView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
+            make.top.directionalHorizontalEdges.equalToSuperview()
         }
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom)
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
             make.height.equalTo(64)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.directionalHorizontalEdges.bottom.equalToSuperview()
         }
         emptyView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(36)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(24)
         }
     }
 

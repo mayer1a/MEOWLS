@@ -2818,6 +2818,23 @@
         }
       }
     },
+    "Catalogue.addToCart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to cart"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В корзину"
+          }
+        }
+      }
+    },
     "Catalogue.Article.addedInCart" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3698,6 +3715,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "В каталог"
+          }
+        }
+      }
+    },
+    "Catalogue.inCart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the cart | +1"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В корзине | +1"
           }
         }
       }

@@ -30,8 +30,8 @@ public final class Strings {
     public enum RootTabBar {
         public static let main = "RootTabBar.main".localized()
         public static let catalogue = "RootTabBar.catalogue".localized()
-        public static let cart = "RootTabBar.cart".localized()
-        public static let favorites = "RootTabBar.favorites".localized()
+        public static let cart = "Cart.title".localized()
+        public static let favorites = "Favorites.title".localized()
         public static let profile = "RootTabBar.profile".localized()
         public static let tasks = "RootTabBar.tasks".localized()
     }
@@ -41,6 +41,8 @@ public final class Strings {
         public static let categoryDoesntExist = "Main.categoryDoesntExist".localized()
     }
     public enum Catalogue {
+        public static let toCart = "Catalogue.addToCart".localized()
+        public static let inCart = "Catalogue.inCart".localized()
         public enum Product {
             public static let priceFrom = "Catalogue.Product.priceFrom".localized()
         }
@@ -59,6 +61,13 @@ public final class Strings {
         public enum Categories {
             public static let all = "Catalogue.Categories.all".localized()
         }
+    }
+    public enum Favorites {
+        public static let title = "Favorites.title".localized()
+        public static let authorizedMessage = "Favorites.authorizedMessage".localized()
+        public static let authorizedDescription = "Favorites.authorizedDescription".localized()
+        public static let unauthorizedMessage = "Favorites.unauthorizedMessage".localized()
+        public static let unauthorizedDescription = "Favorites.unauthorizedDescription".localized()
     }
     public enum Cart {
         public enum Payment {

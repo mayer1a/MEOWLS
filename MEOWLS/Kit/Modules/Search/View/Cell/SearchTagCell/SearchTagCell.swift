@@ -97,7 +97,7 @@ private extension SearchTagCell {
         contentStackView.addArrangedSubview(valueLabel)
 
         contentStackView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(12)
+            make.directionalHorizontalEdges.equalToSuperview().inset(12)
             make.top.equalToSuperview().inset(5)
             make.bottom.greaterThanOrEqualToSuperview().inset(5)
         }

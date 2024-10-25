@@ -63,7 +63,7 @@ private extension SearchEmptyResultView {
         containerStackView.addArrangedSubview(noResultsDescriptionLabel)
 
         containerStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.directionalEdges.equalToSuperview()
         }
     }
 

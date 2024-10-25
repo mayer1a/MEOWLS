@@ -73,7 +73,7 @@ private extension IntroViewController {
 
         brandTextLogoView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
         }
 
         loaderView.snp.makeConstraints { make in

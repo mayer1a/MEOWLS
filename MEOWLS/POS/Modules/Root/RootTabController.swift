@@ -126,7 +126,7 @@ final class RootTabController: NiblessTabBarController {
 //        } else {
 //            // If there is no banner, then remove all indents
 //            view.snp.remakeConstraints { make in
-//                make.edges.equalToSuperview()
+//                make.directionalEdges.equalToSuperview()
 //            }
 //        }
 //    }
@@ -236,7 +236,7 @@ final class RootTabController: NiblessTabBarController {
 //        }
 //
 //        view.snp.remakeConstraints { make in
-//            make.edges.equalToSuperview()
+//            make.directionalEdges.equalToSuperview()
 //        }
 //    }
 
