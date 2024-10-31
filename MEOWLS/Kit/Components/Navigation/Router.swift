@@ -53,12 +53,32 @@ public final class Router {
         return viewController as? UINavigationController
     }
 
-    #if Store
+    public static func showAuthorization(completion: VoidClosure? = nil) {
+        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+            return
+        }
 
-    public static func showAuthorization() {
+        #if Store
+            let mode = AuthorizationModel.Mode.pageSheet()
+        #else
+            let mode = AuthorizationModel.Mode.fullScreen
+        #endif
+
+        let model = AuthorizationModel.InputModel(mode: mode) { skipped in
+            if skipped {
+                completion?()
+            } else {
+                Router.showMainController()
+            }
+        }
+        let authorizationViewController = resolve(\.authBuilder).build(with: model)
+        rootViewController.presentedViewController?.dismiss(animated: false)
+        rootViewController.children.forEach { child in
+            child.presentedViewController?.dismiss(animated: false)
+        }
+        rootViewController.present(authorizationViewController)
     }
 
-    #endif
 
     // MARK: - Window switches
 
