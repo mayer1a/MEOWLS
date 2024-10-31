@@ -25,6 +25,29 @@ extension AlertPresentable {
 
 }
 
+struct NetworkErrorAlert {
+
+    let title: String?
+    let message: String?
+    let repeatTitle: String?
+    let cancelHandler: VoidClosure?
+    let repeatHandler: VoidClosure?
+
+    init(title: String? = nil,
+         message: String? = nil,
+         repeatTitle: String? = nil,
+         repeatHandler: VoidClosure? = nil,
+         cancelHandler: VoidClosure? = nil) {
+
+        self.title = title
+        self.message = message
+        self.repeatTitle = repeatTitle
+        self.repeatHandler = repeatHandler
+        self.cancelHandler = cancelHandler
+    }
+
+}
+
 extension UIViewController: AlertPresentable {
 
     func show(warning message: String?, handler: VoidClosure? = nil) {
@@ -77,21 +100,17 @@ extension UIViewController {
                   actions: .cancel, actionLogout)
     }
 
-    func showNetworkError(title: String? = nil,
-                          message: String? = nil,
-                          repeatTitle: String? = nil,
-                          cancelButtonHandler: VoidClosure? = nil,
-                          repeatButtonHandler: VoidClosure?) {
+    func showNetworkError(with model: NetworkErrorAlert) {
 
         let errorTitle = title ?? Strings.Alert.NetworkError.title
         let errorMessage = Strings.Alert.NetworkError.message
-        let repeatTitle = repeatTitle ?? Strings.Alert.NetworkError.repeat
+        let repeatTitle = model.repeatTitle ?? Strings.Alert.NetworkError.repeat
         let cancelTitleDefault = Strings.Alert.NetworkError.cancel
 
-        let repeatAction = AlertAction(title: repeatTitle, style: .destructive, handler: repeatButtonHandler)
-        let cancelAction = AlertAction(title: cancelTitleDefault, style: .cancel, handler: cancelButtonHandler)
+        let repeatAction = AlertAction(title: repeatTitle, style: .destructive, handler: model.repeatHandler)
+        let cancelAction = AlertAction(title: cancelTitleDefault, style: .cancel, handler: model.cancelHandler)
 
-        showAlert(title: errorTitle, message: message ?? errorMessage, actions: [cancelAction, repeatAction])
+        showAlert(title: errorTitle, message: model.message ?? errorMessage, actions: [cancelAction, repeatAction])
     }
 
     func show(deleteAlert message: String,

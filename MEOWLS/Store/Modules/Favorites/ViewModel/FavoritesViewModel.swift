@@ -116,7 +116,10 @@ private extension FavoritesViewModel {
                 self?.fetchMoreContent()
             }
         }
-        router.open(.networkError(.init(message: error, repeatHandler: handler)))
+        router.open(.networkError(.init(title: Strings.Common.FailedRequestView.title,
+                                        message: error,
+                                        repeatTitle: Strings.Common.FailedRequestView.button,
+                                        repeatHandler: handler)))
     }
 
     func setShadowState(_ isEmptyState: Bool, _ isUserAuthorized: Bool) {

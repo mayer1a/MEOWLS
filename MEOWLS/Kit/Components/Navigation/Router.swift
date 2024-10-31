@@ -20,15 +20,7 @@ public final class Router {
     public static func showMainController(atTab tab: RootTab = .defaultTab) {
         UIApplication.shared.hideKeyboard()
 
-        let rootTabController: UITabBarController
-
-        if let rootController = UIApplication.shared.keyWindow?.rootViewController as? RootTabController {
-            // Otherwise the modal window is held by the controller
-            rootTabController = rootController
-        } else {
-            rootTabController = RootTabController()
-        }
-
+        let rootTabController = RootTabController()
         rootTabController.selectedIndex = tab.rawValue
         show(rootController: rootTabController)
     }

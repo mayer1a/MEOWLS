@@ -24,12 +24,7 @@ extension FavoritesModel {
         case propertiesSelectionSheet(Product, completion: VoidClosure?)
         case auth
         case catalogue
-        case networkError(NetworkError)
-    }
-
-    struct NetworkError {
-        let message: String?
-        let repeatHandler: VoidClosure?
+        case networkError(NetworkErrorAlert)
     }
 
 }

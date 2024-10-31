@@ -34,6 +34,11 @@ public extension UINavigationController {
 
     func appendLeftNavigationItems(leftButtons: LeadingButtonType..., toEnd: Bool = true) {
         let newLeftButtons = buildLeftButtons(leftButtons)
+
+        if viewControllers.last?.navigationItem.leftBarButtonItems == nil {
+            viewControllers.last?.navigationItem.leftBarButtonItems = []
+        }
+
         if toEnd {
             viewControllers.last?.navigationItem.leftBarButtonItems?.append(contentsOf: newLeftButtons)
         } else {
@@ -134,7 +139,7 @@ extension UINavigationController {
     @objc func actionClose() {
         dismissKeyboard()
 
-        if modalPresentationStyle == .fullScreen || modalPresentationStyle == .overFullScreen {
+        if isModal {
             dismiss(animated: true, completion: nil)
         } else {
             popViewController(animated: true)

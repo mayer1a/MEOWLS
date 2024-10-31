@@ -47,13 +47,13 @@ public final class RegionService: RegionServiceProtocol {
                                       selectedRegion: self?.region?.currentRegion ?? supposedRegion,
                                       completion: completion)
         }, networkError: { [weak self] _, message in
-            self?.viewController?.showNetworkError(message: message, cancelButtonHandler: {
+            self?.viewController?.showNetworkError(with: .init(message: message, repeatHandler: {
+                self?.showRegionSelection(supposeRegion: supposeRegion, completion: completion)
+            }, cancelHandler: {
                 self?.viewController?.show(warning: Strings.Region.Warning.required) {
                     self?.showRegionSelection(supposeRegion: supposeRegion, completion: completion)
                 }
-            }, repeatButtonHandler: {
-                self?.showRegionSelection(supposeRegion: supposeRegion, completion: completion)
-            })
+            }))
         })
     }
 

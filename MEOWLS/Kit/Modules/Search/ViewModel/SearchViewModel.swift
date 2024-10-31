@@ -138,8 +138,11 @@ private extension SearchViewModel {
                 self?.loadMoreProducts(productsIDs)
             }
         }
-        
-        router.open(.networkError(with: .init(message: error, repeatHandler: handler)))
+
+        router.open(.networkError(model: .init(title: Strings.Common.FailedRequestView.title,
+                                              message: error,
+                                              repeatTitle: Strings.Common.FailedRequestView.button,
+                                              repeatHandler: handler)))
     }
 
     func dismiss() {
