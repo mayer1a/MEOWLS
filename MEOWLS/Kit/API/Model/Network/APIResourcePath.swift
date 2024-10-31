@@ -50,27 +50,35 @@ public enum APIResourcePath: CustomStringConvertible {
     case sales
     case sale(String)
 
+    // MARK: - Static path
+
+    case deliveryInfo
+    case refundInfo
+    case userAgreementInfo
+    case privacyPolicyInfo
+    case contactsInfo
+
     // MARK: - DESCRIPTION
 
     public var description: String {
         switch self {
-        case .cities: return "api/\(apiVersion)/cities/"
+        case .cities: return "api/\(apiVersion)/cities"
 
-        case .signUp: return "api/\(apiVersion)/users/create/"
-        case .signIn: return "api/\(apiVersion)/users/login/"
-        case .user: return "api/\(apiVersion)/users/"
-        case .updateUser: return "api/\(apiVersion)/users/edit/"
-        case .refreshToken: return "api/\(apiVersion)/users/refresh_token/"
-        case .logout: return "api/\(apiVersion)/users/logout/"
-        case .deleteProfile: return "api/\(apiVersion)/users/delete/"
-        case .userAddress: return "api/\(apiVersion)/users/address/"
+        case .signUp: return "api/\(apiVersion)/users/create"
+        case .signIn: return "api/\(apiVersion)/users/login"
+        case .user: return "api/\(apiVersion)/users"
+        case .updateUser: return "api/\(apiVersion)/users/edit"
+        case .refreshToken: return "api/\(apiVersion)/users/refresh_token"
+        case .logout: return "api/\(apiVersion)/users/logout"
+        case .deleteProfile: return "api/\(apiVersion)/users/delete"
+        case .userAddress: return "api/\(apiVersion)/users/address"
 
         case .favorites: return "api/\(apiVersion)/favorites"
-        case .markFavorite: return "api/\(apiVersion)/star/"
-        case .unmarkFavorite: return "api/\(apiVersion)/unstar/"
-        case .favoritesCount: return "api/\(apiVersion)/favorites/count/"
+        case .markFavorite: return "api/\(apiVersion)/favorites/star"
+        case .unmarkFavorite: return "api/\(apiVersion)/favorites/unstar"
+        case .favoritesCount: return "api/\(apiVersion)/favorites/count"
 
-        case .banners: return "api/\(apiVersion)/main_page/"
+        case .banners: return "api/\(apiVersion)/main_page"
 
         case .search: return "api/\(apiVersion)/search/suggestions"
         case .popularSearches: return "api/\(apiVersion)/search/popular"
@@ -80,6 +88,12 @@ public enum APIResourcePath: CustomStringConvertible {
 
         case .sales: return "api/\(apiVersion)/sales"
         case .sale(let id): return "api/\(apiVersion)/sales/\(id)"
+
+        case .deliveryInfo: return "\(APIResourceService.staticHost())/delivery"
+        case .refundInfo: return "\(APIResourceService.staticHost())/refund"
+        case .userAgreementInfo: return "\(APIResourceService.staticHost())/user-agreement"
+        case .privacyPolicyInfo: return "\(APIResourceService.staticHost())/privacy-policy"
+        case .contactsInfo: return "\(APIResourceService.staticHost())/contacts"
 
         }
     }

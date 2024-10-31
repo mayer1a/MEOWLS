@@ -40,8 +40,10 @@ public class APIService: APIServiceProtocol {
 
         let service = service ?? .current
         let urlString = url(from: resource, service: service)
-        let headers = headers ?? self.headers(service)
-        return raw(method: .get, urlString: urlString, parameters: parameters, headers: headers, handler: handler)
+        var fullHeaders = self.headers(service)
+        headers?.forEach({ fullHeaders.add($0) })
+
+        return raw(method: .get, urlString: urlString, parameters: parameters, headers: fullHeaders, handler: handler)
     }
 
     @discardableResult
@@ -53,8 +55,10 @@ public class APIService: APIServiceProtocol {
 
         let service = service ?? .current
         let urlString  = url(from: resource, service: service)
-        let headers = headers ?? self.headers(service)
-        return raw(method: .post, urlString: urlString, parameters: parameters, headers: headers, handler: handler)
+        var fullHeaders = self.headers(service)
+        headers?.forEach({ fullHeaders.add($0) })
+
+        return raw(method: .post, urlString: urlString, parameters: parameters, headers: fullHeaders, handler: handler)
     }
 
     @discardableResult
@@ -66,8 +70,10 @@ public class APIService: APIServiceProtocol {
 
         let service = service ?? .current
         let urlString  = url(from: resource, service: service)
-        let headers = headers ?? self.headers(service)
-        return raw(method: .post, urlString: urlString, data: data, headers: headers, handler: handler)
+        var fullHeaders = self.headers(service)
+        headers?.forEach({ fullHeaders.add($0) })
+
+        return raw(method: .post, urlString: urlString, data: data, headers: fullHeaders, handler: handler)
     }
 
     private func beginBackgroundTask() -> UIBackgroundTaskIdentifier {
@@ -129,7 +135,7 @@ private extension APIService {
         }
         let task = beginBackgroundTask()
 
-        let request = AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers)
+        return AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers)
             .validate()
             .responseData { [weak self] response in
                 guard let self else { return }
@@ -137,7 +143,6 @@ private extension APIService {
                 self.handleResponseData(response, handler: handler)
                 self.endBackgroundTask(task)
             }
-        return request
     }
 
     func raw<D>(method: HTTPMethod,
@@ -202,12 +207,41 @@ private extension APIService {
             handleResponseRawData(data, code: response.response?.statusCode, handler: handler)
 
         case .failure(let error):
+            var errorMessage: String? = nil
+            var errorCode: String?
+
+            if let data = response.data, let error = try? JSONDecoder().decode(ResponseError.self, from: data) {
+                errorCode = error.code
+                errorMessage = APIErrorLocalizer.localizeError(code: error.code, message: error.reason)
+            } else {
+                errorMessage = error.localizedDescription
+            }
+
             let statusCode = response.response?.statusCode
             // If the token is expired, we send the user for re-authorization
-            if statusCode == 401 {
+            let refreshPath = APIResourcePath.refreshToken.description
+            let isRefreshingProduced = response.request?.url?.absoluteString.contains(refreshPath) ?? false
+            
+            if statusCode == 401, errorCode != APIErrorLocalizer.ErrorCode.authError.rawValue, !isRefreshingProduced {
                 #if Store
-                    user.refreshToken(isSilent: false)
-                #elseif POS
+                user.refreshToken(isSilent: false) { error in
+                    DispatchQueue.main.async { [weak self, response, handler, error] in
+                        guard
+                            error != nil,
+                            let self,
+                            let method = response.request?.method,
+                            let url = response.request?.url?.absoluteString,
+                            let headers = response.request?.headers,
+                            let body = response.request?.httpBody
+                        else {
+                            handler(APIResponse(error: errorMessage, code: statusCode, dataResponse: response))
+                            return
+                        }
+
+                        _ = raw(method: method, urlString: url, data: body, headers: headers, handler: handler)
+                    }
+                }
+                #else
                     if let expiredToken = response.request?.headers.value(for: "Authorization") {
                         if expiredToken == user.accessToken(.pos) {
 //                            User.shared.refreshToken(isSilent: false)
@@ -218,8 +252,6 @@ private extension APIService {
 //                            Router.showAuthorization(.pageSheet(required: false))
 //                        }
                     }
-                #else
-//                    assertionFailure("Code 401 behaviour not implemented")
                 #endif
                 return
             } else if statusCode == 403 {
@@ -228,15 +260,7 @@ private extension APIService {
                 #endif
             }
 
-            var errorMessages: [String] = []
-
-            if let data = response.data, let errors = try? JSONDecoder().decode([ResponseError].self, from: data) {
-                errorMessages = errors.map({ $0.reason })
-            }
-            let message = errorMessages.isEmpty ? error.localizedDescription : errorMessages.joined(separator: "\n")
-            let localizedMessage = APIErrorLocalizer.localizeError(message: message)
-
-            handler(APIResponse(error: localizedMessage, code: statusCode, dataResponse: response))
+            handler(APIResponse(error: errorMessage, code: statusCode, dataResponse: response))
         }
     }
 

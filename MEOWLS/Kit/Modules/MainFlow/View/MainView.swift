@@ -153,12 +153,14 @@ private extension MainViewController {
             case .banners(let message), .sale(let message, _):
                 errorMessage = message
             }
-            showNetworkError(title: Strings.Common.FailedRequestView.title,
-                             message: errorMessage,
-                             repeatTitle: Strings.Common.FailedRequestView.button) { [weak self] in
+            
+            showNetworkError(with: .init(title: Strings.Common.FailedRequestView.title,
+                                         message: errorMessage,
+                                         repeatTitle: Strings.Common.FailedRequestView.button,
+                                         repeatHandler:  { [weak self] in
 
                 self?.viewAction.send(.triggerRefresh(errorType))
-            }
+            }))
 
         default:
             break

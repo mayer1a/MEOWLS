@@ -20,15 +20,7 @@ public final class Router {
     public static func showMainController(atTab tab: RootTab = .defaultTab) {
         UIApplication.shared.hideKeyboard()
 
-        let rootTabController: UITabBarController
-
-        if let rootController = UIApplication.shared.keyWindow?.rootViewController as? RootTabController {
-            // Otherwise the modal window is held by the controller
-            rootTabController = rootController
-        } else {
-            rootTabController = RootTabController()
-        }
-
+        let rootTabController = RootTabController()
         rootTabController.selectedIndex = tab.rawValue
         show(rootController: rootTabController)
     }
@@ -61,12 +53,32 @@ public final class Router {
         return viewController as? UINavigationController
     }
 
-    #if Store
+    public static func showAuthorization(completion: VoidClosure? = nil) {
+        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
+            return
+        }
 
-    public static func showAuthorization() {
+        #if Store
+            let mode = AuthorizationModel.Mode.pageSheet()
+        #else
+            let mode = AuthorizationModel.Mode.fullScreen
+        #endif
+
+        let model = AuthorizationModel.InputModel(mode: mode) { skipped in
+            if skipped {
+                completion?()
+            } else {
+                Router.showMainController()
+            }
+        }
+        let authorizationViewController = resolve(\.authBuilder).build(with: model)
+        rootViewController.presentedViewController?.dismiss(animated: false)
+        rootViewController.children.forEach { child in
+            child.presentedViewController?.dismiss(animated: false)
+        }
+        rootViewController.present(authorizationViewController)
     }
 
-    #endif
 
     // MARK: - Window switches
 

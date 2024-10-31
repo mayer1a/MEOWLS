@@ -9,8 +9,6 @@ import Foundation
 
 protocol MainApiServiceProtocol {
 
-    typealias Model = MainModel
-
     func loadBanners(handler: @escaping ResponseHandler<[MainBanner]>)
     func loadSale(id: String, handler: @escaping ResponseHandler<Sale>)
     func loadCategory(id: String, handler: @escaping ResponseHandler<[Category]>)

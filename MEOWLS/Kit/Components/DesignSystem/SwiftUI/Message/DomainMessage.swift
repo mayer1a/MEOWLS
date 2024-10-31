@@ -9,20 +9,19 @@ import SwiftUI
 
 public struct DomainMessage: View {
 
-    public let label: LocalizedStringKey
+    public let label: String
     public let type: MessageType
 
     public var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            Text(label)
-                .font(UIFont.systemFont(ofSize: 14, weight: .medium).asFont)
+            Text(LocalizedStringKey(label))
+                .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(foregroundColor)
                 .padding(.top, 2)
 
             Spacer(minLength: 16)
 
-            icon
-                .frame(width: 24, height: 24)
+            icon.frame(width: 24, height: 24)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)

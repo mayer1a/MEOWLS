@@ -121,7 +121,7 @@ private extension ProductListingCell {
             .fade(duration: 0.2)
             .cancelOnDisappear(true)
             .resizable()
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
     }
 
     var infoView: some View {
@@ -130,6 +130,7 @@ private extension ProductListingCell {
                 priceView
 
                 Text(model.name)
+                    .lineLimit(3)
                     .font(UIFont.systemFont(ofSize: 12, weight: .medium).asFont)
             }
 

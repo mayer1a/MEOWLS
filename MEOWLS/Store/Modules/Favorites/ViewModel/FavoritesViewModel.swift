@@ -36,7 +36,6 @@ final class FavoritesViewModel: FavoritesViewModelProtocol {
         self.user = model.user
         self.favoritesService = model.favoritesService
         self.paginator = model.paginator
-        self.isUserAuthorized = user.isAuthorized
 
         makeItemsSubscription()
     }
@@ -46,6 +45,7 @@ final class FavoritesViewModel: FavoritesViewModelProtocol {
 extension FavoritesViewModel {
 
     func viewAppeared() {
+        isUserAuthorized = user.isAuthorized
         refresh()
     }
 
@@ -97,6 +97,7 @@ private extension FavoritesViewModel {
             isLoading = true
             authorizedFavorites()
         } else if !isLoading {
+            isUserAuthorized = user.isAuthorized
             isLoading = true
             localFavorites()
         }
@@ -116,7 +117,10 @@ private extension FavoritesViewModel {
                 self?.fetchMoreContent()
             }
         }
-        router.open(.networkError(.init(message: error, repeatHandler: handler)))
+        router.open(.networkError(.init(title: Strings.Common.FailedRequestView.title,
+                                        message: error,
+                                        repeatTitle: Strings.Common.FailedRequestView.button,
+                                        repeatHandler: handler)))
     }
 
     func setShadowState(_ isEmptyState: Bool, _ isUserAuthorized: Bool) {
@@ -178,6 +182,8 @@ private extension FavoritesViewModel {
     }
 
     func handle(response: APIResponse<PaginationResponse<Product>>) {
+        isLoading = false
+
         guard let data = response.data, response.error == nil else {
             showError(response.error, isFirstPage: paginator.isFirstPage)
             return
@@ -191,7 +197,7 @@ private extension FavoritesViewModel {
             items.append(contentsOf: FavoritesCellFactory.buildCellModels(from: data.results))
 
         }
-        isLoading = false
+
         paginator.pagination(with: data)
     }
 

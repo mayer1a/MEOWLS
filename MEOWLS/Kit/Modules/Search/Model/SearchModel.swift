@@ -49,12 +49,7 @@ extension SearchModel {
         case category(Category)
         case product(Product)
         case products(_ ids: [String], _ title: String)
-        case networkError(with: NetworkError)
-    }
-
-    struct NetworkError {
-        let message: String?
-        let repeatHandler: VoidClosure?
+        case networkError(model: NetworkErrorAlert)
     }
 
 }

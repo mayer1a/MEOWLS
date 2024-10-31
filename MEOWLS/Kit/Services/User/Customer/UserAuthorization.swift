@@ -12,8 +12,8 @@ public protocol UserAuthorization {
     typealias UserAuthError = String
 
     func login(with phone: String, accessToken: String, completion: @escaping ParameterClosure<UserAuthError?>)
-    func logout(completion: @escaping (String?) -> Void)
-    func refreshToken(isSilent: Bool)
+    func logout(completion: @escaping ParameterClosure<String?>)
+    func refreshToken(isSilent: Bool, with completion: @escaping ParameterClosure<String?>)
     func reloadCredentials() async throws
     func forceLogout()
 
@@ -29,17 +29,23 @@ extension User: UserAuthorization {
 
         Task {
             do {
+                try await mergeFavorites()
                 try await reloadCredentials()
                 try await mergeCart()
-                try await mergeFavorites()
-                completion(nil)
+
+
+                DispatchQueue.main.async { [completion] in
+                    completion(nil)
+                }
             } catch {
-                completion(error.localizedDescription)
+                DispatchQueue.main.async { [completion] in
+                    completion(error.localizedDescription)
+                }
             }
         }
     }
 
-    public func logout(completion: @escaping (String?) -> Void) {
+    public func logout(completion: @escaping ParameterClosure<String?>) {
         apiWrapper.logout(service: .store) { [weak self] response in
             if response.error == nil {
                 self?.forceLogout()
@@ -53,19 +59,28 @@ extension User: UserAuthorization {
     public func forceLogout() {
         credentials = nil
         clearStoredData()
+        WebKitCacheCleaner.cleanCache()
     }
 
-    public func refreshToken(isSilent: Bool) {
+    public func refreshToken(isSilent: Bool, with completion: @escaping ParameterClosure<String?>) {
         apiWrapper.refreshToken { [weak self] response in
             if response.error == nil {
                 self?.credentials = response.data
                 self?.changeUserToken(response.data?.authentication?.token, on: APIResourceService.store)
-            } else {
-                self?.forceLogout()
-                self?.clearStoredData()
                 
+                completion(nil)
+            } else {
                 if isSilent {
-                    Router.showAuthorization()
+                    // Clean unauth user last data
+                    self?.forceLogout()
+                    self?.clearStoredData()
+                } else {
+                    // Completion when user skip reauth
+                    Router.showAuthorization() { [weak self] in
+                        self?.forceLogout()
+                        self?.clearStoredData()
+                        completion(response.error)
+                    }
                 }
             }
         }
@@ -75,10 +90,17 @@ extension User: UserAuthorization {
         guard isAuthorized else {
             return
         }
-
+        
         try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
+            guard let self else {
+                let domain = "ru.artemayer.meowls.store.userAuthorization"
+                let error = "Internal withCheckedThrowingContinuation error"
+                let nsError = NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: error])
+                continuation.resume(with: .failure(nsError))
+                return
+            }
 
-            self?.apiWrapper.user(service: .store) { [weak self] response in
+            apiWrapper.user(service: .store) { [weak self] response in
                 guard let self else {
                     continuation.resume(with: .failure(NSError(domain: "", code: 0, userInfo: [:])))
                     return
@@ -105,6 +127,7 @@ extension User: UserAuthorization {
     private func clearStoredData() {
         settingsService.clear(allBut: [.isNotFirstLaunch, .userRegion, .apiResourceServer])
 //        cartService.clear()
+        favoritesService.clear()
         keychainManager.clear()
         cleanCurrentUserAccessData()
         keychainManager.clear(keys: APIResourceService.allCases.map({ $0.rawValue }))

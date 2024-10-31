@@ -67,6 +67,10 @@ public enum APIResourceService: String, CaseIterable {
         }
     }
 
+    public static func staticHost() -> String {
+        return StaticAddress.staticHost
+    }
+
     private struct StoreServerAddresses {
         static let development = "https://api.meowls.artemayer.ru/"//"https://api.dev.meowls.artemayer.ru/"
         static let production = "https://api.meowls.artemayer.ru/"//"https://api.meowls.artemayer.ru/"
@@ -80,6 +84,10 @@ public enum APIResourceService: String, CaseIterable {
 
     private struct WebSiteAddress {
         static let apiSiteHost = "www.meowls.artemayer.ru/"
+    }
+
+    private struct StaticAddress {
+        static let staticHost = "https://static.artemayer.ru"
     }
 
 }

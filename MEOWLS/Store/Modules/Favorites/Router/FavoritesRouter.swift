@@ -23,8 +23,8 @@ final class FavoritesRouter: CommonRouter, FavoritesRouterProtocol {
         case .catalogue:
             showCatalogue()
 
-        case .networkError(let errorModel):
-            showNetworkError(errorModel)
+        case .networkError(let model):
+            showNetworkError(with: model)
 
         }
     }
@@ -49,11 +49,8 @@ private extension FavoritesRouter {
 
     }
 
-    func showNetworkError(_ errorModel: FavoritesModel.NetworkError) {
-        viewController?.showNetworkError(title: Strings.Common.FailedRequestView.title,
-                                         message: errorModel.message,
-                                         repeatTitle: Strings.Common.FailedRequestView.button,
-                                         repeatButtonHandler: errorModel.repeatHandler)
+    func showNetworkError(with model: NetworkErrorAlert) {
+        viewController?.showNetworkError(with: model)
     }
 
 }

@@ -17,7 +17,7 @@ final class IntroChildViewModel: IntroChildViewModelProtocol {
     @Published private var isLoading: Bool = false
     @Published private var showRoute: IntroModel.Route? = nil
     private weak var viewController: UIViewController?
-    private var user: UserRegion & UserAuthorization
+    private var user: UserRegion & UserAuthorization & UserStore
     private lazy var regionService: RegionServiceProtocol = {
         Container.shared.regionService.resolve(.init(viewController: viewController, currentRegion: user))
     }()
@@ -25,13 +25,13 @@ final class IntroChildViewModel: IntroChildViewModelProtocol {
         user.currentRegion != nil
     }
 
-    init(user: UserAuthorization & UserRegion) {
+    init(user: UserAuthorization & UserRegion & UserStore) {
         self.user = user
     }
 
     func viewDidLoad(in viewController: UIViewController?) {
         self.viewController = viewController
-        reloadCredentials()
+        selectRoute()
         sendAnalyticsEvents()
     }
 
@@ -42,17 +42,11 @@ final class IntroChildViewModel: IntroChildViewModelProtocol {
     private func sendAnalyticsEvents() {
     }
 
-    private func reloadCredentials() {
-        Task { [weak self] in
-            guard let self else { return }
-
-            try await user.reloadCredentials()
-
-            if isRegionSelected {
-                showRoute = .mainFlow
-            } else {
-                showRegionSelectionFlow()
-            }
+    private func selectRoute() {
+        if isRegionSelected {
+            showRoute = .mainFlow
+        } else {
+            showRegionSelectionFlow()
         }
     }
 

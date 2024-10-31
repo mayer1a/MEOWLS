@@ -20,8 +20,8 @@ final class SearchRouter: CommonRouter, SearchRouterProtocol {
         case .products(let productsIDs, let title):
             showProducts(productsIDs, with: title)
 
-        case .networkError(let error):
-            showNetworkError(error)
+        case .networkError(let model):
+            showNetworkError(with: model)
 
         }
     }
@@ -42,11 +42,8 @@ private extension SearchRouter {
 
     }
 
-    func showNetworkError(_ error: SearchModel.NetworkError) {
-        viewController?.showNetworkError(title: Strings.Common.FailedRequestView.title,
-                                         message: error.message,
-                                         repeatTitle: Strings.Common.FailedRequestView.button,
-                                         repeatButtonHandler: error.repeatHandler)
+    func showNetworkError(with model: NetworkErrorAlert) {
+        viewController?.showNetworkError(with: model)
     }
 
 }

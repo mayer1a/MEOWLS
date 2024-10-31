@@ -10,6 +10,8 @@ import Foundation
 public protocol UserAccess {
 
     func accessToken(_ service: APIResourceService) -> String?
+    func changeUserToken(_ token: String?, on service: APIResourceService)
+    
     var isAuthorized: Bool { get }
 
 }

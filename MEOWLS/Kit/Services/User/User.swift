@@ -38,9 +38,9 @@ public final class User {
         networkManager.startListening(onQueue: .global(qos: .background)) { [weak self] status in
             guard let self else { return }
 
-            // если мы ранее не обновляли данные в рамках сессии
+            // If we haven't updated the data within the session before
             if self.userSessionUpdated == false, case .reachable = status {
-                // если есть интернет то пытаемся обновить
+                // If there is an internet connection then we try to update
                 self.updateUserData()
             }
         }
@@ -58,7 +58,7 @@ public final class User {
                 try await self.reloadCredentials()
                 self.userSessionUpdated = true
             } catch {
-
+                // Do nothing
             }
             self.onDataRequest = false
         }

@@ -10,10 +10,10 @@ import Foundation
 public struct ResponseError: Codable {
 
     /// HTTP response status (400/401/403 etc.).
-    public let status: Int
+    public let status: Int?
 
     /// Custom response headers.
-    public let headers: [String: String]
+    public let headers: [String: String]?
 
     /// Error code.
     public let code: String
@@ -23,5 +23,6 @@ public struct ResponseError: Codable {
 
     /// Fixes suggested for user.
     public let failures: [ValidationFailure]?
+
 
 }

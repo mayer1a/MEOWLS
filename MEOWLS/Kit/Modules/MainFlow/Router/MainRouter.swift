@@ -66,6 +66,11 @@ private extension MainRouter {
     }
 
     func showWebView(with url: URL) {
+        let controller = DomainWebViewController(for: url)
+        let navigation = UINavigationController(rootViewController: controller)
+        controller.setupPresentationMode(with: .pageSheet())
+        
+        present(navigation)
     }
 
     func showPushSubscriptionDialog() {
