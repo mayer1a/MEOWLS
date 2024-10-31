@@ -7,60 +7,82 @@
 
 import Foundation
 
-/// Локализует собщения об ошибках приходящие с сервера
-/// Необходим лишь для тех ошибок, которые требуется показывать пользователю
+/// Localizes error messages coming from the server
+/// Only needed for those errors that need to be shown to the user
 final class APIErrorLocalizer {
 
-    static func localizeError(message: String) -> String {
-        if let result = notFoudItemMessage(for: message) {
+    private static let baseLocalization = "NetworkError"
+
+    static func localizeError(code: String, message: String) -> String {
+        if let result = handleErrorCode(code, message: message) {
             return result
-        } else if let result = notEnoughItemMessage(for: message) {
-            return result
-        } else if let result = regionIsRequiredMessage(for: message) {
-            return result
+        } else if code == ErrorCode.internalServerError.rawValue {
+            return "\(APIErrorLocalizer.baseLocalization).\(ErrorCode.internalApplicationError)".localized()
         } else {
             return message
         }
     }
 
-    private static func notFoudItemMessage(for message: String) -> String? {
-        let substrings = message.split(separator: " ", omittingEmptySubsequences: true)
-        let strings = substrings.map { String($0) }
-        let maskArray = ["Not", "found", "items", "for"]
-        let maskSet = Set(maskArray)
-        let messageSet = Set(strings)
-        if maskSet.isSubset(of: messageSet),
-            let articleId = strings.last {
-            let newMessage = "Товар с артикулом " + articleId + " недоступен для заказа."
-            return newMessage
-        } else {
+    private static func handleErrorCode(_ code: String, message: String) -> String? {
+        guard let error = ErrorCode(rawValue: code) else {
             return nil
         }
-    }
 
-    private static func notEnoughItemMessage(for message: String) -> String? {
-        let substrings = message.split(separator: " ", omittingEmptySubsequences: true)
-        let strings = substrings.map { String($0) }
-        let maskArray = ["not", "enough", "items", "for"]
-        let maskSet = Set(maskArray)
-        let messageSet = Set(strings)
-        if maskSet.isSubset(of: messageSet),
-            strings.count > 5 {
-            let articleId = strings[4]
-            let newMessage = "Товар с артикулом " + articleId + " недоступен для заказа."
-            return newMessage
-        } else {
-            return nil
+        let localizedError = "\(APIErrorLocalizer.baseLocalization).\(code)".localizedFormat()
+        if error == .abortError {
+            return String(format: localizedError, message)
         }
-    }
 
-    private static func regionIsRequiredMessage(for message: String) -> String? {
-        if message == "Region is required" {
-            return "Необходмо указать регион"
-        } else {
-            return nil
-        }
+        return localizedError
     }
 
 }
 
+
+extension APIErrorLocalizer {
+
+    enum ErrorCode: String {
+        case productUnavailable
+        case oneProductUnavailable
+        case productAlreadyStarred
+        case orderAlreadyCancelled
+        case orderIsComplete
+        case itemsNotAvailableWithSetCount
+        case deliveryCreationFailed
+        case deliveryTimeIntervalNotAvailable
+        case cityNotFoundById
+        case invalidReceivedAddress
+        case invalidOrderNumber
+        case phoneAlreadyUsed
+        case incorrectAddressNotFound
+        case addressNotFound
+        case phoneRequired
+        case invalidEmailFormat
+        case invalidPasswordFormat
+        case passwordsDidNotMatch
+        case saleNotFound
+        case userCartUnavailable
+        case failedToFindUserCart
+        case failedToFindProductPrice
+        case productVariantNotFound
+        case fetchCategoryError
+        case fetchProductsForCategoryError
+        case fetchProductsForSaleError
+        case fetchProductByIdError
+        case fetchFiltersForCategoryError
+        case bannerCategoriesError
+        case bannerProductsPriceError
+        case bannerProductsAvailabilityError
+        case fetchFavoritesError
+        case orderCreationFailed
+        case totalSummaryNotFound
+        case deliveryNotFoundForOrder
+        case abortError
+        case authError
+        case validationError
+        case serviceUnavailable
+        case unauthorized
+        case internalServerError, internalApplicationError
+    }
+
+}

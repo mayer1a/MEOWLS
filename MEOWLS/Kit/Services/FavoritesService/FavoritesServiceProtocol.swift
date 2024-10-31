@@ -25,12 +25,14 @@ public protocol FavoritesServiceProtocol: AnyObject {
     var ids: [String] { get }
 
     func isFavorite(item: FavoriteItem) -> Bool
-    @discardableResult func toggle(item: FavoriteItem, completion: ToogleCompletion?) -> Bool
+    func toggle(item: FavoriteItem, completion: ToogleCompletion?)
     func merge() async throws
 
     #if Store
 
     var amount: Int { get }
+
+    func clear()
 
     #endif
     

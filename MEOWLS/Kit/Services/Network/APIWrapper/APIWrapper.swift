@@ -42,7 +42,7 @@ public class APIWrapper: APIWrapperProtocol {
     }
 
     public func refreshToken(handler: @escaping ResponseHandler<UserCredential>) {
-        apiService.get(resource: .refreshToken, service: nil, parameters: nil, headers: nil, handler: handler)
+        apiService.post(resource: .refreshToken, service: nil, parameters: nil, headers: nil, handler: handler)
     }
 
     public func logout(service: APIResourceService? = nil, handler: @escaping ResponseHandler<DummyResponse>) {

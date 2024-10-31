@@ -13,7 +13,6 @@ public final class FavoritesService: FavoritesServiceProtocol {
 
     /// Publisher for favorite toggles
     public let favoritesTogglePublisher = CurrentValueSubject<([FavoriteItem]?, Bool), Never>((nil, false))
-
     public var ids: [String] { items.compactMap({ $0.identifier }) }
     
     #if Store
@@ -28,8 +27,7 @@ public final class FavoritesService: FavoritesServiceProtocol {
             return favoritesAmount
         } else {
             if !isLocalFavorites {
-                isLocalFavorites = true
-                favoritesAmount = 0
+                clear()
             }
 
             return items.count
@@ -43,6 +41,8 @@ public final class FavoritesService: FavoritesServiceProtocol {
 
     private let user: UserAccess
     private let apiWrapper: APIWrapperProtocol
+    /// Caching is used only for the authorized user, so as not to refresh the page when the status changes
+    private var favoriteCache = [String: Bool]()
 
     private var items: [FavoriteItem] {
         get {
@@ -56,80 +56,9 @@ public final class FavoritesService: FavoritesServiceProtocol {
         }
     }
 
-    /// Caching is used only for the authorized user, so as not to refresh the page when the status changes
-    private var favoriteCache = [String: Bool]()
-
     fileprivate init(user: UserAccess, apiWrapper: APIWrapperProtocol) {
         self.user = user
         self.apiWrapper = apiWrapper
-    }
-
-    public func toggle(item: FavoriteItem, completion: ToogleCompletion? = nil) -> Bool {
-        let toggled = !self.isFavorite(item: item)
-
-        guard user.isAuthorized else {
-            mark(item: item, favorite: toggled)
-            favoritesTogglePublisher.send(([item], toggled))
-            completion?(toggled)
-            return toggled
-        }
-
-        sendMarkItems([item], isMarked: toggled) { [weak self] (error, code) in
-            guard let self else { return }
-
-            if let code, code >= 200, code < 300 {
-                self.cache(items: [item], favorite: toggled)
-                self.favoritesTogglePublisher.send(([item], toggled))
-
-                #if Store
-                    self.setupAmount(favorite: toggled)
-                #endif
-                completion?(toggled)
-
-            } else {
-                completion?(!toggled)
-            }
-        }
-
-        return toggled
-    }
-
-    public func isFavorite(item: FavoriteItem) -> Bool {
-        if user.isAuthorized {
-            return favoriteCache[item.identifier] ?? item.starred ?? false
-        } else {
-            return items.contains(where: { $0.identifier == item.identifier })
-        }
-    }
-
-    public func merge() async throws {
-        guard user.isAuthorized else {
-            let domain = "ru.artemayer.meowls.store.favoritesService"
-            throw NSError(domain: domain, code: 401, userInfo: [NSLocalizedDescriptionKey: "Unauthorized"])
-        }
-
-        favoriteCache = [String: Bool]()
-
-        try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
-
-            guard let self else {
-                let domain = "ru.artemayer.meowls.store.favoritesService"
-                let error = "Internal withCheckedThrowingContinuation error"
-                let nsError = NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: error])
-                continuation.resume(with: .failure(nsError))
-                return
-            }
-
-            sendMarkItems(items, isMarked: true) { (error, code) in
-                if error != nil || code != nil {
-                    let domain = NSURLErrorDomain
-                    let error = error ?? ""
-                    let code = code ?? 0
-                    let nsError = NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: error])
-                    continuation.resume(with: .failure(nsError))
-                }
-            }
-        }
     }
 
 }
@@ -143,13 +72,91 @@ public extension FavoritesService {
 
 }
 
+public extension FavoritesService {
+
+    func toggle(item: FavoriteItem, completion: ToogleCompletion? = nil) {
+        let toggled = !isFavorite(item: item)
+
+        guard user.isAuthorized else {
+            mark(item: item, favorite: toggled)
+            favoritesTogglePublisher.send(([item], toggled))
+            completion?(toggled)
+            return
+        }
+
+        sendMarkItems([item], isMarked: toggled) { [weak self] (error, code) in
+            guard let self else {
+                return
+            }
+
+            if let code, code >= 200, code < 300 {
+                self.cache(items: [item], favorite: toggled)
+                self.favoritesTogglePublisher.send(([item], toggled))
+
+                #if Store
+                    self.setupAmount(favorite: toggled)
+                #endif
+                completion?(toggled)
+            } else {
+                completion?(!toggled)
+            }
+        }
+    }
+
+    func isFavorite(item: FavoriteItem) -> Bool {
+        if user.isAuthorized {
+            return favoriteCache[item.identifier] ?? item.starred ?? false
+        } else {
+            return items.contains(where: { $0.identifier == item.identifier })
+        }
+    }
+
+    func merge() async throws {
+        guard user.isAuthorized else {
+            let domain = "ru.artemayer.meowls.store.favoritesService"
+            throw NSError(domain: domain, code: 401, userInfo: [NSLocalizedDescriptionKey: "Unauthorized"])
+        }
+
+        favoriteCache = [String: Bool]()
+
+        try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
+
+            guard let self, !items.isEmpty else {
+                continuation.resume()
+                return
+            }
+
+            sendMarkItems(items, isMarked: true) { (error, code) in
+                if (error != nil || (code ?? 0) > 299) {
+                    let nsError = NSError(domain: NSURLErrorDomain,
+                                          code: code ?? 404,
+                                          userInfo: [NSLocalizedDescriptionKey: error ?? "Abort error"])
+
+                    continuation.resume(with: .failure(nsError))
+                } else {
+                    continuation.resume()
+                }
+            }
+        }
+    }
+
+    #if Store
+
+    func clear() {
+        isLocalFavorites = true
+        favoritesAmount = 0
+        items = []
+        favoriteCache = [:]
+        setupBadgeValue()
+    }
+
+    #endif
+
+}
+
 private extension FavoritesService {
 
     func mark(item: FavoriteItem, favorite isFavorite: Bool) {
-        #if Store
-            favoritesAmount = items.count
-        #endif
-
         if isFavorite {
             items.append(item)
         } else {
@@ -157,13 +164,13 @@ private extension FavoritesService {
         }
 
         #if Store
+            favoritesAmount = items.count
             setupAmount(favorite: isFavorite)
         #endif
     }
 
-    /// In order not to refresh the page once again, after adding/removing from favorites made cache
-    func cache(items: [FavoriteItem], favorite: Bool? = nil) {
-        items.forEach { favoriteCache[$0.identifier] = favorite ?? $0.starred }
+    func cache(items: [FavoriteItem], favorite: Bool) {
+        items.forEach { favoriteCache[$0.identifier] = favorite }
     }
 
 }
@@ -188,23 +195,27 @@ private extension FavoritesService {
         }
     }
 
-    func loadFavorites() {
-        apiWrapper.favoritesCount { [weak self] response in
-            if let count = response.data?.count {
-                self?.favoritesAmount = count
-                self?.setupBadgeValue()
-            }
-        }
-    }
-
 }
 
 #endif
 
 private extension FavoritesService {
 
+    #if Store
+
+    func loadFavorites() {
+        apiWrapper.favoritesCount { [weak self] response in
+            if let self, let count = response.data?.count {
+                favoritesAmount = count
+                setupBadgeValue()
+            }
+        }
+    }
+
+    #endif
+
     func sendMarkItems(_ items: [FavoriteItem], isMarked: Bool, completion: ErrorCompletion?) {
-        apiWrapper.toggleFavorite(items: items, isFavorite: true) { response in
+        apiWrapper.toggleFavorite(items: items, isFavorite: isMarked) { response in
             completion?(response.error, response.code)
         }
     }
@@ -223,5 +234,3 @@ extension Container {
     }
 
 }
-
-
