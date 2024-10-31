@@ -9,6 +9,15 @@ import UIKit
 
 extension UIViewController {
 
+    var isModal: Bool {
+        let navVC = navigationController
+        let presentingIsModal = presentingViewController != nil
+        let presentingIsNavigation = navVC?.presentingViewController?.presentedViewController == navVC
+        let presentingIsTabBar = tabBarController?.presentingViewController is UITabBarController
+
+        return presentingIsModal || presentingIsNavigation || presentingIsTabBar
+    }
+
     func present(_ viewControllerToPresent: UIViewController, completion: (() -> Void)? = nil) {
         present(viewControllerToPresent, animated: true, completion: completion)
     }

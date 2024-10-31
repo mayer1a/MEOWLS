@@ -23,9 +23,20 @@ public final class Strings {
             public static let title = "Common.AnotherRegionView.title".localizedFormat()
             public static let button = "Common.AnotherRegionView.button".localizedFormat()
         }
-
+        public enum Authorization {
+            public enum Agreement {
+                public static let start = "Common.Authorization.Agreement.start".localized()
+                public static let privacy = "Common.Authorization.Agreement.privacy".localized()
+                public static let end = "Common.Authorization.Agreement.end".localized()
+                public static let userAgreement = "Common.Authorization.Agreement.userAgreement".localized()
+            }
+            public static let incorrectNumberError = "Common.Authorization.incorrectNumberError".localized()
+        }
         public static let systemOptions = "Common.systemOptions".localized()
         public static let cancel = "Common.cancel".localized()
+        public static let contiue = "Common.contiue".localized()
+        public static let phone = "Common.Authorization.phone".localized()
+        public static let skip = "Common.Authorization.skip".localized()
     }
     public enum RootTabBar {
         public static let main = "RootTabBar.main".localized()
@@ -200,6 +211,44 @@ public final class Strings {
             public static let `repeat` =  "Alert.common.repeat".localized()
             public static let message = "Alert.common.message".localized()
         }
+    }
+    public enum NetworkError {
+        public static let productUnavailable = "NetworkError.productUnavailable".localized()
+        public static let oneProductUnavailable = "NetworkError.oneProductUnavailable".localized()
+        public static let productAlreadyStarred = "NetworkError.productAlreadyStarred".localized()
+        public static let orderAlreadyCancelled = "NetworkError.orderAlreadyCancelled".localized()
+        public static let orderIsComplete = "NetworkError.orderIsComplete".localized()
+        public static let itemsNotAvailableWithSetCount = "NetworkError.itemsNotAvailableWithSetCount".localized()
+        public static let deliveryCreationFailed = "NetworkError.deliveryCreationFailed".localized()
+        public static let deliveryTimeIntervalNotAvailable = "NetworkError.deliveryTimeIntervalNotAvailable".localized()
+        public static let cityNotFoundById = "NetworkError.cityNotFoundById".localized()
+        public static let invalidReceivedAddress = "NetworkError.invalidReceivedAddress".localized()
+        public static let invalidOrderNumber = "NetworkError.invalidOrderNumber".localized()
+        public static let phoneAlreadyUsed = "NetworkError.phoneAlreadyUsed".localized()
+        public static let incorrectAddressNotFound = "NetworkError.incorrectAddressNotFound".localized()
+        public static let addressNotFound = "NetworkError.addressNotFound".localized()
+        public static let phoneRequired = "NetworkError.phoneRequired".localized()
+        public static let invalidEmailFormat = "NetworkError.invalidEmailFormat".localized()
+        public static let invalidPasswordFormat = "NetworkError.invalidPasswordFormat".localized()
+        public static let passwordsDidNotMatch = "NetworkError.passwordsDidNotMatch".localized()
+        public static let saleNotFound = "NetworkError.saleNotFound".localized()
+
+        public static let userCartUnavailable = "NetworkError.userCartUnavailable".localized()
+        public static let failedToFindUserCart = "NetworkError.failedToFindUserCart".localized()
+        public static let failedToFindProductPrice = "NetworkError.failedToFindProductPrice".localized()
+        public static let productVariantNotFound = "NetworkError.productVariantNotFound".localized()
+        public static let fetchCategoryError = "NetworkError.fetchCategoryError".localized()
+        public static let fetchProductsForCategoryError = "NetworkError.fetchProductsForCategoryError".localized()
+        public static let fetchProductsForSaleError = "NetworkError.fetchProductsForSaleError".localized()
+        public static let fetchProductByIdError = "NetworkError.fetchProductByIdError".localized()
+        public static let fetchFiltersForCategoryError = "NetworkError.fetchFiltersForCategoryError".localized()
+        public static let bannerCategoriesError = "NetworkError.bannerCategoriesError".localized()
+        public static let bannerProductsPriceError = "NetworkError.bannerProductsPriceError".localized()
+        public static let bannerProductsAvailabilityError = "NetworkError.bannerProductsAvailabilityError".localized()
+        public static let fetchFavoritesError = "NetworkError.fetchFavoritesError".localized()
+        public static let orderCreationFailed = "NetworkError.orderCreationFailed".localized()
+        public static let totalSummaryNotFound = "NetworkError.totalSummaryNotFound".localized()
+        public static let deliveryNotFoundForOrder = "NetworkError.deliveryNotFoundForOrder".localized()
     }
 
     public static func nofItems(_ item: String, _ number: Int) -> String {
