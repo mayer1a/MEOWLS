@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PhoneNumberKit
 
 enum ProfileDataModel {}
 
@@ -26,6 +27,7 @@ extension ProfileDataModel {
 
     struct InitialModel {
         let inputModel: InputModel
+        let phoneKit: PhoneNumberKit
         let router: ProfileDataRouterProtocol
         let apiService: ProfileDataApiServiceProtocol
     }
