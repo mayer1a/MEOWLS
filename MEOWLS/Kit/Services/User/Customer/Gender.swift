@@ -9,7 +9,7 @@ import Foundation
 
 public extension UserCredential {
 
-    enum Gender: String, CustomStringConvertible, Codable {
+    enum Gender: String, CustomStringConvertible, CaseIterable, Codable {
 
         case man
         case woman

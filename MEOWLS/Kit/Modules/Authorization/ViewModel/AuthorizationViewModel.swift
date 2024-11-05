@@ -24,8 +24,10 @@ final class AuthorizationViewModel: AuthorizationViewModelProtocol {
     }
     @Published var phoneFieldState: DomainLabeledTextField.ViewModel
     @Published var passwordFieldState: DomainLabeledTextField.ViewModel
+
     var regionCode: String
     var selectedRegion: String
+
     @Published private(set) var formatter: PartialFormatter
     @Published private(set) var agreementText: AttributedString = ""
     @Published private(set) var showPromoTitle: Bool
@@ -111,7 +113,7 @@ extension AuthorizationViewModel {
             do {
                 isLoading = true
                 let verifiedPhoneNumber = try phoneKit.verifyPhoneNumber(phone, for: selectedRegion)
-                let password = try VerificationHelper.verifyPassword(password)
+                let password = try Validator.validatePassword(password)
                 signIn(with: verifiedPhoneNumber, password: password)
             } catch {
                 isLoading = false
