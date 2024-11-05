@@ -11,8 +11,8 @@ extension DomainLabeledTextField {
 
         var dataState: DataState
         var viewState: ViewState
-        let isFocusable: Bool
-        let isSecure: Bool
+        var isFocusable: Bool
+        var isSecure: Bool
 
         struct DataState: Equatable {
             var label: String

@@ -15,6 +15,14 @@ public final class Router {
         resolve(\.introBuilder).build(with: .init())
     }
 
+    /// Region selection screen
+    public static func regionViewController(with inputModel: RegionModel.InputModel) -> UINavigationController? {
+        let builder = resolve(\.regionBuilder)
+        let viewController = builder.build(with: inputModel)
+
+        return viewController as? UINavigationController
+    }
+
     #if Store
 
     public static func showMainController(atTab tab: RootTab = .defaultTab) {
@@ -45,14 +53,6 @@ public final class Router {
 
     #endif
 
-    /// Region selection screen
-    public static func regionViewController(with inputModel: RegionModel.InputModel) -> UINavigationController? {
-        let builder = resolve(\.regionBuilder)
-        let viewController = builder.build(with: inputModel)
-
-        return viewController as? UINavigationController
-    }
-
     public static func showAuthorization(completion: VoidClosure? = nil) {
         guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else {
             return
@@ -65,7 +65,7 @@ public final class Router {
         #endif
 
         let model = AuthorizationModel.InputModel(mode: mode) { skipped in
-            if skipped {
+            if skipped || completion != nil {
                 completion?()
             } else {
                 Router.showMainController()

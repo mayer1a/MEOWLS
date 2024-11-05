@@ -10,18 +10,21 @@ import SwiftUI
 public class DomainHostingController<RootView: View>: UIHostingController<RootView> {
 
     private var navigationBarHidden: Bool = false
+    private var dynamicBarShowing: Bool = false
     private var animated: Bool = true
     private var isTransparent: Bool = false
     private var navBarWasHidden: Bool?
 
     public convenience init(rootView: RootView,
                             navigationBarHidden: Bool = false,
+                            dynamicBarShowing: Bool = false,
                             animated: Bool = true,
                             isTransparent: Bool = false) {
 
         self.init(rootView: rootView)
 
         self.navigationBarHidden = navigationBarHidden
+        self.dynamicBarShowing = dynamicBarShowing
         self.animated = animated
         self.isTransparent = isTransparent
 
@@ -51,7 +54,7 @@ public class DomainHostingController<RootView: View>: UIHostingController<RootVi
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(self.animated)
 
-        if navBarWasHidden == false {
+        if navBarWasHidden == false, dynamicBarShowing {
             navigationController?.setNavigationBarHidden(false, animated: self.animated)
         }
     }

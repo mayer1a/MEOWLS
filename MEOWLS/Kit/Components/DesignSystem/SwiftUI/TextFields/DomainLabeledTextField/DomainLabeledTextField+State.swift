@@ -36,12 +36,17 @@ extension DomainLabeledTextField {
     }
 
     var newFocusState: ViewModel.ViewState {
+        tapAction?()
+
+        guard viewModel.isFocusable else {
+            return viewModel.viewState
+        }
+
         switch viewModel.viewState {
         case .default:
             return .focused
 
         case .disabled:
-            tapAction?()
             return .disabled
 
         case .errorDefault:
