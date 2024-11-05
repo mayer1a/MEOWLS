@@ -33,6 +33,7 @@ extension ProfileDataModel {
     }
 
     enum Route {
+        case autocomplete(model: AutocompleteFieldModel.InputModel)
         case warning(title: String, message: String)
         case networkError(model: NetworkErrorAlert)
     }

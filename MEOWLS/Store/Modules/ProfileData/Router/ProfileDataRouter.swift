@@ -12,6 +12,9 @@ final class ProfileDataRouter: CommonRouter, ProfileDataRouterProtocol {
 
     func open(_ route: ProfileDataModel.Route) {
         switch route {
+        case .autocomplete(let model):
+            openAutocompleteSuggestion(with: model)
+
         case .warning(let title, let message):
             viewController?.showRedAlert(title: title, message: message, actions: .ok)
 
@@ -24,4 +27,10 @@ final class ProfileDataRouter: CommonRouter, ProfileDataRouterProtocol {
 }
 
 private extension ProfileDataRouter {
+
+    func openAutocompleteSuggestion(with model: AutocompleteFieldModel.InputModel) {
+        let viewController = resolve(\.autoCompleteFieldBuilder).build(with: model)
+        self.viewController?.push(viewController)
+    }
+
 }
