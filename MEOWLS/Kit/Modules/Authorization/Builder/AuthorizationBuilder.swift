@@ -30,12 +30,13 @@ public final class AuthorizationBuilder: AuthorizationBuilderProtocol {
         let viewModel = AuthorizationViewModel(with: initialModel)
 
         let view = AuthorizationView(viewModel: viewModel)
-        let viewController = DomainHostingController(rootView: view)
-        viewController.setupPresentationMode(with: model.mode)
+        let viewController = DomainHostingController(rootView: view, navigationBarHidden: true)
 
+        let navigationViewController = UINavigationController(rootViewController: viewController)
+        navigationViewController.setupPresentationMode(with: model.mode)
         router.setCurrent(viewController)
 
-        return viewController
+        return navigationViewController
     }
 
 }

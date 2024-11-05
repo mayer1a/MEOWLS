@@ -35,4 +35,10 @@ protocol AuthorizationViewModelProtocol: ObservableObject {
     func skipAuth()
     func lostFocus()
 
+    #if Store
+
+    func signUp()
+    
+    #endif
+
 }

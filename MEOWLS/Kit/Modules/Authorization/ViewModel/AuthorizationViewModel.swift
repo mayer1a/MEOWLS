@@ -11,7 +11,6 @@ import PhoneNumberKit
 
 final class AuthorizationViewModel: AuthorizationViewModelProtocol {
 
-    @Published var isLoading: Bool = false
     @Published var phone: String = "" {
         didSet {
             isPhoneLastEdited = true
@@ -28,6 +27,7 @@ final class AuthorizationViewModel: AuthorizationViewModelProtocol {
     var regionCode: String
     var selectedRegion: String
 
+    @Published private(set) var isLoading: Bool = false
     @Published private(set) var formatter: PartialFormatter
     @Published private(set) var agreementText: AttributedString = ""
     @Published private(set) var showPromoTitle: Bool
@@ -140,6 +140,17 @@ extension AuthorizationViewModel {
             router.open(.agreement(url: agreementURL, mode: mode))
         }
     }
+
+    #if Store
+
+    func signUp() {
+        let verifiedPhoneNumber = try? String(phoneKit.verifyPhoneNumber(phone, for: selectedRegion).dropFirst())
+        router.open(.signUp(model: .init(mode: .signUp, phone: verifiedPhoneNumber) { [weak self] phone, token  in
+            self?.saveCustomer(with: phone, token: token)
+        }))
+    }
+
+    #endif
 
     func skipAuth() {
         alreadyDisappearing = true

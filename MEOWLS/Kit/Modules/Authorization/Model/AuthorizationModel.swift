@@ -39,7 +39,11 @@ extension AuthorizationModel {
     }
 
     enum Route {
-        case signUp(phone: String?)
+        #if Store
+            case signUp(model: ProfileDataModel.InputModel)
+        #else
+            case signUp(model: Void)
+        #endif
         case resetPassword(phone: String?)
         case agreement(url: URL, mode: Mode)
         case networkError(model: NetworkErrorAlert)

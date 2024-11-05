@@ -16,9 +16,7 @@ struct AuthorizationView<VM: AuthorizationViewModelProtocol>: View {
         NavigationView {
             VStack(spacing: 16) {
                 headerView
-
                 phoneLabeledTextField
-
                 passwordLabeledTextField
 
                 VStack(spacing: 8) {
@@ -26,10 +24,10 @@ struct AuthorizationView<VM: AuthorizationViewModelProtocol>: View {
                         .fixedSize(horizontal: false, vertical: true)
 
                     continueButton
+                    signUpButton
                 }
 
                 agreementText
-
                 skipButton
             }
             .padding(.top, isPageSheet ? 40 : 0)
@@ -85,7 +83,6 @@ private extension AuthorizationView {
 
     @ViewBuilder
     var messageView: some View {
-
         if let error = viewModel.error {
             switch error {
             case .error(let message):
@@ -123,6 +120,27 @@ private extension AuthorizationView {
                 viewModel.open(agreementURL: url)
                 return .discarded
             })
+    }
+
+    @ViewBuilder
+    var signUpButton: some View {
+        #if Store
+
+        Button {
+            viewModel.signUp()
+        } label: {
+            Text("Common.Authorization.signUp")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(Color(.accentPrimary))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background {
+                    Color(.accentFaded)
+                }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 12.0))
+
+        #endif
     }
 
     @ViewBuilder
