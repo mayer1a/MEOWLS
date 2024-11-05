@@ -12,6 +12,10 @@ protocol AutocompleteFieldViewModelProtocol: ObservableObject {
 
     typealias Model = AutocompleteFieldModel
 
+    var query: String { get set }
+    var textFieldState: DomainLabeledTextField.ViewModel { get set }
+    var title: String { get }
+    var hints: [Model.Hint] { get }
     var isLoading: Bool { get }
 
 }

@@ -12,4 +12,6 @@ protocol AutocompleteFieldApiServiceProtocol {
 
     typealias Model = AutocompleteFieldModel
 
+    func getSuggestions(for query: String, type: Model.FieldType, handler: @escaping ResponseHandler<[Suggestion]>)
+
 }

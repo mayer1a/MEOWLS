@@ -12,10 +12,25 @@ public enum AutocompleteFieldModel {}
 
 extension AutocompleteFieldModel {
 
+    public enum FieldType {
+
+        case surname, name, patronymic
+
+        init(rawValue: String) {
+            switch rawValue {
+            case "surname": self = .surname
+            case "patronymic": self = .patronymic
+            default: self = .name
+            }
+        }
+
+    }
+
     public typealias AutocompleteHandler = (_ value: String, _ gender: UserCredential.Gender?) -> Void
 
     public struct InputModel {
         public let inputText: String?
+        public let fieldType: FieldType
         public let completion: AutocompleteHandler
     }
 
@@ -26,5 +41,11 @@ extension AutocompleteFieldModel {
     }
 
     enum Route {}
+
+    struct Hint: Swift.Identifiable, Equatable {
+        let id: String = UUID().uuidString
+        let text: AttributedString
+        let gender: UserCredential.Gender?
+    }
 
 }

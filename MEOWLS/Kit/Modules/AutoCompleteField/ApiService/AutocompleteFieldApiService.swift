@@ -16,4 +16,15 @@ final class AutocompleteFieldApiService: AutocompleteFieldApiServiceProtocol {
         self.apiService = apiService
     }
 
+    func getSuggestions(for query: String, type: Model.FieldType, handler: @escaping ResponseHandler<[Suggestion]>) {
+        let apiPath: APIResourcePath
+        switch type {
+        case .surname: apiPath = .surnameSuggestions
+        case .name: apiPath = .nameSuggestions
+        case .patronymic: apiPath = .patronymicSuggestions
+        }
+
+        apiService.get(resource: apiPath, service: .store, parameters: ["query": query], headers: nil, handler: handler)
+    }
+
 }
