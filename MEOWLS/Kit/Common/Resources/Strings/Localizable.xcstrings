@@ -1101,23 +1101,6 @@
         }
       }
     },
-    "Authorization.PhoneVerification.countdown" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can request a code again in %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы сможете запросить код заново через %@"
-          }
-        }
-      }
-    },
     "Cart.Cell.article" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4046,7 +4029,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажимая «Продолжить», вы даёте согласие на "
+            "value" : "Нажимая «Продолжить» или «Зарегистрироваться», вы даёте согласие на "
           }
         }
       }
@@ -4166,6 +4149,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Телефон"
+          }
+        }
+      }
+    },
+    "Common.Authorization.signUp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зарегистрироваться"
           }
         }
       }
@@ -4302,6 +4302,108 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Попробовать еще раз"
+          }
+        }
+      }
+    },
+    "Common.Registration.digit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password must contain at least one number."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен содержать хотя бы одну цифру."
+          }
+        }
+      }
+    },
+    "Common.Registration.email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email must follow the following format: user@example.com"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email должен соответствовать следующему формату: user@example.com"
+          }
+        }
+      }
+    },
+    "Common.Registration.lowercase" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password must contain at least one lowercase letter."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен содержать хотя бы одну строчную букву."
+          }
+        }
+      }
+    },
+    "Common.Registration.passwordDidNotMatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The passwords do not match."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароли не совпадают."
+          }
+        }
+      }
+    },
+    "Common.Registration.passwordLength" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password must be at least 8 characters long."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен содержать не менее 8 символов."
+          }
+        }
+      }
+    },
+    "Common.Registration.upperCase" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The password must contain at least one capital letter."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен содержать хотя бы одну заглавную букву."
           }
         }
       }
@@ -5768,6 +5870,23 @@
         }
       }
     },
+    "Profile.Edit.confirmPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm password"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтверждение пароля"
+          }
+        }
+      }
+    },
     "Profile.Edit.done" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6057,6 +6176,23 @@
         }
       }
     },
+    "Profile.Edit.password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль"
+          }
+        }
+      }
+    },
     "Profile.Edit.patronymic" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6227,6 +6363,23 @@
         }
       }
     },
+    "Profile.Edit.wrongConfirmPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwords do not match"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароли не совпадают"
+          }
+        }
+      }
+    },
     "Profile.Edit.wrongEmail" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6240,6 +6393,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Неверно указан адрес электронной почты"
+          }
+        }
+      }
+    },
+    "Profile.Edit.wrongPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect password format"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Некорректный формат пароля"
           }
         }
       }
@@ -7617,6 +7787,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Указание домашнего региона необходимо для работы приложения"
+          }
+        }
+      }
+    },
+    "Region.Warning.undefined" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undefined"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неопределен"
           }
         }
       }

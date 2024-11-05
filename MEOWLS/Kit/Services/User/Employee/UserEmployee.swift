@@ -25,6 +25,8 @@ public protocol UserEmployee {
     var position: String? { get }
     var roles: [EmployeeRole]? { get }
 
+    func refreshToken() async throws
+    func refreshToken(isSilent: Bool, with completion: @escaping ParameterClosure<String?>)
     func reloadCredentials() async throws
 
 }
@@ -56,6 +58,8 @@ extension User: UserEmployee {
     public var position: String? { credentials?.position }
     public var roles: [EmployeeRole]? { credentials?.roles }
 
+    public func refreshToken() async throws {}
+    public func refreshToken(isSilent: Bool, with completion: @escaping ParameterClosure<String?>) {}
     public func reloadCredentials() async throws { }
 
 }

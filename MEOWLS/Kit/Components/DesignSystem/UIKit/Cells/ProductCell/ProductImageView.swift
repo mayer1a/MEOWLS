@@ -107,6 +107,7 @@ extension ProductImageView {
         promoBadgeStackContainer.isHidden = true
         imageSlider.set(imageSources: [])
         setFavoriteValue(false)
+        favoritesHandler = nil
     }
 
 }

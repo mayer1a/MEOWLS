@@ -9,35 +9,35 @@ import UIKit
 
 protocol AlertPresentable: UIViewController {
 
-    /// Показывает AlertViewController.
-    /// Если actions отсутствуют - добавит ok по дефолту.
+    /// Shows AlertViewController.
+    /// If there are no actions, it will add ok by default.
     func showAlert(title: String?, message: String?, actions: [AlertAction])
 
 }
 
 extension AlertPresentable {
 
-    /// Показывает AlertViewController.
-    /// Если actions отсутствуют - добавит ok по дефолту.
+    /// Shows AlertViewController.
+    /// If there are no actions, it will add ok by default.
     func showAlert(title: String?, message: String?, actions: AlertAction...) {
         showAlert(title: title, message: message, actions: actions)
     }
 
 }
 
-struct NetworkErrorAlert {
+public struct NetworkErrorAlert {
 
-    let title: String?
-    let message: String?
-    let repeatTitle: String?
-    let cancelHandler: VoidClosure?
-    let repeatHandler: VoidClosure?
+    public let title: String?
+    public let message: String?
+    public let repeatTitle: String?
+    public let cancelHandler: VoidClosure?
+    public let repeatHandler: VoidClosure?
 
-    init(title: String? = nil,
-         message: String? = nil,
-         repeatTitle: String? = nil,
-         repeatHandler: VoidClosure? = nil,
-         cancelHandler: VoidClosure? = nil) {
+    public init(title: String? = nil,
+                message: String? = nil,
+                repeatTitle: String? = nil,
+                repeatHandler: VoidClosure? = nil,
+                cancelHandler: VoidClosure? = nil) {
 
         self.title = title
         self.message = message
@@ -58,7 +58,7 @@ extension UIViewController: AlertPresentable {
         showAlert(title: Strings.Alert.Warning.attention, message: message, actions: action)
     }
 
-    func showAlert(title: String?, message: String?, actions: [AlertAction]) {
+    func showAlert(title: String?, message: String?, actions: [AlertAction] = []) {
         let actions = actions.isEmpty ? [.ok] : actions
 
         let alertViewController = AlertViewController(title: title, message: message)
@@ -103,14 +103,14 @@ extension UIViewController {
     func showNetworkError(with model: NetworkErrorAlert) {
 
         let errorTitle = title ?? Strings.Alert.NetworkError.title
-        let errorMessage = Strings.Alert.NetworkError.message
+        let errorMessage = model.message ?? Strings.Alert.NetworkError.message
         let repeatTitle = model.repeatTitle ?? Strings.Alert.NetworkError.repeat
         let cancelTitleDefault = Strings.Alert.NetworkError.cancel
 
         let repeatAction = AlertAction(title: repeatTitle, style: .destructive, handler: model.repeatHandler)
         let cancelAction = AlertAction(title: cancelTitleDefault, style: .cancel, handler: model.cancelHandler)
 
-        showAlert(title: errorTitle, message: model.message ?? errorMessage, actions: [cancelAction, repeatAction])
+        showAlert(title: errorTitle, message: errorMessage, actions: [cancelAction, repeatAction])
     }
 
     func show(deleteAlert message: String,
@@ -124,13 +124,14 @@ extension UIViewController {
         showAlert(title: Strings.Alert.Warning.attention, message: message, actions: cancel, delete)
     }
 
-    /// Диалог подтверждения правильности выбранного региона
-    func show(confirmationOfRegion region: City?, yesHandler: @escaping VoidClosure, noHandler: @escaping VoidClosure = {}) {
+    /// Dialog to confirm the correctness of the selected region
+    func showConfirmation(region: City?, yesHandler: @escaping VoidClosure, noHandler: @escaping VoidClosure = {}) {
         let yes = AlertAction(title: Strings.Region.Request.yes, style: .destructive, handler: yesHandler)
         let no = AlertAction(title: Strings.Region.Request.no, style: .cancel, handler: noHandler)
+        let region = region?.name ?? Strings.Region.Warning.undefined
 
         showAlert(title: Strings.Region.Request.title,
-                  message: String(format: Strings.Region.Request.isCorrect, region?.name ?? "Неопределен"),
+                  message: String(format: Strings.Region.Request.isCorrect, region),
                   actions: no, yes)
     }
 

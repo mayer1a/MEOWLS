@@ -78,6 +78,8 @@ public final class ProductCell: NiblessCollectionViewCell {
         oldPriceContainer.isHidden = true
         expandableContainer.isHidden = true
         imageSlider.reset()
+        cancellables.removeAll()
+        cartTapHandler = nil
     }
 
     private lazy var containerView = UIView()

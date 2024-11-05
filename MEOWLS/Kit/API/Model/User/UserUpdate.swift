@@ -14,12 +14,12 @@ public extension User {
         public let surname: String?
         public let name: String?
         public let patronymic: String?
-        public let birthday: Date?
+        public let birthday: String?
         public let gender: UserCredential.Gender?
         public let email: String?
         public let phone: String
-        public let password: String
-        public let confirmPassword: String
+        public let password: String?
+        public let confirmPassword: String?
 
         enum CodingKeys: String, CodingKey {
             case surname, name, patronymic, birthday, gender, email, phone, password

@@ -15,20 +15,17 @@ public struct EmployeeCredential: Codable {
     public let patronymic: String?
     public let surname: String?
     public let avatar: String?
-
     public let phone: String?
     public let email: String?
-
     public let position: String?
     public let regions: [String]?
-
     public let roles: [EmployeeRole]?
-
     public let company: EmployeeCompanyInfo?
+    public let authentication: User.Authentication?
 
     public enum CodingKeys: String, CodingKey {
         case name, patronymic, surname
-        case phone, email, username, position, avatar, regions, roles, id, company
+        case phone, email, username, position, avatar, regions, roles, id, company, authentication
     }
 
 }

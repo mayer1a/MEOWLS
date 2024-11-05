@@ -26,8 +26,7 @@ public extension CommonRouterProtocol {
             return
         }
 
-        if let rootvc = navVC.viewControllers.first,
-           rootvc == viewController {
+        if let rootvc = navVC.viewControllers.first, rootvc == viewController {
             navVC.dismiss(animated: animated, completion: completion)
         } else {
             CATransaction.begin()

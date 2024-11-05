@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import Factory
 
 final class AuthorizationRouter: CommonRouter, AuthorizationRouterProtocol {
 
     func open(_ route: AuthorizationModel.Route) {
         switch route {
-        case .signUp(let phone):
-            openSignUp(with: phone)
+        case .signUp(let model):
+            #if Store
+                openSignUp(with: model)
+            #endif
 
         case .resetPassword(let phone):
             openResetPassword(with: phone)
@@ -34,12 +37,17 @@ final class AuthorizationRouter: CommonRouter, AuthorizationRouterProtocol {
 
 private extension AuthorizationRouter {
 
-    func openSignUp(with phone: String?) {
-        
+    #if Store
+
+    func openSignUp(with model: ProfileDataModel.InputModel) {
+        let signUpViewController = resolve(\.profileDataBuilder).build(with: model)
+        viewController?.push(signUpViewController)
     }
 
-    func openResetPassword(with phone: String?) {
+    #endif
 
+    func openResetPassword(with phone: String?) {
+        
     }
 
     func openAgreement(url: URL?, with mode: AuthorizationModel.Mode) {

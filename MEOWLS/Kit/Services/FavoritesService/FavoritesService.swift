@@ -164,7 +164,6 @@ private extension FavoritesService {
         }
 
         #if Store
-            favoritesAmount = items.count
             setupAmount(favorite: isFavorite)
         #endif
     }

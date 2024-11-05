@@ -31,6 +31,15 @@ public final class Strings {
                 public static let userAgreement = "Common.Authorization.Agreement.userAgreement".localized()
             }
             public static let incorrectNumberError = "Common.Authorization.incorrectNumberError".localized()
+            public static let login = "Common.Authorization.login".localized()
+        }
+        public enum Registration {
+            public static let digit = "Common.Registration.digit".localized()
+            public static let email = "Common.Registration.email".localized()
+            public static let lowercase = "Common.Registration.lowercase".localized()
+            public static let passwordDidNotMatch = "Common.Registration.passwordDidNotMatch".localized()
+            public static let passwordLength = "Common.Registration.passwordLength".localized()
+            public static let upperCase = "Common.Registration.upperCase".localized()
         }
         public static let systemOptions = "Common.systemOptions".localized()
         public static let cancel = "Common.cancel".localized()
@@ -101,6 +110,9 @@ public final class Strings {
                 public static let canceled = "Cart.Order.Status.canceled".localized()
             }
         }
+        public enum Empty {
+            public static let unauthorizedAction = "Cart.Empty.unauthorizedAction".localized()
+        }
     }
     public enum Profile {
         public enum UserProfile {
@@ -116,8 +128,13 @@ public final class Strings {
             public static let pushWarningAlertMessage = "Profile.UserProfile.pushWarningAlertMessage".localized()
         }
         public enum Edit {
+            public static let title = "Profile.Edit.title".localized()
             public static let woman = "Profile.Edit.female".localized()
             public static let man = "Profile.Edit.male".localized()
+            public static let birthday = "Profile.Edit.birthday".localized()
+            public static let birthdayImmutable = "Profile.Edit.birthdayImmutable".localized()
+            public static let phone = "Profile.Edit.phone".localized()
+            public static let phoneImmutable = "Profile.Edit.phoneImmutable".localized()
         }
         public enum Logout {
             public static let errorTitle = "Profile.Logout.errorTitle".localized()
@@ -177,6 +194,7 @@ public final class Strings {
         }
         public enum Warning {
             public static let required = "Region.Warning.required".localized()
+            public static let undefined = "Region.Warning.undefined".localized()
         }
     }
     public enum SingleLocation {
@@ -193,6 +211,7 @@ public final class Strings {
             public static let message = "Alert.NetworkError.message".localized()
             public static let `repeat` = "Alert.NetworkError.repeat".localized()
             public static let cancel = "Alert.NetworkError.cancel".localized()
+            public static let unauthorized = "NetworkError.unauthorized".localized()
         }
         public enum Warning {
             public static let attention = "Alert.Warning.attention".localized()
