@@ -18,12 +18,15 @@ final class ProfileDataApiService: ProfileDataApiServiceProtocol {
     }
 
     func updateUserData(with newUser: User.Update, handler: @escaping ResponseHandler<UserCredential>) {
+        apiWrapper.updateUser(newUser, handler: handler)
     }
 
     func signUp(user: User.Update, handler: @escaping ResponseHandler<UserCredential>) {
+        apiWrapper.signUp(user: user, handler: handler)
     }
 
     func reloadUser(handler: @escaping ResponseHandler<UserCredential>) {
+        apiWrapper.user(service: .store, handler: handler)
     }
 
 }

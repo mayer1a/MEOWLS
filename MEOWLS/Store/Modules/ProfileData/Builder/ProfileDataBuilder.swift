@@ -25,7 +25,8 @@ final class ProfileDataBuilder: ProfileDataBuilderProtocol {
                                                          router: router,
                                                          apiService: apiService)
 
-        let viewModel = ProfileDataViewModel(with: initialModel)
+        let childViewModel = ProfileDataChildViewModel(user: resolve(\.user), apiService: apiService, mode: model.mode)
+        let viewModel = ProfileDataViewModel(with: initialModel, childViewModel: childViewModel)
 
         let view = ProfileDataView(viewModel: viewModel)
         let viewController = DomainHostingController(rootView: view, navigationBarHidden: true)
