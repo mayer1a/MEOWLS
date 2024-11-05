@@ -18,4 +18,9 @@ protocol AutocompleteFieldViewModelProtocol: ObservableObject {
     var hints: [Model.Hint] { get }
     var isLoading: Bool { get }
 
+    func viewAppeared()
+    func selected(hint: AttributedString)
+    func complete()
+    func lostFocus()
+
 }
