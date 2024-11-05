@@ -79,11 +79,32 @@ public final class Router {
         rootViewController.present(authorizationViewController)
     }
 
+    public static func showNetworkError(with model: NetworkErrorAlert) {
+        let rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        let topViewController = Router.topViewController(rootViewController: rootViewController)
+        topViewController?.showNetworkError(with: model)
+    }
 
     // MARK: - Window switches
 
     public static func isMainControllerAtRoot() -> Bool {
         UIApplication.shared.keyWindow?.rootViewController is RootTabController
+    }
+
+    public static func topViewController(rootViewController: UIViewController?) -> UIViewController? {
+        if let navigationController = rootViewController as? UINavigationController {
+            return topViewController(rootViewController: navigationController.visibleViewController)
+        }
+
+        if let tabBarController = rootViewController as? UITabBarController {
+            return topViewController(rootViewController: tabBarController.selectedViewController)
+        }
+
+        if let presentedViewController = rootViewController?.presentedViewController {
+            return topViewController(rootViewController: presentedViewController)
+        }
+
+        return rootViewController
     }
 
     // MARK: - Private
