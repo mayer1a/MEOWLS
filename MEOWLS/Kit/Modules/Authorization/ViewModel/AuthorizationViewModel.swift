@@ -144,6 +144,7 @@ extension AuthorizationViewModel {
     #if Store
 
     func signUp() {
+        alreadyDisappearing = true
         let verifiedPhoneNumber = try? String(phoneKit.verifyPhoneNumber(phone, for: selectedRegion).dropFirst())
         router.open(.signUp(model: .init(mode: .signUp, phone: verifiedPhoneNumber) { [weak self] phone, token  in
             self?.saveCustomer(with: phone, token: token)

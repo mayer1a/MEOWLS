@@ -124,6 +124,7 @@ extension ProfileDataViewModel {
     }
 
     func showAutocomplete(for row: Model.Row) {
+        openAutocomplete(for: row)
     }
 
     func dismiss() {
@@ -170,6 +171,8 @@ extension ProfileDataViewModel {
 private extension ProfileDataViewModel {
 
     func openAutocomplete(for row: Model.Row) {
+        let model = makeAutocompleteModel(for: row)
+        router.open(.autocomplete(model: model))
     }
 
     func showPicker() {

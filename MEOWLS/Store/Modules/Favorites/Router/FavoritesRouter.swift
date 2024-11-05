@@ -42,7 +42,9 @@ private extension FavoritesRouter {
     }
 
     func showAuth() {
-
+        Router.showAuthorization {
+            Router.showMainController(atTab: .favorites)
+        }
     }
 
     func showCatalogue() {
