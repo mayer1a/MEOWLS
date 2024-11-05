@@ -25,6 +25,8 @@ public extension UIViewController {
 
         }
 
+        navigationItem.backButtonDisplayMode = .minimal
+        
         if let sheetPresentationController {
             sheetPresentationController.preferredCornerRadius = 20.0
             sheetPresentationController.prefersGrabberVisible = mode == .pageSheet(closable: true)
