@@ -9,21 +9,30 @@ import Foundation
 
 public protocol UserAccess {
 
+    var isAuthorized: Bool { get }
+    var tokenExpired: Bool { get }
+
     func accessToken(_ service: APIResourceService) -> String?
     func changeUserToken(_ token: String?, on service: APIResourceService)
-    
-    var isAuthorized: Bool { get }
 
 }
 
 extension User: UserAccess {
 
-    public func accessToken(_ service: APIResourceService) -> String? {
-        UserTokenService.shared.getToken(service)
-    }
-
     public var isAuthorized: Bool {
         settingsService[.isUserAuthorized]
+    }
+
+    public var tokenExpired: Bool {
+        guard let tokenExpireDate = self.credentials?.authentication?.expiresAt else {
+            return false
+        }
+
+        return Date() > tokenExpireDate
+    }
+
+    public func accessToken(_ service: APIResourceService) -> String? {
+        UserTokenService.shared.getToken(service)
     }
 
     public func cleanCurrentUserAccessData() {
@@ -36,14 +45,14 @@ extension User: UserAccess {
 
 }
 
-/// отдельный класс для кэширования и работы с токеном, синглтон
+/// Separate class for caching and working with token, singleton
 private class UserTokenService {
 
     static let shared = UserTokenService()
 
     private init() {}
 
-    // кэшируются данные до перезагрузки
+    // Data is cached until reboot
     private var store: [String: String?] = [:]
 
     private lazy var keychainManager: KeychainManagerProtocol = KeychainManager.common
@@ -64,7 +73,7 @@ private class UserTokenService {
         return token.map({ String(format: "Token %@", $0) })
     }
 
-    // данные кладём в кэш и в кичейн
+    // Put the data into cache and keychain
     func changeToken(_ token: String?, on service: APIResourceService) {
         store[service.rawValue] = token
         keychainManager.set(value: token, forKey: service.rawValue)

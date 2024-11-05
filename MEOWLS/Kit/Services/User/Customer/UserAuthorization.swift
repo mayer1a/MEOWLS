@@ -14,6 +14,7 @@ public protocol UserAuthorization {
     func login(with phone: String, accessToken: String, completion: @escaping ParameterClosure<UserAuthError?>)
     func logout(completion: @escaping ParameterClosure<String?>)
     func refreshToken(isSilent: Bool, with completion: @escaping ParameterClosure<String?>)
+    func refreshToken() async throws
     func reloadCredentials() async throws
     func forceLogout()
 
@@ -30,9 +31,8 @@ extension User: UserAuthorization {
         Task {
             do {
                 try await mergeFavorites()
-                try await reloadCredentials()
                 try await mergeCart()
-
+                try await reloadCredentials()
 
                 DispatchQueue.main.async { [completion] in
                     completion(nil)
@@ -67,21 +67,57 @@ extension User: UserAuthorization {
             if response.error == nil {
                 self?.credentials = response.data
                 self?.changeUserToken(response.data?.authentication?.token, on: APIResourceService.store)
-                
+
                 completion(nil)
             } else {
+                self?.forceLogout()
+
                 if isSilent {
-                    // Clean unauth user last data
-                    self?.forceLogout()
-                    self?.clearStoredData()
-                } else {
-                    // Completion when user skip reauth
-                    Router.showAuthorization() { [weak self] in
-                        self?.forceLogout()
-                        self?.clearStoredData()
+                    let skipAuthHandler: VoidClosure = {
+                        Router.showMainController()
                         completion(response.error)
                     }
+                    let repeatHandler: VoidClosure = {
+                        Router.showAuthorization(completion: skipAuthHandler)
+                    }
+                    Router.showNetworkError(with: .init(title: Strings.Cart.Empty.unauthorizedAction,
+                                                        message: Strings.Alert.NetworkError.unauthorized,
+                                                        repeatTitle: Strings.Common.Authorization.login,
+                                                        repeatHandler: repeatHandler,
+                                                        cancelHandler: skipAuthHandler))
+                } else {
+                    // Completion when user skip reauth
+                    Router.showAuthorization(completion: { completion(response.error) })
                 }
+            }
+        }
+    }
+
+    public func refreshToken() async throws {
+        guard isAuthorized else {
+            return
+        }
+
+        try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
+            guard let self else {
+                let nsError = NSError(domain: "ru.artemayer.meowls.store.userAuthorization", code: 0)
+                continuation.resume(with: .failure(nsError))
+                return
+            }
+
+            apiWrapper.refreshToken { [weak self] response in
+                guard let self else {
+                    continuation.resume(with: .failure(NSError(domain: "", code: 0)))
+                    return
+                }
+                credentials = response.data
+                changeUserToken(response.data?.authentication?.token, on: APIResourceService.store)
+
+                if keychainManager.phoneNumber.isNilOrEmpty {
+                    keychainManager.phoneNumber = response.data?.phone
+                }
+
+                continuation.resume()
             }
         }
     }
@@ -94,8 +130,7 @@ extension User: UserAuthorization {
         try await withCheckedThrowingContinuation { [weak self] (continuation: CheckedContinuation<Void, Error>) in
             guard let self else {
                 let domain = "ru.artemayer.meowls.store.userAuthorization"
-                let error = "Internal withCheckedThrowingContinuation error"
-                let nsError = NSError(domain: domain, code: 0, userInfo: [NSLocalizedDescriptionKey: error])
+                let nsError = NSError(domain: domain, code: 0)
                 continuation.resume(with: .failure(nsError))
                 return
             }

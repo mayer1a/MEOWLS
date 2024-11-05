@@ -14,13 +14,13 @@ public class APIService: APIServiceProtocol {
     #if Store
         typealias User = UserAccess & UserRegion & UserAuthorization
     #else
-        typealias User = UserAccess & UserRegion
+        typealias User = UserAccess & UserRegion & UserEmployee
     #endif
-
-    private static let contentType = "application/json"
 
     let server: APIResourceServer
     let user: User
+
+    private static let contentType = "application/json"
 
     init(server: APIResourceServer, user: User) {
         self.server = server
@@ -219,48 +219,40 @@ private extension APIService {
 
             let statusCode = response.response?.statusCode
             // If the token is expired, we send the user for re-authorization
+            let nonAuthError = errorCode != APIErrorLocalizer.ErrorCode.authError.rawValue
             let refreshPath = APIResourcePath.refreshToken.description
             let isRefreshingProduced = response.request?.url?.absoluteString.contains(refreshPath) ?? false
-            
-            if statusCode == 401, errorCode != APIErrorLocalizer.ErrorCode.authError.rawValue, !isRefreshingProduced {
-                #if Store
-                user.refreshToken(isSilent: false) { error in
-                    DispatchQueue.main.async { [weak self, response, handler, error] in
-                        guard
-                            error != nil,
-                            let self,
-                            let method = response.request?.method,
-                            let url = response.request?.url?.absoluteString,
-                            let headers = response.request?.headers,
-                            let body = response.request?.httpBody
-                        else {
-                            handler(APIResponse(error: errorMessage, code: statusCode, dataResponse: response))
-                            return
-                        }
 
-                        _ = raw(method: method, urlString: url, data: body, headers: headers, handler: handler)
-                    }
-                }
-                #else
-                    if let expiredToken = response.request?.headers.value(for: "Authorization") {
-                        if expiredToken == user.accessToken(.pos) {
-//                            User.shared.refreshToken(isSilent: false)
-                        }
-//                        if SellerService.shared.customerToken != nil {
-//                            SellerService.shared.invalidateCustomer(needRetry: true)
-                            #warning("REPLACE TO .invalidateCustomer(needRetry: true)")
-//                            Router.showAuthorization(.pageSheet(required: false))
-//                        }
-                    }
+            if statusCode == 401, nonAuthError, !isRefreshingProduced {
+                #if Store
+
+                refreshToken(message: errorMessage, response: response, handler: handler)
+
                 #endif
                 return
-            } else if statusCode == 403 {
-                #if POS
-//                    AccessService.shared.forbidden()
-                #endif
             }
 
             handler(APIResponse(error: errorMessage, code: statusCode, dataResponse: response))
+        }
+    }
+
+    func refreshToken<D: Decodable>(message: String?, response: AFResponse, handler: @escaping ResponseHandler<D>) {
+        user.refreshToken(isSilent: user.tokenExpired) { error in
+            DispatchQueue.main.async { [weak self, response, handler, error] in
+                guard
+                    let self,
+                    error != nil,
+                    let method = response.request?.method,
+                    let url = response.request?.url?.absoluteString,
+                    let headers = response.request?.headers,
+                    let body = response.request?.httpBody
+                else {
+                    handler(APIResponse(error: message, code: response.response?.statusCode, dataResponse: response))
+                    return
+                }
+
+                _ = raw(method: method, urlString: url, data: body, headers: headers, handler: handler)
+            }
         }
     }
 

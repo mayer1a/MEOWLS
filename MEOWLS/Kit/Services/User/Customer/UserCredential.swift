@@ -13,7 +13,6 @@ public struct UserCredential: Codable {
     public let surname: String?
     public let name: String?
     public let patronymic: String?
-    /// "1965-01-14"
     public let birthday: Date?
     public let gender: Gender?
     public let email: String?
@@ -36,8 +35,8 @@ public struct UserCredential: Codable {
         gender: Gender?,
         email: String?,
         phone: String?,
-        authentication: User.Authentication?,
-        favoriteProducts: [String]?
+        authentication: User.Authentication? = nil,
+        favoriteProducts: [String]? = nil
     ) {
         self.id = id
         self.surname = surname
@@ -51,17 +50,17 @@ public struct UserCredential: Codable {
         self.favoriteProducts = favoriteProducts
     }
 
-    public init(from credentials: UserCredential) {
-        id = credentials.id
+    public init(from credentials: User.Update) {
+        id = nil
         surname = credentials.surname
         name = credentials.name
         patronymic = credentials.patronymic
-        birthday = credentials.birthday
+        birthday = credentials.birthday?.toDate
         gender = credentials.gender
         email = credentials.email
         phone = credentials.phone
-        authentication = credentials.authentication
-        favoriteProducts = credentials.favoriteProducts
+        authentication = nil
+        favoriteProducts = nil
     }
 
     // MARK: - Codable
@@ -77,7 +76,7 @@ public struct UserCredential: Codable {
         try container.encode(surname, forKey: .surname)
         try container.encode(name, forKey: .name)
         try container.encode(patronymic, forKey: .patronymic)
-        let formattedBirthday = birthday.map({ $0.toStandartString })
+        let formattedBirthday = birthday.map({ $0.toClearISO8601 })
         try container.encode(formattedBirthday, forKey: .birthday)
         try container.encode(gender?.description ?? "", forKey: .gender)
         try container.encode(email, forKey: .email)

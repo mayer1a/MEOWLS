@@ -55,7 +55,7 @@ public final class User {
             guard let self else { return }
 
             do {
-                try await self.reloadCredentials()
+                try await self.refreshToken()
                 self.userSessionUpdated = true
             } catch {
                 // Do nothing
