@@ -22,6 +22,7 @@ final class ProfileDataBuilder: ProfileDataBuilderProtocol {
         let apiService = ProfileDataApiService(apiService: resolve(\.apiService), apiWrapper: resolve(\.apiWrapper))
 
         let initialModel = ProfileDataModel.InitialModel(inputModel: model,
+                                                         phoneKit: PhoneNumberKit(),
                                                          router: router,
                                                          apiService: apiService)
 

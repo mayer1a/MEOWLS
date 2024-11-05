@@ -43,6 +43,7 @@ protocol ProfileDataViewModelProtocol: ObservableObject {
 
     func setNextResponder(after: Model.Row)
     func saveCredentials()
+    func showAutocomplete(for row: Model.Row)
     func dismiss()
     func lostFocus()
 
