@@ -40,6 +40,12 @@ public enum APIResourcePath: CustomStringConvertible {
     case search
     case popularSearches
 
+    // MARK: - Suggestion (autocomplete)
+
+    case surnameSuggestions
+    case nameSuggestions
+    case patronymicSuggestions
+
     // MARK: - Catalogue
 
     case category(String)
@@ -82,6 +88,10 @@ public enum APIResourcePath: CustomStringConvertible {
 
         case .search: return "api/\(apiVersion)/search/suggestions"
         case .popularSearches: return "api/\(apiVersion)/search/popular"
+
+        case .surnameSuggestions: return "/api/\(apiVersion)/suggestions/fullname/surname"
+        case .nameSuggestions: return "/api/\(apiVersion)/suggestions/fullname/name"
+        case .patronymicSuggestions: return "/api/\(apiVersion)/suggestions/fullname/patronymic"
 
         case .category(let id): return "/api/\(apiVersion)/categories?category_id=\(id)"
         case .products: return "/api/\(apiVersion)/products"
