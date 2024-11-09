@@ -117,7 +117,7 @@ public extension UINavigationController {
         rightButtons.map { rightButton in
             switch rightButton {
             case .location(let target, let selector):
-                let image = Images.Common.location.image
+                let image = Images.Common.locationButton.image
                 let button = UIBarButtonItem(image: image, style: .plain, target: target, action: selector)
                 button.tintColor = Colors.Accent.accentPrimary.color
                 return button
