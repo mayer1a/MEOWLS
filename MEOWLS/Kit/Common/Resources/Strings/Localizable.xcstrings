@@ -4425,6 +4425,74 @@
         }
       }
     },
+    "Common.System.underConstructionSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We are working on this functionality and will add it soon."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мы работаем над этим функционалом и скоро добавим его."
+          }
+        }
+      }
+    },
+    "Common.System.underConstructionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This screen is under development"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ находится в разработке"
+          }
+        }
+      }
+    },
+    "Common.System.underConstructionTitleApp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This application"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это приложение"
+          }
+        }
+      }
+    },
+    "Common.System.underConstructionTitleScreen" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This screen"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этот экран"
+          }
+        }
+      }
+    },
     "Common.systemOptions" : {
       "extractionState" : "manual",
       "localizations" : {
