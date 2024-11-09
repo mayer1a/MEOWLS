@@ -21,7 +21,7 @@ public class NiblessTableViewCell: UITableViewCell {
     }
 
     public func setup() {
-        backgroundColor = UIColor(resource: .backgroundWhite)
+        backgroundColor = Colors.Background.backgroundWhite.color
     }
 
 }

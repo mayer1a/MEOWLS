@@ -35,17 +35,17 @@ final class IntroViewController<VM: IntroViewModelProtocol>: NiblessViewControll
     }
 
     private lazy var brandTextLogoView = {
-        let view = UIImageView(image: UIImage(resource: .brandTextLogo))
+        let view = UIImageView(image: Images.LaunchScreen.brandTextLogo.image)
         view.contentMode = .scaleAspectFit
 
         return view
     }()
-    private lazy var loaderView = UIImageView(image: UIImage(resource: .loader))
+    private lazy var loaderView = UIImageView(image: Images.loader.image)
 
     #if POS
 
     private lazy var posView = {
-        let view = UIImageView(image: UIImage(resource: .posLogo))
+        let view = UIImageView(image: Images.LaunchScreen.posLogo.image)
         view.contentMode = .scaleAspectFit
 
         return view
@@ -59,9 +59,9 @@ private extension IntroViewController {
 
     func setupUI() {
         if viewModel.isStore {
-            view.backgroundColor = ColorsAsset.Background.backgroundWhite.color
+            view.backgroundColor = Colors.Background.backgroundWhite.color
         } else {
-            view.backgroundColor = ColorsAsset.Background.backgroundDark.color
+            view.backgroundColor = Colors.Background.backgroundDark.color
         }
 
         setupConstraints()

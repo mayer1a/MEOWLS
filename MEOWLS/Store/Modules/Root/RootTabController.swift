@@ -92,7 +92,7 @@ final class RootTabController: NiblessTabBarController {
             navVC.extendedLayoutIncludesOpaqueBars = true
             navVC.navigationBar.isTranslucent = false
             navVC.navigationBar.isOpaque = true
-            navVC.navigationBar.backgroundColor = UIColor(resource: .backgroundWhite)
+            navVC.navigationBar.backgroundColor = Colors.Background.backgroundWhite.color
 
             switch tab {
             case .main:
@@ -100,10 +100,12 @@ final class RootTabController: NiblessTabBarController {
                 navVC.viewControllers = [mainViewController]
 
             case .catalogue:
-                break
+                navVC.viewControllers = [Container.shared.underDevelopmentViewBuilder.resolve(tab.title)]
+                setupBarShadow(for: navVC.navigationBar)
 
             case .cart:
-                break
+                navVC.viewControllers = [Container.shared.underDevelopmentViewBuilder.resolve(tab.title)]
+                setupBarShadow(for: navVC.navigationBar)
 
             case .favorites:
                 let favoritesViewController = resolve(\.favoritesBuilder).build()
@@ -111,7 +113,8 @@ final class RootTabController: NiblessTabBarController {
                 setupBarShadow(for: navVC.navigationBar)
 
             case .profile:
-                break
+                navVC.viewControllers = [Container.shared.underDevelopmentViewBuilder.resolve(tab.title)]
+                setupBarShadow(for: navVC.navigationBar)
 
             }
 
@@ -123,23 +126,23 @@ final class RootTabController: NiblessTabBarController {
 
     private func setupTabBar() {
         let tabBarItemAppearance = UITabBarItemAppearance()
-        tabBarItemAppearance.normal.iconColor = UIColor(resource: .iconSecondary)
-        tabBarItemAppearance.normal.badgeBackgroundColor = UIColor(resource: .accentPrimary)
+        tabBarItemAppearance.normal.iconColor = Colors.Icon.iconSecondary.color
+        tabBarItemAppearance.normal.badgeBackgroundColor = Colors.Accent.accentPrimary.color
         tabBarItemAppearance.normal.badgePositionAdjustment.horizontal = 8
         tabBarItemAppearance.normal.titleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 10, weight: .medium),
-            .foregroundColor: UIColor(resource: .textSecondary)
+            .foregroundColor: Colors.Text.textSecondary.color
         ]
 
-        tabBarItemAppearance.selected.iconColor = UIColor(resource: .iconPrimary)
+        tabBarItemAppearance.selected.iconColor = Colors.Icon.iconPrimary.color
         tabBarItemAppearance.selected.titleTextAttributes = [
             .font: UIFont.systemFont(ofSize: 10, weight: .medium),
-            .foregroundColor: UIColor(resource: .textPrimary)
+            .foregroundColor: Colors.Text.textPrimary.color
         ]
 
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = UIColor(resource: .backgroundWhite)
+        tabBarAppearance.backgroundColor = Colors.Background.backgroundWhite.color
         tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
 
         tabBarAppearance.shadowImage = nil
@@ -160,7 +163,7 @@ final class RootTabController: NiblessTabBarController {
     private func setupBarShadow(for view: UIView) {
         view.layer.shadowOffset = .zero
         view.layer.shadowRadius = 12.0
-        view.layer.shadowColor = UIColor(resource: .shadowSmall).cgColor
+        view.layer.shadowColor = Colors.Shadow.shadowSmall.color.cgColor
         view.layer.shadowOpacity = 1
         view.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
         view.layer.shouldRasterize = true

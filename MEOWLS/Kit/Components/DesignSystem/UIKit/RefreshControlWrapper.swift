@@ -15,7 +15,7 @@ public final class RefreshControllWrapper: NSObject {
     
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor(resource: .accentPrimary)
+        refreshControl.tintColor = Colors.Accent.accentPrimary.color
         refreshControl.backgroundColor = .clear
 
         return refreshControl

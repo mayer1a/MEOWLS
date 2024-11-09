@@ -22,7 +22,7 @@ public final class DomainBoldWithButtonCollectionHeader: NiblessCollectionReusab
 
     private lazy var containerView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
 
         return view
     }()
@@ -43,9 +43,9 @@ public final class DomainBoldWithButtonCollectionHeader: NiblessCollectionReusab
     }()
     private lazy var moreButton: UIButton = {
         let button = UIButton(configuration: .filled())
-        button.configuration?.baseForegroundColor = UIColor(resource: .iconPrimary)
-        button.configuration?.baseBackgroundColor = UIColor(resource: .backgroundPrimary)
-        button.configuration?.image = UIImage(resource: .arrowRight).withRenderingMode(.alwaysTemplate)
+        button.configuration?.baseForegroundColor = Colors.Icon.iconPrimary.color
+        button.configuration?.baseBackgroundColor = Colors.Background.backgroundPrimary.color
+        button.configuration?.image = Images.Common.arrowRight.image.withRenderingMode(.alwaysTemplate)
         button.configuration?.imagePadding = 10
         button.configuration?.imagePlacement = .trailing
         button.configuration?.contentInsets = .init(top: 20, leading: 10, bottom: 20, trailing: 10)

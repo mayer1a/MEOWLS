@@ -24,7 +24,7 @@ final class AutocompleteFieldViewModel: AutocompleteFieldViewModelProtocol {
     private var cancellables: Set<AnyCancellable> = []
 
     private let titleAttributeContainer: AttributeContainer = {
-        AttributeContainer([.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor(resource: .textPrimary)])
+        AttributeContainer([.font: UIFont.systemFont(ofSize: 14), .foregroundColor: Colors.Text.textPrimary.color])
     }()
     private let titleBoldAttributeContainer: AttributeContainer = {
         AttributeContainer([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])

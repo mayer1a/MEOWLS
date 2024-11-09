@@ -32,7 +32,7 @@ public struct CustomCircularProgressView: View {
 private extension CustomCircularProgressView {
 
     var loader: some View {
-        Image(.loader)
+        Images.loader.suiImage
             .resizable()
             .aspectRatio(contentMode: .fill)
             .rotationEffect(.degrees(showAnimation ? 360 : 0))

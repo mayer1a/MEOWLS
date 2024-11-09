@@ -33,7 +33,7 @@ final class ProductImageView: NiblessControl {
     }()
     private lazy var favoriteContainer = UIView()
     private lazy var favoriteImage: UIImageView = {
-        let image = UIImage(resource: .heartButtonChecked).withRenderingMode(.alwaysTemplate)
+        let image = Images.Buttons.heartChecked.image.withRenderingMode(.alwaysTemplate)
         return UIImageView(image: image)
     }()
     private lazy var favoriteLoader = LoaderWrapper(loaderSize: .favoritesIconSize)
@@ -75,7 +75,7 @@ extension ProductImageView {
     }
 
     func setFavoriteValue(_ isFavorite: Bool) {
-        favoriteImage.tintColor = UIColor(resource: isFavorite ? .accentTertiary : .textDisabled)
+        favoriteImage.tintColor = isFavorite ? Colors.Accent.accentTertiary.color : Colors.Text.textDisabled.color
         favoriteButton.accessibilityValue = isFavorite ? "1" : "0"
     }
 

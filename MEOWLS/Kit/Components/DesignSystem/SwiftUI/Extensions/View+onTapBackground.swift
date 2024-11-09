@@ -11,7 +11,7 @@ extension View {
 
     @ViewBuilder
     private func onTapBackgroundContent(_ action: @escaping VoidClosure) -> some View {
-        Color(.backgroundWhite)
+        Colors.Background.backgroundWhite.suiColor
             .frame(width: UIScreen.main.bounds.width,
                    height: UIScreen.main.bounds.height)
             .contentShape(Rectangle())

@@ -23,9 +23,7 @@ struct AutocompleteFieldSuggestionCell: View {
                 .padding(.vertical, 10.0)
                 .padding(.horizontal, 10.0)
                 .frame(maxWidth: .infinity, maxHeight: 40.0, alignment: .leading)
-                .background {
-                    Color(.backgroundWhite)
-                }
+                .background(Colors.Background.backgroundWhite.suiColor)
         }
         .buttonStyle(HighlightButtonStyle())
         .clipShape(RoundedRectangle(cornerRadius: 12.0))

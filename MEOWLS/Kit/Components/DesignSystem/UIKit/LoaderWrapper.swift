@@ -12,7 +12,7 @@ public final class LoaderWrapper {
 
     public init(loaderSize: LoaderSize = .large) {
         self.loaderSize = loaderSize
-        self.loadingImage = UIImage(resource: .loader)
+        self.loadingImage = Images.loader.image
     }
 
     private var loadingView: UIView?

@@ -37,13 +37,13 @@ public final class DomainBadgeView: NiblessControl {
         }
     }
 
-    public var badgeTextColor = UIColor(resource: .backgroundWhite) {
+    public var badgeTextColor = Colors.Background.backgroundWhite.color {
         didSet {
             badgeLabel.textColor = badgeTextColor
         }
     }
 
-    public var badgeBackgroundColor = UIColor(resource: .badgeGreenPrimary) {
+    public var badgeBackgroundColor = Colors.Badge.badgeGreenPrimary.color {
         didSet {
             backgroundColor = badgeBackgroundColor
         }

@@ -11,7 +11,7 @@
     {%- endif -%}
   {%- endfor -%}
 {% endmacro %}
-{% set enumName %}{{param.enumName|default:"ColorsAsset"}}{% endset %}
+{% set enumName %}{{param.enumName|default:"Colors"}}{% endset %}
 {% set colorType %}{{param.colorTypeName|default:"ColorAsset"}}{% endset %}
 {% set forceNamespaces %}{{param.forceProvidesNamespaces|default:"false"}}{% endset %}
 #if os(macOS)

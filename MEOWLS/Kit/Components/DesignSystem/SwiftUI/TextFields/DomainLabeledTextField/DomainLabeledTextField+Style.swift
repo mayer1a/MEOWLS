@@ -10,16 +10,17 @@ import SwiftUI
 extension DomainLabeledTextField {
 
     var backgroundColor: Color {
-        Color(viewModel.viewState == .default ? .backgroundPrimary : .backgroundWhite)
+        let isDefault = viewModel.viewState == .default
+        return isDefault ? Colors.Background.backgroundPrimary.suiColor : Colors.Background.backgroundWhite.suiColor
     }
 
     var labelColor: Color {
         switch viewModel.viewState {
         case .default, .disabled, .focused:
-            return Color(.textDisabled)
+            return Colors.Text.textDisabled.suiColor
 
         case .errorDefault, .errorMask, .errorFocused:
-            return Color(.badgeRedPrimary)
+            return Colors.Badge.badgeRedPrimary.suiColor
 
         }
     }
@@ -27,10 +28,10 @@ extension DomainLabeledTextField {
     var textColor: Color {
         switch viewModel.viewState {
         case .default, .focused, .errorFocused, .errorDefault:
-            return Color(.textPrimary)
+            return Colors.Text.textPrimary.suiColor
 
         case .disabled, .errorMask:
-            return Color(inputText.isEmpty ? .textSecondary : .textPrimary)
+            return inputText.isEmpty ? Colors.Text.textSecondary.suiColor : Colors.Text.textPrimary.suiColor
 
         }
     }
@@ -41,13 +42,13 @@ extension DomainLabeledTextField {
             return .clear
 
         case .disabled:
-            return Color(.backgroundDisabled)
+            return Colors.Background.backgroundDisabled.suiColor
 
         case .focused:
-            return Color(.textPrimary)
+            return Colors.Text.textPrimary.suiColor
 
         case .errorDefault, .errorMask, .errorFocused:
-            return Color(.badgeRedPrimary)
+            return Colors.Badge.badgeRedPrimary.suiColor
 
         }
     }

@@ -11,22 +11,22 @@ import Combine
 final class SearchSectionsBuilder {
 
     private let newPriceAttributes: [NSAttributedString.Key: Any] = {
-        [.font: UIFont.systemFont(ofSize: 16, weight: .semibold), .foregroundColor: UIColor(resource: .textPrimary)]
+        [.font: UIFont.systemFont(ofSize: 16, weight: .semibold), .foregroundColor: Colors.Text.textPrimary.color]
     }()
     private let oldPriceAttributes: [NSAttributedString.Key: Any] = {
         [
             .font: UIFont.systemFont(ofSize: 14),
-            .foregroundColor: UIColor(resource: .textSecondary),
+            .foregroundColor: Colors.Text.textSecondary.color,
             .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-            .strikethroughColor: UIColor(resource: .textSecondary)
+            .strikethroughColor: Colors.Text.textSecondary.color
         ]
     }()
     private let titleAttributes: [NSAttributedString.Key: Any] = {
-        [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor(resource: .textPrimary)]
+        [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: Colors.Text.textPrimary.color]
     }()
     private let titleBoldAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)]
     private let subtitleAttributes: [NSAttributedString.Key: Any] = {
-        [.font: UIFont.systemFont(ofSize: 10), .foregroundColor: UIColor(resource: .textSecondary)]
+        [.font: UIFont.systemFont(ofSize: 10), .foregroundColor: Colors.Text.textSecondary.color]
     }()
     private let subtitleBoldAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10)]
 
@@ -132,7 +132,7 @@ private extension SearchSectionsBuilder {
             let search = severalProducts ? Strings.Catalogue.Searching.findGood : Strings.Catalogue.Searching.findGoods
             let title = "\(search) \(String(format: Strings.Catalogue.Searching.itemsCount, products.count))"
             let buttonTitleAttributes = AttributeContainer([.font: UIFont.systemFont(ofSize: 16),
-                                                            .foregroundColor: UIColor(resource: .accentPrimary)])
+                                                            .foregroundColor: Colors.Accent.accentPrimary.color])
             let buttonTitle = AttributedString(Strings.Catalogue.Categories.all, attributes: buttonTitleAttributes)
             let headerViewModel = DomainBoldWithButtonCollectionHeader.ViewModel(title: title,
                                                                                  buttonTitle: buttonTitle,

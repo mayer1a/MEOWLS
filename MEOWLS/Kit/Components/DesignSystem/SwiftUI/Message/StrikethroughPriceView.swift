@@ -16,7 +16,7 @@ struct StrikethroughPriceView: View {
         HStack(spacing: 6) {
             Text(oldPrice)
                 .strikethrough()
-                .foregroundStyle(Color(.textSecondary))
+                .foregroundStyle(Colors.Text.textSecondary.suiColor)
                 .font(UIFont.systemFont(ofSize: 14, weight: .medium).asFont)
 
             if let discount {

@@ -119,7 +119,7 @@ private extension DomainButtonBuilder {
     }
 
     func applyBasicStyles(configuration: inout UIButton.Configuration) {
-        configuration.baseBackgroundColor = backgroundColor ?? UIColor(resource: .backgroundWhite)
+        configuration.baseBackgroundColor = backgroundColor ?? Colors.Background.backgroundWhite.color
         configuration.background.cornerRadius = cornerRadius ?? .zero
         configuration.background.strokeColor = borderColor
         configuration.background.strokeWidth = borderWidth ?? .zero
@@ -155,11 +155,13 @@ private extension DomainButtonBuilder {
                 configuration?.baseForegroundColor = self.imageColor
             } else {
                 let isBordered = configuration?.background.strokeWidth == .zero
-                let textColor = UIColor(resource: isBordered ? .textDisabled : .textWhite)
+                let textColor = isBordered ? Colors.Text.textDisabled.color : Colors.Text.textWhite.color
                 configuration?.attributedTitle?.foregroundColor = textColor
-                configuration?.baseBackgroundColor = UIColor(resource: isBordered ? .backgroundPrimary : .textDisabled)
-                configuration?.background.strokeColor = UIColor(resource: .backgroundSecondary)
-                configuration?.baseForegroundColor = UIColor(resource: isBordered ? .textDisabled : .textWhite)
+                let baseBackground = isBordered ? Colors.Background.backgroundPrimary : Colors.Text.textDisabled
+                configuration?.baseBackgroundColor = baseBackground.color
+                configuration?.background.strokeColor = Colors.Background.backgroundSecondary.color
+                let baseForeground = isBordered ? Colors.Text.textDisabled.color : Colors.Text.textWhite.color
+                configuration?.baseForegroundColor = baseForeground
             }
 
             button.configuration = configuration

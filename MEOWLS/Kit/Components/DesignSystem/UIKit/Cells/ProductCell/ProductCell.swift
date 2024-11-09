@@ -32,7 +32,7 @@ public final class ProductCell: NiblessCollectionViewCell {
             if isBordered {
                 containerConstraint?.update(inset: 12)
                 imageSlider.updateHorizontalInset(5)
-                contentView.layer.borderColor = UIColor(resource: .backgroundPrimary).cgColor
+                contentView.layer.borderColor = Colors.Background.backgroundPrimary.color.cgColor
                 contentView.layer.cornerRadius = 12
                 contentView.layer.borderWidth = 1
             } else {
@@ -106,7 +106,7 @@ public final class ProductCell: NiblessCollectionViewCell {
     private lazy var productNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
         label.numberOfLines = 3
 
         return label
@@ -125,8 +125,8 @@ public final class ProductCell: NiblessCollectionViewCell {
 
     private func setupConfiguration(to button: UIButton) {
         let newTitle = isAddedToCart ? Strings.Catalogue.inCart : Strings.Catalogue.toCart
-        let backgroundColor = UIColor(resource: isAddedToCart ? .accentFaded : .accentPrimary)
-        let foregroundColor = UIColor(resource: isAddedToCart ? .accentPrimary : .textWhite)
+        let backgroundColor = isAddedToCart ? Colors.Accent.accentFaded.color : Colors.Accent.accentPrimary.color
+        let foregroundColor = isAddedToCart ? Colors.Accent.accentPrimary.color : Colors.Text.textWhite.color
         button.configuration?.baseBackgroundColor = backgroundColor
         button.configuration?.baseForegroundColor = foregroundColor
         button.configuration?.attributedTitle = AttributedString(newTitle, attributes: buttonAttributes)
@@ -213,7 +213,7 @@ private extension ProductCell {
 private extension ProductCell {
 
     func setupUI() {
-        contentView.backgroundColor = UIColor(resource: .backgroundWhite)
+        contentView.backgroundColor = Colors.Background.backgroundWhite.color
 
         setupConstraints()
     }

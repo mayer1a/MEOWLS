@@ -62,10 +62,10 @@ private extension RegionViewController {
 
     func setupUI() {
         title = Strings.Region.Choose.title
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
 
-        tableView.backgroundColor = UIColor(resource: .backgroundWhite)
-        tableView.separatorColor = UIColor(resource: .backgroundSecondary)
+        tableView.backgroundColor = Colors.Background.backgroundWhite.color
+        tableView.separatorColor = Colors.Background.backgroundSecondary.color
         tableView.rowHeight = 56
         tableView.estimatedRowHeight = 56
         tableView.sectionHeaderHeight = 28
@@ -186,7 +186,7 @@ private extension RegionViewController {
         }
 
         let footer = UIView()
-        footer.backgroundColor = UIColor(resource: .backgroundPrimary)
+        footer.backgroundColor = Colors.Background.backgroundPrimary.color
 
         return footer
     }

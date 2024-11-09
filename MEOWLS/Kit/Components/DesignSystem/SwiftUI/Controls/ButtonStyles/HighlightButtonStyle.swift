@@ -12,7 +12,7 @@ struct HighlightButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .overlay(content: { configuration.isPressed ? Color(.backgroundOverlayLight) : Color.clear })
+            .overlay(content: { configuration.isPressed ? Colors.Background.backgroundOverlayLight.suiColor : .clear })
             .animation(.linear(duration: 0.2), value: configuration.isPressed)
     }
 

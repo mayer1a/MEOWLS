@@ -18,7 +18,7 @@ public final class DomainBarButtonItemFactory {
     private var title: String? = nil
 
     private lazy var attributes: [NSAttributedString.Key: Any] = {
-        [.font: UIFont.systemFont(ofSize: 20, weight: .medium), .foregroundColor: UIColor(resource: .textPrimary)]
+        [.font: UIFont.systemFont(ofSize: 20, weight: .medium), .foregroundColor: Colors.Text.textPrimary.color]
     }()
     private lazy var forFittingSize: CGSize = {
         CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)

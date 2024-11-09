@@ -30,7 +30,7 @@ struct GenderControl: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Profile.Edit.gender")
                 .font(.system(size: 12))
-                .foregroundStyle(Color(.textSecondary))
+                .foregroundStyle(Colors.Text.textSecondary.suiColor)
 
             ForEach(genders, id: \.self) { gender in
                 HStack(alignment: .top, spacing: 8) {
@@ -54,13 +54,13 @@ struct GenderControl: View {
     @ViewBuilder
     private func getCheckboxImage(for gender: UserCredential.Gender) -> some View {
         if selectedGender == gender {
-            Image(.radioButtonActive)
+            Images.Buttons.radioButtonActive.suiImage
                 .resizable()
         } else {
-            Image(.radioButtonInactive)
+            Images.Buttons.radioButtonInactive.suiImage
                 .renderingMode(.template)
                 .resizable()
-                .foregroundStyle(Color(.iconSecondary))
+                .foregroundStyle(Colors.Icon.iconSecondary.suiColor)
         }
     }
 

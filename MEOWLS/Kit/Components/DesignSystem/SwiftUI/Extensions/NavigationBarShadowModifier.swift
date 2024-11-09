@@ -27,7 +27,7 @@ public struct NavigationBarShadowModifier: ViewModifier {
     }
 
     private var shadowColor: Color {
-        enableShadow ? Color(.shadowSmall) : .clear
+        enableShadow ? Colors.Shadow.shadowSmall.suiColor : .clear
     }
 
 }

@@ -70,7 +70,7 @@ private extension MainViewController {
 
     func setupUI() {
         refreshControl.configureRefreshControl(tableView: tableView, target: self, action: #selector(onRefresh))
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
 
         setupConstraints()
     }

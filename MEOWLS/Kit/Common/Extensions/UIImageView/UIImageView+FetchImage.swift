@@ -54,7 +54,7 @@ public extension UIImageView {
             }
         }
 
-        options.append(.onFailureImage(placeholder))
+        options.append(.onFailureImage(Images.Catalogue.noImagePlaceholder.image))
 
         kf.setImage(with: url, placeholder: placeholder, options: options, completionHandler: completion)
     }

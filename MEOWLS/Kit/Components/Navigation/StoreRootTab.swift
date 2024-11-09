@@ -44,19 +44,19 @@ public enum RootTab: Int, CaseIterable {
     public var image: UIImage {
         switch self {
         case .main:
-            return UIImage(resource: .details)
+            return Images.Tabs.tabMain.image
 
         case .catalogue:
-            return UIImage(resource: .details)
+            return Images.Tabs.tabCatalog.image
 
         case .cart:
-            return UIImage(resource: .details)
+            return Images.Tabs.tabCart.image
 
         case .favorites:
-            return UIImage(resource: .details)
+            return Images.Tabs.tabFavorites.image
 
         case .profile:
-            return UIImage(resource: .details)
+            return Images.Tabs.tabProfile.image
 
         }
     }

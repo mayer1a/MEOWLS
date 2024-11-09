@@ -42,7 +42,7 @@ final class SearchViewController: NiblessViewController {
 
     private lazy var topView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
 
         return view
     }()
@@ -54,7 +54,7 @@ final class SearchViewController: NiblessViewController {
         layout.minimumInteritemSpacing = 10
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor(resource: .backgroundWhite)
+        collectionView.backgroundColor = Colors.Background.backgroundWhite.color
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isHidden = true
@@ -89,7 +89,7 @@ private extension SearchViewController {
 
     func setupUI() {
         title = Strings.Catalogue.Searching.title
-        view.backgroundColor = UIColor(resource: .shadowMedium)
+        view.backgroundColor = Colors.Shadow.shadowMedium.color
         view.addGestureRecognizer(closeTapGesture)
 
         setupConstraints()

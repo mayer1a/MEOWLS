@@ -66,7 +66,7 @@ extension UIViewController: AlertPresentable {
     }
 
     func showRedAlert(title: String?, message: String?, actions: AlertAction...) {
-        let messageColor = UIColor(resource: .accentTertiary)
+        let messageColor = Colors.Accent.accentTertiary.color
         let alertViewController = AlertViewController(title: title, message: message, messageColor: messageColor)
         show(alertViewController: alertViewController, with: actions)
     }

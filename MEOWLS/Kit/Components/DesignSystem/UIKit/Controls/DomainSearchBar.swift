@@ -35,7 +35,7 @@ public final class DomainSearchBar: NiblessControl {
 
     private let searchFieldBackgoundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundPrimary)
+        view.backgroundColor = Colors.Background.backgroundPrimary.color
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
 
@@ -55,8 +55,8 @@ public final class DomainSearchBar: NiblessControl {
     private lazy var loupeImageContainer = UIView()
     private lazy var loupeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(resource: .search).withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = UIColor(resource: .iconSecondary)
+        imageView.image = Images.Buttons.search.image.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Colors.Icon.iconSecondary.color
         imageView.contentMode = .scaleAspectFit
 
         return imageView
@@ -64,9 +64,9 @@ public final class DomainSearchBar: NiblessControl {
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.tintColor = UIColor(resource: .accentPrimary)
+        textField.tintColor = Colors.Accent.accentPrimary.color
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.textColor = UIColor(resource: .textPrimary)
+        textField.textColor = Colors.Text.textPrimary.color
         textField.clearButtonMode = .always
         textField.isUserInteractionEnabled = false
         textField.delegate = self
@@ -78,7 +78,7 @@ public final class DomainSearchBar: NiblessControl {
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.setTitleColor(UIColor(resource: .accentPrimary), for: .normal)
+        button.setTitleColor(Colors.Accent.accentPrimary.color, for: .normal)
         button.addTarget(self, action: #selector(cancelButtonTap), for: .touchUpInside)
 
         return button
@@ -94,7 +94,7 @@ public extension DomainSearchBar {
     func configure(with model: ViewModel) {
         let title = model.placeHolder ?? ""
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor(resource: .textSecondary),
+            .foregroundColor: Colors.Text.textSecondary.color,
             .font: UIFont.systemFont(ofSize: 16)
         ]
         textField.attributedPlaceholder = NSAttributedString(string: title, attributes: attributes)
@@ -151,8 +151,8 @@ private extension DomainSearchBar {
 private extension DomainSearchBar {
 
     func setupUI() {
-        backgroundColor = UIColor(resource: .backgroundWhite)
-        
+        backgroundColor = Colors.Background.backgroundWhite.color
+
         setupConstraints()
     }
 
@@ -206,7 +206,7 @@ private extension DomainSearchBar {
             layer.masksToBounds = false
             layer.shadowOffset = .init(width: 0.0, height: 2.0)
             layer.shadowRadius = 12.0
-            layer.shadowColor = UIColor(resource: .shadowSmall).cgColor
+            layer.shadowColor = Colors.Shadow.shadowSmall.color.cgColor
 
             let shadowY = bounds.maxY - layer.shadowRadius
             let shadowRect = CGRect(x: 0, y: shadowY, width: bounds.width, height: layer.shadowRadius)
