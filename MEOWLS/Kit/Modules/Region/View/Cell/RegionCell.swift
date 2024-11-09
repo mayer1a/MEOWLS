@@ -32,7 +32,7 @@ final class RegionCell: NiblessTableViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -42,7 +42,7 @@ final class RegionCell: NiblessTableViewCell {
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(resource: .textSecondary)
+        label.textColor = Colors.Text.textSecondary.color
         label.textAlignment = .right
         label.isHidden = true
         
@@ -63,9 +63,9 @@ extension RegionCell {
         } else {
             subtitleLabel.isHidden = false
 
-            let image = UIImage(resource: .check).withRenderingMode(.alwaysTemplate)
+            let image = Images.Common.check.image.withRenderingMode(.alwaysTemplate)
             let imageView = UIImageView(image: image)
-            imageView.tintColor = UIColor(resource: .accentPrimary)
+            imageView.tintColor = Colors.Accent.accentPrimary.color
             imageView.frame.size = .init(width: 20, height: 20)
             accessoryView = imageView
         }

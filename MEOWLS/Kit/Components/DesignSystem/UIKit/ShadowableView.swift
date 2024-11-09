@@ -49,14 +49,14 @@ public final class ShadowableView: NiblessControl {
 extension ShadowableView {
 
     private func setupUI() {
-        backgroundColor = UIColor(resource: .backgroundWhite)
+        backgroundColor = Colors.Background.backgroundWhite.color
     }
 
     private func setupShadowPath() {
         layer.masksToBounds = false
         layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         layer.shadowRadius = 12.0
-        layer.shadowColor = UIColor(resource: .shadowSmall).cgColor
+        layer.shadowColor = Colors.Shadow.shadowSmall.color.cgColor
 
         let originY = bounds.maxY - layer.shadowRadius
         let containerRect = CGRect(x: 0, y: originY, width: bounds.width, height: layer.shadowRadius)

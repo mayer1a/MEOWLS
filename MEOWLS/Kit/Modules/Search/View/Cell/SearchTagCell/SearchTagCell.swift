@@ -40,7 +40,7 @@ final class SearchTagCell: NiblessCollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
         label.lineBreakMode = .byTruncatingTail
 
         return label
@@ -48,7 +48,7 @@ final class SearchTagCell: NiblessCollectionViewCell {
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = UIColor(resource: .textSecondary)
+        label.textColor = Colors.Text.textSecondary.color
         label.lineBreakMode = .byTruncatingTail
 
         return label
@@ -56,7 +56,7 @@ final class SearchTagCell: NiblessCollectionViewCell {
     private lazy var valueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(resource: .textTertiary)
+        label.textColor = Colors.Text.textTertiary.color
         label.lineBreakMode = .byTruncatingTail
 
         return label
@@ -82,7 +82,7 @@ extension SearchTagCell {
 private extension SearchTagCell {
 
     func setupUI() {
-        contentView.backgroundColor = UIColor(resource: .backgroundPrimary)
+        contentView.backgroundColor = Colors.Background.backgroundPrimary.color
         contentView.layer.cornerRadius = 13
         contentView.layer.masksToBounds = true
 

@@ -35,8 +35,8 @@ final class DomainPageControl: NiblessControl {
     var currentPageIndicatorTintColor: UIColor?
 
     private let estimatedHeight: CGFloat
-    private let defaultPageIndicatorColor: UIColor = UIColor(resource: .iconSecondary)
-    private let defaultCurrentPageIndicatorColor: UIColor = UIColor(resource: .accentPrimary)
+    private let defaultPageIndicatorColor: UIColor = Colors.Icon.iconSecondary.color
+    private let defaultCurrentPageIndicatorColor: UIColor = Colors.Accent.accentPrimary.color
     private var oldDotIndex: Int = 0
 
     private var _currentPage: Int = 0 {

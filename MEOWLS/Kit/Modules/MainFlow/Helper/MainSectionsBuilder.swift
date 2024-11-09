@@ -10,14 +10,14 @@ import UIKit
 final class MainSectionsBuilder {
 
     private let newPriceAttributes: [NSAttributedString.Key: Any] = {
-        [.font: UIFont.systemFont(ofSize: 16, weight: .semibold), .foregroundColor: UIColor(resource: .textPrimary)]
+        [.font: UIFont.systemFont(ofSize: 16, weight: .semibold), .foregroundColor: Colors.Text.textPrimary.color]
     }()
     private let oldPriceAttributes: [NSAttributedString.Key: Any] = {
         [
             .font: UIFont.systemFont(ofSize: 14),
-            .foregroundColor: UIColor(resource: .textSecondary),
+            .foregroundColor: Colors.Text.textSecondary.color,
             .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-            .strikethroughColor: UIColor(resource: .textSecondary)
+            .strikethroughColor: Colors.Text.textSecondary.color
         ]
     }()
 

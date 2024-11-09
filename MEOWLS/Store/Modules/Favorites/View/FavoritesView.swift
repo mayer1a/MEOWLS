@@ -77,10 +77,10 @@ private extension FavoritesView {
             VStack(spacing: 8) {
                 Text(viewModel.emptyStateModel.title)
                     .font(UIFont.boldSystemFont(ofSize: 24).asFont)
-                    .foregroundStyle(Color(.textPrimary))
+                    .foregroundStyle(Colors.Text.textPrimary.suiColor)
                 Text(viewModel.emptyStateModel.message)
                     .font(UIFont.systemFont(ofSize: 16).asFont)
-                    .foregroundStyle(Color(.textSecondary))
+                    .foregroundStyle(Colors.Text.textSecondary.suiColor)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 8)
@@ -116,12 +116,10 @@ private extension FavoritesView {
         } label: {
             Text(actionButtonTitle)
                 .font(UIFont.systemFont(ofSize: 16, weight: .semibold).asFont)
-                .foregroundStyle(Color(.textWhite))
+                .foregroundStyle(Colors.Text.textWhite.suiColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
-                .background {
-                    Color(.accentPrimary)
-                }
+                .background(Colors.Accent.accentPrimary.suiColor)
         }
         .clipShape(RoundedRectangle(cornerRadius: 12.0))
     }

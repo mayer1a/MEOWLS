@@ -17,7 +17,7 @@ public final class DomainButton: NiblessButton {
     private let type: ButtonType
     private var font: UIFont = UIFont.systemFont(ofSize: 14, weight: .medium)
     private var textColor: UIColor {
-        UIColor(resource: isEnabled ? .textPrimary : .textDisabled)
+        isEnabled ? Colors.Text.textPrimary.color : Colors.Text.textDisabled.color
     }
 
     public init(with type: ButtonType) {
@@ -51,7 +51,7 @@ public final class DomainButton: NiblessButton {
         let textTransformer: UIConfigurationTextAttributesTransformer?
         let builder = DomainButtonBuilder()
             .setTextColor(textColor)
-            .setBackgroundColor(UIColor(resource: .backgroundPrimary))
+            .setBackgroundColor(Colors.Background.backgroundPrimary.color)
 
         switch type {
         case .smallWithArrow:
@@ -59,7 +59,7 @@ public final class DomainButton: NiblessButton {
 
             textTransformer = UIConfigurationTextAttributesTransformer { [weak self] incoming in
                 var outgoing = incoming
-                outgoing.foregroundColor = UIColor(resource: .textPrimary)
+                outgoing.foregroundColor = Colors.Text.textPrimary.color
                 outgoing.font = self?.font
                 return outgoing
             }
@@ -67,7 +67,7 @@ public final class DomainButton: NiblessButton {
             builder
                 .setTitle(titleLabel?.text)
                 .setContentInsets(NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 8))
-                .setImage(UIImage(resource: .arrowRight), placement: .trailing)
+                .setImage(Images.Common.arrowRight.image, placement: .trailing)
                 .setCornerRadius(18.0)
 
         case .cartSizeSelect(let title):
@@ -78,9 +78,9 @@ public final class DomainButton: NiblessButton {
             builder
                 .setTitle(titleLabel?.text, alignment: .leading)
                 .setContentInsets(NSDirectionalEdgeInsets(top: 10.0, leading: 12.0, bottom: 10.0, trailing: 12.0))
-                .setImage(UIImage(resource: .chevronDown), placement: .trailing)
-                .setImageColor(UIColor(resource: .iconPrimary))
-                .setBorder(color: UIColor(resource: .backgroundSecondary), width: 0.0)
+                .setImage(Images.Common.chevronDown.image, placement: .trailing)
+                .setImageColor(Colors.Icon.iconPrimary.color)
+                .setBorder(color: Colors.Background.backgroundSecondary.color, width: 0.0)
                 .setCornerRadius(10.0)
 
         }
@@ -119,15 +119,15 @@ public final class DomainButton: NiblessButton {
             var imageColor: UIColor?
 
             if button.isEnabled {
-                textColor = UIColor(resource: .textPrimary)
-                backgroundColor = UIColor(resource: .backgroundPrimary)
+                textColor = Colors.Text.textPrimary.color
+                backgroundColor = Colors.Background.backgroundPrimary.color
                 borderWidth = 0.0
-                imageColor = UIColor(resource: .iconPrimary)
+                imageColor = Colors.Icon.iconPrimary.color
             } else {
-                textColor = UIColor(resource: .textDisabled)
-                backgroundColor = UIColor(resource: .backgroundWhite)
+                textColor = Colors.Text.textDisabled.color
+                backgroundColor = Colors.Background.backgroundWhite.color
                 borderWidth = 1.0
-                imageColor = UIColor(resource: .textDisabled)
+                imageColor = Colors.Text.textDisabled.color
             }
 
             var configuration = button.configuration

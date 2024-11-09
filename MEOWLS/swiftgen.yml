@@ -26,47 +26,47 @@ xcassets:
   - inputs:
       - Kit/Common/Resources/KitAssets.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/KitImageAssets.stencil
+      - templatePath: ../Automation/Swiftgen/KitImages.stencil
         params:
           forceProvidesNamespaces: true
           publicAccess: true
-        output: Kit/Common/Resources/Generated/XCKitImageAssets+Generated.swift
+        output: Kit/Common/Resources/Generated/XCKitImages+Generated.swift
   - inputs:
       - Store/Common/Resources/Assets.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/ImageAssets.stencil
+      - templatePath: ../Automation/Swiftgen/Images.stencil
         params:
           forceProvidesNamespaces: true
-        output: Store/Common/Resources/Generated/XCImageAssets+Generated.swift
+        output: Store/Common/Resources/Generated/XCImages+Generated.swift
   - inputs:
       - POS/Common/Resources/Assets.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/ImageAssets.stencil
+      - templatePath: ../Automation/Swiftgen/Images.stencil
         params:
           forceProvidesNamespaces: true
-        output: POS/Common/Resources/Generated/XCImageAssets+Generated.swift
+        output: POS/Common/Resources/Generated/XCImages+Generated.swift
   - inputs:
       - Kit/Common/Resources/KitColors.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/KitColorAssets.stencil
+      - templatePath: ../Automation/Swiftgen/KitColors.stencil
         params:
           forceProvidesNamespaces: true
           publicAccess: true
-        output: Kit/Common/Resources/Generated/XCKitColorAssets+Generated.swift
+        output: Kit/Common/Resources/Generated/XCKitColors+Generated.swift
   - inputs:
       - Store/Common/Resources/Colors.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/ColorAssets.stencil
+      - templatePath: ../Automation/Swiftgen/Colors.stencil
         params:
           forceProvidesNamespaces: true
-        output: Store/Common/Resources/Generated/XCColorAssets+Generated.swift
+        output: Store/Common/Resources/Generated/XCColors+Generated.swift
   - inputs:
       - POS/Common/Resources/Colors.xcassets
     outputs:
-      - templatePath: ../Automation/Swiftgen/ColorAssets.stencil
+      - templatePath: ../Automation/Swiftgen/Colors.stencil
         params:
           forceProvidesNamespaces: false
-        output: POS/Common/Resources/Generated/XCColorAssets+Generated.swift
+        output: POS/Common/Resources/Generated/XCColors+Generated.swift
 
 ## There are other parsers available for you to use depending on your needs, for example:
 ##  - `fonts` (if you have custom ttf/ttc font files)

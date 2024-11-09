@@ -34,7 +34,7 @@ final class SearchEmptyResultView: NiblessControl {
         label.text = title
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .center
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
 
         return label
     }()
@@ -44,7 +44,7 @@ final class SearchEmptyResultView: NiblessControl {
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
         label.numberOfLines = 3
-        label.textColor = UIColor(resource: .textTertiary)
+        label.textColor = Colors.Text.textTertiary.color
 
         return label
     }()

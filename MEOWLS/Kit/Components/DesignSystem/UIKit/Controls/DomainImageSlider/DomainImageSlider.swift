@@ -13,7 +13,7 @@ public final class DomainImageSlider: NiblessControl {
 
     public var onSliderPageSelected: ParametersClosure<Int, UIImageView?>?
     public var onScrollToPage: ParameterClosure<Int>?
-    public var placeholderImage: UIImage? = UIImage(resource: .itemLong)
+    public var placeholderImage: UIImage? = Images.Catalogue.imagePlaceholder.image
     public var currentPageIndicatorTintColor: UIColor?
     public var pageIndicatorTintColor: UIColor?
     public var isCircular: Bool = false
@@ -170,8 +170,8 @@ private extension DomainImageSlider {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = gradient.bounds
         gradientLayer.colors = [
-            UIColor(resource: .backgroundWhite).withAlphaComponent(0).cgColor,
-            UIColor(resource: .backgroundWhite).cgColor
+            Colors.Background.backgroundWhite.color.withAlphaComponent(0).cgColor,
+            Colors.Background.backgroundWhite.color.cgColor
         ]
         gradientLayer.locations = [0.0, 1.0]
         gradient.layer.insertSublayer(gradientLayer, at: 0)

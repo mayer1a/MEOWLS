@@ -41,6 +41,11 @@ public final class Strings {
             public static let passwordLength = "Common.Registration.passwordLength".localized()
             public static let upperCase = "Common.Registration.upperCase".localized()
         }
+        public enum System {
+            public static let underConstructionTitle = "Common.System.underConstructionTitle".localized()
+            public static let underConstructionTitleApp = "Common.System.underConstructionTitleApp".localized()
+            public static let underConstructionTitleScreen = "Common.System.underConstructionTitleScreen".localized()
+        }
         public static let systemOptions = "Common.systemOptions".localized()
         public static let cancel = "Common.cancel".localized()
         public static let contiue = "Common.contiue".localized()

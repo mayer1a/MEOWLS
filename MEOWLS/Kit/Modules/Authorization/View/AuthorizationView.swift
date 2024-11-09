@@ -53,14 +53,14 @@ private extension AuthorizationView {
         VStack(spacing: 12) {
             Text("Common.Authorization.login")
                 .font(.system(size: 24, weight: .bold))
-                .foregroundStyle(Color(.textPrimary))
+                .foregroundStyle(Colors.Text.textPrimary.suiColor)
 
             if viewModel.showPromoTitle {
                 Text("Common.Authorization.applyingPromoCode")
                     .multilineTextAlignment(.center)
                     .lineSpacing(viewModel.promoSubtitleLineHeight)
                     .font(.system(size: 16))
-                    .foregroundStyle(Color(.textPrimary))
+                    .foregroundStyle(Colors.Text.textPrimary.suiColor)
             }
         }
     }
@@ -103,12 +103,10 @@ private extension AuthorizationView {
         } label: {
             Text("Common.continue")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(Color(.textWhite))
+                .foregroundStyle(Colors.Text.textWhite.suiColor)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background {
-                    Color(.accentPrimary)
-                }
+                .background(Colors.Accent.accentPrimary.suiColor)
         }
         .clipShape(RoundedRectangle(cornerRadius: 12.0))
     }
@@ -131,12 +129,10 @@ private extension AuthorizationView {
         } label: {
             Text("Common.Authorization.signUp")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(Color(.accentPrimary))
+                .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background {
-                    Color(.accentFaded)
-                }
+                .background(Colors.Accent.accentFaded.suiColor)
         }
         .clipShape(RoundedRectangle(cornerRadius: 12.0))
 
@@ -152,7 +148,7 @@ private extension AuthorizationView {
                 } label: {
                     Text("Common.Authorization.skip")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(Color(.accentPrimary))
+                        .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
                 }

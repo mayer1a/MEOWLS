@@ -30,7 +30,7 @@ struct DatePickerControl: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundStyle(Color(.shadowMedium))
+                .foregroundStyle(Colors.Shadow.shadowMedium.suiColor)
                 .ignoresSafeArea(.all)
                 .onTapGesture {
                     withAnimation {
@@ -54,11 +54,11 @@ struct DatePickerControl: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(height: 48)
-                            .foregroundColor(Color(.accentPrimary))
+                            .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
 
                         Text(LocalizedStringKey(buttonTitle))
                             .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(Color(.textWhite))
+                            .foregroundStyle(Colors.Text.textWhite.suiColor)
                     }
                 }
             }
@@ -66,7 +66,7 @@ struct DatePickerControl: View {
             .padding(.vertical, 16)
             .background {
                 RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(Color(.backgroundWhite))
+                    .foregroundStyle(Colors.Background.backgroundWhite.suiColor)
                     .padding(.horizontal, 16)
             }
         }

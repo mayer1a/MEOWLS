@@ -36,7 +36,7 @@ public final class DomainHeaderWithButtonTableCell: NiblessTableViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.numberOfLines = 1
         label.textAlignment = .left

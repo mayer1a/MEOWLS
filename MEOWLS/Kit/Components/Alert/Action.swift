@@ -38,8 +38,8 @@ public extension AlertViewController.Action {
 
         func color() -> UIColor {
             switch self {
-            case .cancel: return UIColor(resource: .textPrimary)
-            case .default: return UIColor(resource: .accentPrimary)
+            case .cancel: return Colors.Text.textPrimary.color
+            case .default: return Colors.Accent.accentPrimary.color
             }
         }
 

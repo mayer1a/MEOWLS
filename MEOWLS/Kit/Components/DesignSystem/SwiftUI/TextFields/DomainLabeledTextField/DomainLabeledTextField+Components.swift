@@ -23,15 +23,13 @@ extension DomainLabeledTextField {
                     Text(getFlag(for: selectedRegion))
 
                     Text(regionCode)
-                        .foregroundStyle(UIColor(resource: .textPrimary).asColor)
+                        .foregroundStyle(Colors.Text.textPrimary.suiColor)
                 }
                 .font(.system(size: 16, weight: .medium))
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .frame(maxHeight: .infinity)
-                .background {
-                    Color(.backgroundPrimary)
-                }
+                .background(Colors.Background.backgroundPrimary.suiColor)
             }
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
         }
@@ -43,9 +41,9 @@ extension DomainLabeledTextField {
                 inputText = ""
             }
         } label: {
-            Image(.removeCircleSolid)
+            Images.Common.removeCircleSolid.suiImage
                 .renderingMode(.template)
-                .foregroundStyle(Color(.iconSecondary))
+                .foregroundStyle(Colors.Icon.iconSecondary.suiColor)
                 .padding([.vertical, .leading], 8)
         }
     }
@@ -53,13 +51,13 @@ extension DomainLabeledTextField {
     var errorMessageText: some View {
         Text(LocalizedStringKey(viewModel.dataState.errorText ?? ""))
             .font(.system(size: 12))
-            .foregroundStyle(Color(.badgeRedPrimary))
+            .foregroundStyle(Colors.Badge.badgeRedPrimary.suiColor)
             .frame(height: 16)
             .padding(.horizontal, 12)
     }
 
     var errorMark: some View {
-        Image(.exclamationMarkCircleUnfilled)
+        Images.Common.exclamationMarkCircleUnfilled.suiImage
             .padding([.vertical, .leading], 8)
     }
 

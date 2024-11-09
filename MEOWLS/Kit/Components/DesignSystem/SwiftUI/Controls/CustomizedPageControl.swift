@@ -19,7 +19,7 @@ struct CustomizedPageControl: View {
                 ForEach(0..<numberOfPages, id: \.self) { page in
                     RoundedRectangle(cornerRadius: 4)
                         .frame(width: page == currentPage ? 10 : 4, height: 4)
-                        .foregroundColor(getForegroundColor(for: page))
+                        .foregroundStyle(getForegroundColor(for: page))
                         .opacity(page == currentPage ? 1.0 : 0.5)
                 }
             }
@@ -37,7 +37,7 @@ struct CustomizedPageControl: View {
     }
 
     private func getForegroundColor(for page: Int) -> Color {
-        Color(page == currentPage ? .accentPrimary : .iconWhite)
+        page == currentPage ? Colors.Accent.accentPrimary.suiColor : Colors.Icon.iconWhite.suiColor
     }
 
 }

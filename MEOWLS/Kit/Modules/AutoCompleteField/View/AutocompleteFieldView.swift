@@ -71,10 +71,10 @@ private extension AutocompleteFieldView {
             Button {
                 dismiss()
             } label: {
-                Image(.navigationBack)
+                Images.Navigation.navigationBack.suiImage
                     .renderingMode(.template)
                     .resizable()
-                    .foregroundStyle(Color(.accentPrimary))
+                    .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
                     .frame(width: 24, height: 24)
             }
         }
@@ -85,10 +85,10 @@ private extension AutocompleteFieldView {
             Button {
                 viewModel.complete()
             } label: {
-                Image(.check)
+                Images.Common.check.suiImage
                     .renderingMode(.template)
                     .resizable()
-                    .foregroundStyle(Color(.accentPrimary))
+                    .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
                     .frame(width: 24, height: 24)
             }
         }

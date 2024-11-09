@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Factory
 
 final class IntroRouter: CommonRouter, IntroRouterProtocol {
 
@@ -13,6 +14,12 @@ final class IntroRouter: CommonRouter, IntroRouterProtocol {
         switch route {
         case .mainFlow:
             Router.showMainController()
+
+        case .underConstruction:
+            let vc = Container.shared.underDevelopmentViewBuilder.resolve("")
+            vc.modalPresentationStyle = .fullScreen
+            vc.isModalInPresentation = false
+            viewController?.present(vc, animated: false)
 
         }
     }

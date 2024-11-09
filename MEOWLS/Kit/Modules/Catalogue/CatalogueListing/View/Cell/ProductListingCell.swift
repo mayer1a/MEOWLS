@@ -28,7 +28,7 @@ public struct ProductListingCell: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .background {
                     GeometryReader { proxy in
-                        Color(.backgroundWhite)
+                        Colors.Background.backgroundWhite.suiColor
                             .onAppear {
                                 if imageHeight == .zero {
                                     imageHeight = proxy.size.width * ratioMultiplier
@@ -104,7 +104,7 @@ private extension ProductListingCell {
                             .tag(imageIndex)
                     }
                 } else {
-                    Image(.itemLong)
+                    Images.Catalogue.noImagePlaceholder.suiImage
                         .resizable()
                 }
             }
@@ -116,8 +116,8 @@ private extension ProductListingCell {
             .targetCache(ImageCache.default)
             .originalCache(ImageCache.default)
             .cacheOriginalImage()
-            .placeholder { Image(.itemLong) }
-            .onFailureImage(UIImage(resource: .checkboxChecked))
+            .placeholder { Images.Catalogue.imagePlaceholder.suiImage }
+            .onFailureImage(Images.Catalogue.noImagePlaceholder.image)
             .fade(duration: 0.2)
             .cancelOnDisappear(true)
             .resizable()
@@ -159,9 +159,7 @@ private extension ProductListingCell {
         } label: {
             cartButtonText
                 .frame(minWidth: 44, maxWidth: .infinity, minHeight: 36)
-                .background {
-                    cartButtonBackgroundColor
-                }
+                .background(cartButtonBackgroundColor)
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -171,11 +169,11 @@ private extension ProductListingCell {
         if isInACart {
             Text("Catalogue.inCart")
                 .font(UIFont.systemFont(ofSize: 16, weight: .semibold).asFont)
-                .foregroundStyle(Color(.accentPrimary))
+                .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
         } else {
             Text("Catalogue.addToCart")
                 .font(UIFont.systemFont(ofSize: 16, weight: .semibold).asFont)
-                .foregroundStyle(Color(.textWhite))
+                .foregroundStyle(Colors.Text.textWhite.suiColor)
         }
     }
 
@@ -190,23 +188,23 @@ private extension ProductListingCell {
         }
     }
     var cartButtonImage: Image {
-        Image(isInACart ? .check : .details)
+        isInACart ? Images.Common.check.suiImage : Images.Tabs.tabCart.suiImage
     }
 
     var cartButtonForegroundColor: Color {
-        Color(isInACart ? .accentPrimary : .backgroundWhite)
+        isInACart ? Colors.Accent.accentPrimary.suiColor : Colors.Background.backgroundWhite.suiColor
     }
 
     var cartButtonBackgroundColor: Color {
-        Color(isInACart ? .accentFaded : .accentPrimary)
+        isInACart ? Colors.Accent.accentFaded.suiColor : Colors.Accent.accentPrimary.suiColor
     }
 
     var favoriteImage: Image {
-        Image(.heartButtonChecked)
+        Images.Buttons.heartChecked.suiImage
     }
 
     var favoriteImageColor: Color {
-        Color(model.isFavorite ? .accentTertiary : .textDisabled)
+        model.isFavorite ? Colors.Accent.accentTertiary.suiColor : Colors.Text.textDisabled.suiColor
     }
 
 }

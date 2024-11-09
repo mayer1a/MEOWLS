@@ -61,9 +61,12 @@ private extension ProfileDataView {
         Button {
             viewModel.dismiss()
         } label: {
-            Image(.navigationBack)
+            Images.Navigation.navigationBackLeading.suiImage
+                .resizable()
                 .renderingMode(.template)
-                .foregroundColor(Color(.accentPrimary))
+                .foregroundStyle(Colors.Accent.accentPrimary.suiColor)
+                .frame(minWidth: 30, minHeight: 30)
+                .aspectRatio(contentMode: .fill)
         }
     }
 
@@ -73,12 +76,10 @@ private extension ProfileDataView {
         } label: {
             Text(LocalizedStringKey(viewModel.saveButtonTitle))
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(Color(.textWhite))
+                .foregroundStyle(Colors.Text.textWhite.suiColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 54)
-                .background {
-                    Color(.accentPrimary)
-                }
+                .background(Colors.Accent.accentPrimary.suiColor)
         }
         .clipShape(RoundedRectangle(cornerRadius: 12.0))
         .padding(.vertical, 16)

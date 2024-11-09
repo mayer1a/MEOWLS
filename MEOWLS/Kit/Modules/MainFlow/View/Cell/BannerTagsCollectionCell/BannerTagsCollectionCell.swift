@@ -29,8 +29,8 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
 
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
-        view.layer.borderColor = UIColor(resource: .backgroundSecondary).cgColor
+        view.backgroundColor = Colors.Background.backgroundWhite.color
+        view.layer.borderColor = Colors.Background.backgroundSecondary.color.cgColor
         view.layer.borderWidth = 1.0
         view.layer.cornerRadius = 24.0
         view.layer.masksToBounds = true
@@ -45,7 +45,7 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
         let stack = UIStackView()
         stack.alignment = .center
         stack.spacing = 4.0
-        stack.backgroundColor = UIColor(resource: .backgroundWhite)
+        stack.backgroundColor = Colors.Background.backgroundWhite.color
 
         return stack
     }()
@@ -53,7 +53,7 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .init(x: 0, y: 0, width: 24.0, height: 24.0))
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor(resource: .backgroundWhite)
+        imageView.backgroundColor = Colors.Background.backgroundWhite.color
 
         return imageView
     }()
@@ -62,7 +62,7 @@ final class BannerTagsCollectionCell: NiblessCollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textAlignment = .left
-        label.backgroundColor = UIColor(resource: .backgroundWhite)
+        label.backgroundColor = Colors.Background.backgroundWhite.color
 
         return label
     }()

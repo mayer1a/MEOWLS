@@ -71,13 +71,13 @@ public extension BadgeConfiguration.Color {
 
         switch self {
         case .red(let opaque):
-            backgroundColor = UIColor(resource: opaque ? .accentTertiary : .badgeRedSecondary)
+            backgroundColor = opaque ? Colors.Accent.accentTertiary.color : Colors.Badge.badgeRedSecondary.color
 
         case .green(let opaque):
-            backgroundColor = UIColor(resource: opaque ? .badgeGreenPrimary : .badgeGreenSecondary)
+            backgroundColor = opaque ? Colors.Badge.badgeGreenPrimary.color : Colors.Badge.badgeGreenSecondary.color
 
         case .black(let opaque):
-            backgroundColor = UIColor(resource: opaque ? .backgroundDark : .backgroundSecondary)
+            backgroundColor = (opaque ? Colors.Background.backgroundDark : Colors.Background.backgroundSecondary).color
 
         }
 
@@ -89,13 +89,13 @@ public extension BadgeConfiguration.Color {
 
         switch self {
         case .red(let opaque):
-            textColor = UIColor(resource: opaque ? .textWhite : .accentTertiary)
+            textColor = opaque ? Colors.Text.textWhite.color : Colors.Accent.accentTertiary.color
 
         case .green(let opaque):
-            textColor = UIColor(resource: opaque ? .textWhite : .badgeGreenPrimary)
+            textColor = opaque ? Colors.Text.textWhite.color : Colors.Badge.badgeGreenPrimary.color
 
         case .black(let opaque):
-            textColor = UIColor(resource: opaque ? .textWhite : .textSecondary)
+            textColor = opaque ? Colors.Text.textWhite.color : Colors.Text.textSecondary.color
 
         }
 

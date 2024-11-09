@@ -21,7 +21,7 @@ public class NiblessCollectionReusableView: UICollectionReusableView {
     }
 
     public func setup() {
-        backgroundColor = UIColor(resource: .backgroundWhite)
+        backgroundColor = Colors.Background.backgroundWhite.color
     }
 
 }

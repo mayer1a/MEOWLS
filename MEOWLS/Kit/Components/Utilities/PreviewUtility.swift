@@ -26,7 +26,7 @@ public struct CustomPreview<Content: View>: View {
         uiNavigationBarAppearance.configureWithOpaqueBackground()
         uiNavigationBarAppearance.shadowColor = nil
         uiNavigationBarAppearance.shadowImage = nil
-        uiNavigationBarAppearance.backgroundColor = UIColor(resource: .backgroundWhite)
+        uiNavigationBarAppearance.backgroundColor = Colors.Background.backgroundWhite.color
         UINavigationBar.appearance().standardAppearance = uiNavigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = uiNavigationBarAppearance
 
@@ -35,11 +35,11 @@ public struct CustomPreview<Content: View>: View {
         UITableView.appearance().sectionHeaderTopPadding = .leastNormalMagnitude
 
         let appearance = UINavigationBar.appearance()
-        appearance.tintColor = UIColor(resource: .textTertiary)
-        appearance.backIndicatorImage = UIImage(resource: .navigationBack)
-        appearance.backIndicatorTransitionMaskImage = UIImage(resource: .navigationBack)
+        appearance.tintColor = Colors.Text.textTertiary.color
+        appearance.backIndicatorImage = Images.Navigation.navigationBack.image
+        appearance.backIndicatorTransitionMaskImage = Images.Navigation.navigationBack.image
 
-        UITabBarItem.appearance().badgeColor = UIColor(resource: .accentPrimary)
+        UITabBarItem.appearance().badgeColor = Colors.Accent.accentPrimary.color
     }
 
 }

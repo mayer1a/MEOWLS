@@ -99,7 +99,7 @@ private extension DomainLabeledTextField {
                 .opacity(showPassword ? 1 : 0)
         }
         .font(.system(size: 16, weight: .medium))
-        .tint(Color(.accentPrimary))
+        .tint(Colors.Accent.accentPrimary.suiColor)
         .foregroundStyle(textColor)
         .keyboardType(keyboardType)
         .textContentType(textContentType)
@@ -113,7 +113,7 @@ private extension DomainLabeledTextField {
         .placeholder(when: showErrorMaskPlaceholder) {
             Text(LocalizedStringKey(viewModel.dataState.mask ?? ""))
                 .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(Color(.textSecondary))
+                .foregroundStyle(Colors.Text.textSecondary.suiColor)
         }
         .disabled(disabledTextField)
     }
@@ -127,7 +127,7 @@ private extension DomainLabeledTextField {
         } label: {
             Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
                 .renderingMode(.template)
-                .foregroundStyle(Color(.iconTertiary))
+                .foregroundStyle(Colors.Icon.iconTertiary.suiColor)
                 .frame(width: 20, height: 20)
                 .padding([.vertical, .leading], 8)
         }

@@ -35,7 +35,7 @@ final class SearchTagsCollectionCell: NiblessCollectionViewCell {
         layout.minimumInteritemSpacing = 10
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor(resource: .backgroundWhite)
+        collectionView.backgroundColor = Colors.Background.backgroundWhite.color
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(cell: SearchTagCell.self)
@@ -58,7 +58,7 @@ extension SearchTagsCollectionCell {
 private extension SearchTagsCollectionCell {
 
     func setupUI() {
-        contentView.backgroundColor = UIColor(resource: .backgroundWhite)
+        contentView.backgroundColor = Colors.Background.backgroundWhite.color
         contentView.addSubview(collectionView)
 
         setupConstraints()

@@ -60,7 +60,7 @@ public extension DomainWebViewController {
 private extension DomainWebViewController {
 
     func setupUI() {
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
 
         if isModal {
             navigationController?.appendLeftNavigationItems(leftButtons: .close())

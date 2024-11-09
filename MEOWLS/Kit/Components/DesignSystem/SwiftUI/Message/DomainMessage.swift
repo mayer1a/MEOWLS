@@ -25,9 +25,7 @@ public struct DomainMessage: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background {
-            backgroundColor
-        }
+        .background(backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
@@ -51,16 +49,16 @@ private extension DomainMessage {
 
         switch type {
         case .error:
-            color = Color(.badgeRedPrimary)
+            color = Colors.Badge.badgeRedPrimary.suiColor
 
         case .attention:
-            color = Color(.textPrimary)
+            color = Colors.Text.textPrimary.suiColor
 
         case .success:
-            color = Color(.badgeGreenPrimary)
+            color = Colors.Badge.badgeGreenPrimary.suiColor
 
         case .info:
-            color = Color(.textSecondary)
+            color = Colors.Text.textSecondary.suiColor
 
         }
         return color
@@ -71,16 +69,16 @@ private extension DomainMessage {
 
         switch type {
         case .error:
-            color = Color(.badgeRedSecondary)
+            color = Colors.Badge.badgeRedSecondary.suiColor
 
         case .attention:
-            color = Color(.badgeYellowSecondary)
+            color = Colors.Badge.badgeYellowSecondary.suiColor
 
         case .success:
-            color = Color(.badgeGreenSecondary)
+            color = Colors.Badge.badgeGreenSecondary.suiColor
 
         case .info:
-            color = Color(.backgroundPrimary)
+            color = Colors.Background.backgroundPrimary.suiColor
 
         }
         return color
@@ -92,20 +90,20 @@ private extension DomainMessage {
 
         switch type {
         case .error:
-            icon = Image(.exclamationMarkCircle)
-            iconColor = Color(.badgeRedPrimary)
+            icon = Images.Common.exclamationMarkCircle.suiImage
+            iconColor = Colors.Badge.badgeRedPrimary.suiColor
 
         case .attention:
-            icon = Image(.exclamationMarkCircle)
-            iconColor = Color(.badgeYellowPrimary)
+            icon = Images.Common.exclamationMarkCircle.suiImage
+            iconColor = Colors.Badge.badgeYellowPrimary.suiColor
 
         case .success:
-            icon = Image(.checkCircle)
-            iconColor = Color(.badgeGreenPrimary)
+            icon = Images.Common.checkCircle.suiImage
+            iconColor = Colors.Badge.badgeGreenPrimary.suiColor
 
         case .info:
-            icon = Image(.exclamationMarkCircle)
-            iconColor = Color(.textDisabled)
+            icon = Images.Common.exclamationMarkCircle.suiImage
+            iconColor = Colors.Text.textDisabled.suiColor
 
         }
 

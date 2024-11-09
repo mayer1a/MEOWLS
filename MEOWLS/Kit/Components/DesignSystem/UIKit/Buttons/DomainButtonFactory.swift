@@ -14,8 +14,8 @@ public struct DomainButtonFactory {
         let buttonBuilder = DomainButtonBuilder()
             .setFont(.systemFont(ofSize: 14, weight: .medium))
             .setTitle(title)
-            .setBackgroundColor(UIColor(resource: .accentPrimary))
-            .setTextColor(UIColor(resource: .textWhite))
+            .setBackgroundColor(Colors.Accent.accentPrimary.color)
+            .setTextColor(Colors.Text.textWhite.color)
             .setCornerRadius(8.0)
 
         return buttonBuilder.build()
@@ -26,10 +26,10 @@ public struct DomainButtonFactory {
         let buttonBuilder = DomainButtonBuilder()
             .setFont(.systemFont(ofSize: 14, weight: .medium))
             .setTitle(title)
-            .setBackgroundColor(UIColor(resource: .backgroundWhite))
-            .setTextColor(UIColor(resource: .accentPrimary))
+            .setBackgroundColor(Colors.Background.backgroundWhite.color)
+            .setTextColor(Colors.Accent.accentPrimary.color)
             .setCornerRadius(8.0)
-            .setBorder(color: UIColor(resource: .accentPrimary), width: 2.0)
+            .setBorder(color: Colors.Accent.accentPrimary.color, width: 2.0)
 
         return buttonBuilder.build()
     }
@@ -38,10 +38,10 @@ public struct DomainButtonFactory {
     public static func makeStandardImageBorderButton(image: UIImage?, imageColor: UIColor? = nil) -> UIButton {
         let buttonBuilder = DomainButtonBuilder()
             .setImage(image)
-            .setImageColor(imageColor ?? UIColor(resource: .accentPrimary))
-            .setBackgroundColor(UIColor(resource: .backgroundWhite))
+            .setImageColor(imageColor ?? Colors.Accent.accentPrimary.color)
+            .setBackgroundColor(Colors.Background.backgroundWhite.color)
             .setCornerRadius(8.0)
-            .setBorder(color: UIColor(resource: .accentPrimary), width: 2.0)
+            .setBorder(color: Colors.Accent.accentPrimary.color, width: 2.0)
 
         return buttonBuilder.build()
     }
@@ -60,14 +60,14 @@ public struct DomainButtonFactory {
             .setTitle(title)
             .setImage(image)
             .setImageColor(imageColor)
-            .setBackgroundColor(color ?? UIColor(resource: .accentPrimary))
+            .setBackgroundColor(color ?? Colors.Accent.accentPrimary.color)
             .setCornerRadius(8.0)
 
         if textColor == nil {
-            if color == UIColor(resource: .accentFaded) || color == UIColor(resource: .backgroundWhite) {
-                buttonBuilder.setTextColor(UIColor(resource: .accentPrimary))
+            if color == Colors.Accent.accentFaded.color || color == Colors.Background.backgroundWhite.color {
+                buttonBuilder.setTextColor(Colors.Accent.accentPrimary.color)
             } else {
-                buttonBuilder.setTextColor(UIColor(resource: .textWhite))
+                buttonBuilder.setTextColor(Colors.Text.textWhite.color)
             }
         }
 
@@ -79,9 +79,9 @@ public struct DomainButtonFactory {
         let buttonBuilder = DomainButtonBuilder()
             .setFont(.systemFont(ofSize: 16, weight: .semibold))
             .setTitle(title)
-            .setTextColor(UIColor(resource: .textTertiary))
-            .setBackgroundColor(UIColor(resource: .backgroundPrimary))
-            .setBorder(color: UIColor(resource: .backgroundSecondary), width: 2.0)
+            .setTextColor(Colors.Text.textTertiary.color)
+            .setBackgroundColor(Colors.Background.backgroundPrimary.color)
+            .setBorder(color: Colors.Background.backgroundSecondary.color, width: 2.0)
             .setCornerRadius(8.0)
 
         return buttonBuilder.build()
@@ -92,9 +92,9 @@ public struct DomainButtonFactory {
         let buttonBuilder = DomainButtonBuilder()
             .setFont(.systemFont(ofSize: 16))
             .setTitle(title)
-            .setTextColor(color ?? UIColor(resource: .accentPrimary))
-            .setBackgroundColor(UIColor(resource: .backgroundWhite))
-            .setBorder(color: color ?? UIColor(resource: .accentPrimary), width: 2.0)
+            .setTextColor(color ?? Colors.Accent.accentPrimary.color)
+            .setBackgroundColor(Colors.Background.backgroundWhite.color)
+            .setBorder(color: color ?? Colors.Accent.accentPrimary.color, width: 2.0)
             .setCornerRadius(8.0)
 
         return buttonBuilder.build()

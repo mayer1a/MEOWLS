@@ -15,12 +15,12 @@ public struct DomainWebView: View {
 
     public var body: some View {
         ZStack {
-            Color(.backgroundWhite)
+            Colors.Background.backgroundWhite.suiColor
             VStack {
                 DomainWebViewControllerRepresentable(url: url, title: title)
                     .edgesIgnoringSafeArea(.all)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.backgroundWhite))
+                    .background(Colors.Background.backgroundWhite.suiColor)
             }
         }
         .padding(.top, asPageSheet ? 40 : 0)

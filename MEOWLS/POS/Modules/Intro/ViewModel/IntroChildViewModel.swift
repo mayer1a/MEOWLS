@@ -39,17 +39,7 @@ final class IntroChildViewModel: IntroChildViewModelProtocol {
     }
 
     private func reloadCredentials() {
-        Task { [weak self] in
-            guard let self else { return }
-
-            try await user.refreshToken()
-
-            if isRegionSelected {
-                showRoute = .mainFlow
-            } else {
-                showRegionSelectionFlow()
-            }
-        }
+        showRoute = .underConstruction
     }
 
     private func showRegionSelectionFlow() {

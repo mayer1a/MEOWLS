@@ -1,0 +1,14 @@
+/* 
+  InfoPlist.strings
+  MEOWLS
+
+  Created by Artem Mayer on 09.11.2024.
+  
+*/
+
+"CFBundleDisplayName" = "MEOWLS";
+"CFBundleName" = "Store";
+"NSFaceIDUsageDescription" = "Face ID may be used to simplify authorization.";
+"NSLocationWhenInUseUsageDescription" = "Geodata is used to determine the nearest region and delivery address";
+"NSMotionUsageDescription" = "Used to open the menu.";
+"NSUserTrackingUsageDescription" = "Your data will be used to create personalized selections and recommendations.";

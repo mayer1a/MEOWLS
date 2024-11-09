@@ -54,7 +54,7 @@ public final class AlertViewController: NiblessViewController {
 
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundWhite)
+        view.backgroundColor = Colors.Background.backgroundWhite.color
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true
         return view
@@ -62,7 +62,7 @@ public final class AlertViewController: NiblessViewController {
 
     private lazy var dimmedEffectView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .shadowMedium)
+        view.backgroundColor = Colors.Shadow.shadowMedium.color
         return view
     }()
 
@@ -84,7 +84,7 @@ public final class AlertViewController: NiblessViewController {
         let label = UILabel()
         label.text = titleText
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(resource: .textPrimary)
+        label.textColor = Colors.Text.textPrimary.color
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -95,7 +95,7 @@ public final class AlertViewController: NiblessViewController {
         let label = UILabel()
         label.text = messageText
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = messageColor ?? UIColor(resource: .textTertiary)
+        label.textColor = messageColor ?? Colors.Text.textTertiary.color
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -104,7 +104,7 @@ public final class AlertViewController: NiblessViewController {
 
     private let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .backgroundSecondary)
+        view.backgroundColor = Colors.Background.backgroundSecondary.color
         return view
     }()
 
@@ -245,7 +245,7 @@ extension AlertViewController {
                 separator.snp.makeConstraints { make in
                     make.height.equalTo(separatorHeight)
                 }
-                separator.backgroundColor = UIColor(resource: .backgroundLight)
+                separator.backgroundColor = Colors.Background.backgroundLight.color
             }
         }
     }

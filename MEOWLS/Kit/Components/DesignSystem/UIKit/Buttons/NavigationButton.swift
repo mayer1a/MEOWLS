@@ -60,13 +60,13 @@ public extension UINavigationController {
 
         switch backButton {
         case .leftArrow:
-            buttonBuilder.setupImage(UIImage(resource: .navigationBackLeading))
+            buttonBuilder.setupImage(Images.Navigation.navigationBackLeading.image)
 
         case .close:
-            buttonBuilder.setupImage(UIImage(resource: .navigationClose))
+            buttonBuilder.setupImage(Images.Navigation.navigationClose.image)
 
         case .closeCircle:
-            buttonBuilder.setupImage(UIImage(resource: .navigationCloseRounded))
+            buttonBuilder.setupImage(Images.Navigation.navigationCloseRounded.image)
 
         }
 
@@ -91,22 +91,22 @@ public extension UINavigationController {
             case .leftArrow(let target, let selector):
                 unwrappedTarget = target ?? self
                 action = selector ?? #selector(actionClose)
-                image = UIImage(resource: .navigationBack)
+                image = Images.Navigation.navigationBack.image
 
             case .close(let target, let selector):
                 unwrappedTarget = target ?? self
                 action = selector ?? #selector(actionClose)
-                image = UIImage(resource: .navigationClose)
+                image = Images.Navigation.navigationClose.image
 
             case .closeCircle(let target, let selector):
                 unwrappedTarget = target ?? self
                 action = selector ?? #selector(actionClose)
-                image = UIImage(resource: .navigationCloseRounded)
+                image = Images.Navigation.navigationCloseRounded.image
 
             }
 
             let button = UIBarButtonItem(image: image, style: .plain, target: unwrappedTarget, action: action)
-            button.tintColor = UIColor(resource: .iconTertiary)
+            button.tintColor = Colors.Icon.iconTertiary.color
             return button
         }
     }
@@ -117,13 +117,13 @@ public extension UINavigationController {
         rightButtons.map { rightButton in
             switch rightButton {
             case .location(let target, let selector):
-                let image = UIImage(resource: .location)
+                let image = Images.Common.locationButton.image
                 let button = UIBarButtonItem(image: image, style: .plain, target: target, action: selector)
-                button.tintColor = UIColor(resource: .accentPrimary)
+                button.tintColor = Colors.Accent.accentPrimary.color
                 return button
 
             case .search(let target, let selector):
-                let image = UIImage(resource: .search)
+                let image = Images.Buttons.search.image
                 return UIBarButtonItem(image: image, style: .plain, target: target, action: selector)
 
             }
