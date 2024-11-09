@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "D43CC065-A289-4E25-A878-21252817F981",
+      "name" : "StoreConfiguration",
+      "options" : {
+        "targetForVariableExpansion" : {
+          "containerPath" : "container:MEOWLS.xcodeproj",
+          "identifier" : "1B720C24C585E4DC1027B1E5",
+          "name" : "POS"
+        }
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MEOWLS.xcodeproj",
+      "identifier" : "1B720C24C585E4DC1027B1E5",
+      "name" : "POS"
+    },
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MEOWLS.xcodeproj",
+        "identifier" : "B2180F476D539EE1B0187445",
+        "name" : "POSAPITests"
+      }
+    }
+  ],
+  "version" : 1
+}

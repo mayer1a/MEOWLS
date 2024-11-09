@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "C71DCADC-253E-4B33-8F79-FC549D6B2C0F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MEOWLS.xcodeproj",
+        "identifier" : "E3E00D7099285C8914D046E2",
+        "name" : "POSUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

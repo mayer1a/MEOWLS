@@ -1,0 +1,105 @@
+source 'https://cdn.cocoapods.org/'
+
+# Uncomment the next line to define a global platform for your project
+platform :ios, '15.0'
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+# Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+use_frameworks!
+
+def kit_pods
+  pod 'PhoneNumberKit', '3.3.3'
+  pod 'Alamofire', '~> 5.9.0'
+  pod 'Kingfisher', '~> 7.10.1'
+#  pod 'FirebaseCore'
+#  pod 'FirebaseMessaging'
+#  pod 'FirebaseCrashlytics'
+#  pod 'FirebaseAnalytics'
+#  pod 'FirebasePerformance'
+#  pod 'FirebaseRemoteConfig'
+#  pod 'HorizonCalendar', '~> 1.10.1'
+#  pod 'AppsFlyerFramework', '6.12.1'
+#  pod 'GoogleMLKit/BarcodeScanning', '2.5.0'
+  pod 'SnapKit'
+#  pod 'FloatingPanel'
+#  pod 'YandexMobileMetrica', '4.4.0'
+#  pod 'ReachabilitySwift'
+  
+  
+  # Основная библиотека MapKit.
+#  pod 'YandexMapsMobile', '4.4.0-full'
+
+#  pod 'SwiftMessages', '9.0.6'
+  
+  # DI
+  pod "Factory", '~> 2.3.2'
+  
+end
+
+target 'Store' do
+  kit_pods
+end
+
+target 'POS' do
+  kit_pods
+end
+
+#target 'SwiftUIPreview' do
+#  pod 'Kingfisher', '7.9.1'
+#  pod 'Alamofire', '~> 4.7'
+#end
+
+post_install do |installer|
+
+  # Фикс IPHONEOS_DEPLOYMENT_TARGET
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      
+      if target.name == 'FunctionalSwift'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      else
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
+
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "x86_64"
+
+      config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+
+    end
+  end
+
+  # This removes the warning about swift conversion
+  installer.pods_project.root_object.attributes['LastSwiftMigration'] = 9999
+  installer.pods_project.root_object.attributes['LastSwiftUpdateCheck'] = 9999
+  installer.pods_project.root_object.attributes['LastUpgradeCheck'] = 9999
+  
+  
+  # Фиксим поды без подписи для Xcode 14+
+  # Вытаскиваем development team id
+
+  dev_team = ""
+  project = installer.aggregate_targets[0].user_project
+  project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if dev_team.empty? and !config.build_settings['DEVELOPMENT_TEAM'].nil?
+        dev_team = config.build_settings['DEVELOPMENT_TEAM']
+      end
+    end
+  end
+  
+  # Подставляем в таргет без подписи
+
+  installer.pods_project.targets.each do |target|
+    if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+      target.build_configurations.each do |config|
+        config.build_settings['DEVELOPMENT_TEAM'] = dev_team
+      end
+    end
+  end
+  
+end
+

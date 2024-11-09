@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "D43CC065-A289-4E25-A878-21252817F981",
+      "name" : "StoreConfiguration",
+      "options" : {
+        "targetForVariableExpansion" : {
+          "containerPath" : "container:MEOWLS.xcodeproj",
+          "identifier" : "FE4946CAFCB35E8FB781FBB4",
+          "name" : "Store"
+        }
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MEOWLS.xcodeproj",
+      "identifier" : "FE4946CAFCB35E8FB781FBB4",
+      "name" : "Store"
+    },
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MEOWLS.xcodeproj",
+        "identifier" : "37B455C849A7F838D5A3F12F",
+        "name" : "StoreAPITests"
+      }
+    }
+  ],
+  "version" : 1
+}

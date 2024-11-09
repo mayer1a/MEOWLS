@@ -1,0 +1,207 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+
+default_platform(:ios)
+
+platform :ios do
+
+  # STORE
+
+  desc "Testing debug build for «Store»"
+  lane :debug_build_store do
+    build_app(
+      scheme: "Store Debug",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Release build for «Store»"
+  lane :release_build_store do
+    build_app(
+      scheme: "Store Release",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Emulate pushing debug build for «Store» to TestFlight"
+  lane :emulate_testflight_pushing_feature_store do
+    build_app(
+      scheme: "Store Debug",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Emulate pushing release build for «Store» to TestFlight"
+  lane :emulate_testflight_pushing_release_store do
+    build_app(
+      scheme: "Store Release",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Run iOS API tests for «Store»"
+  lane :api_tests_store do
+    scan(
+      scheme: "Store Debug",
+      testplan: "APITests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/api_tests_store",
+      fail_build: true
+    )
+  end
+
+
+  desc "Run iOS Unit tests for «Store»"
+  lane :unit_tests_store do
+    scan(
+      scheme: "Store Debug",
+      testplan: "UnitTests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/unit_tests_store",
+      fail_build: true
+    )
+  end
+
+
+  desc "Run iOS UI tests for «Store»"
+  lane :ui_tests_store do
+    scan(
+      scheme: "Store Debug",
+      testplan: "UITests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/ui_tests_store",
+      fail_build: true
+    )
+  end
+
+
+  # POS
+
+  desc "Testing debug build for «POS»"
+  lane :debug_build_pos do
+    build_app(
+      scheme: "POS Debug",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Release build for «POS»"
+  lane :release_build_pos do
+    build_app(
+      scheme: "POS Release",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Emulate pushing debug build for «POS» to TestFlight"
+  lane :emulate_testflight_pushing_feature_pos do
+    build_app(
+      scheme: "POS Debug",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Emulate pushing release build for «POS» to TestFlight"
+  lane :emulate_testflight_pushing_release_pos do
+    build_app(
+      scheme: "POS Release",
+      workspace: "MEOWLS.xcworkspace",
+      skip_archive: true,
+      include_bitcode: false,
+      clean: true
+    )
+  end
+
+
+  desc "Run iOS API tests for «POS»"
+  lane :api_tests_pos do
+    scan(
+      scheme: "POS Debug",
+      testplan: "APITests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/api_tests_pos",
+      fail_build: true
+    )
+  end
+
+
+  desc "Run iOS Unit tests for «POS»"
+  lane :unit_tests_pos do
+    scan(
+      scheme: "POS Debug",
+      testplan: "UnitTests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/unit_tests_pos",
+      fail_build: true
+    )
+  end
+
+
+  desc "Run iOS UI tests for «POS»"
+  lane :ui_tests_pos do
+    scan(
+      scheme: "POS Debug",
+      testplan: "UITests",
+      device: "iPhone 15 Pro Max (17.5)",
+      code_coverage: true,
+      output_types: "html",
+      skip_build: true,
+      output_directory: "./Fastlane/test_output/ui_tests_pos",
+      fail_build: true
+    )
+  end
+end

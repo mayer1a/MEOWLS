@@ -1,0 +1,312 @@
+name: MEOWLS
+options:
+  bundleIdPrefix: ru.artemayer.meowls
+  generateEmptyDirectories: true
+  xcodeVersion: 15.0
+  groupOrdering:
+    - order: [Store, Kit, POS, Tests, Products, Pods, Frameworks]
+settings:
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 15.0
+    SWIFT_VERSION: 5.10
+  configs:
+    Debug: debug
+    Release: release
+
+### SCHEMES ###
+
+schemes:
+
+  Store Debug:
+    build:
+      targets:
+        Store: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      language: "ru"
+      testPlans:
+        - path: Tests/APITests/Store/APITests.xctestplan
+          defaultPlan: true
+        - path: Tests/UITests/Store/UITests.xctestplan
+          defaultPlan: false
+        - path: Tests/UnitTests/Store/UnitTests.xctestplan
+          defaultPlan: false
+    profile:
+      config: Debug
+    analyze:
+      config: Debug
+    archive:
+      config: Debug
+      revealArchiveInOrganizer: false
+
+  Store Release:
+    build:
+      targets:
+        Store: all
+    run:
+      config: Release
+    test:
+      config: Release
+      gatherCoverageData: true
+      language: "ru"
+      testPlans:
+        - path: Tests/APITests/Store/APITests.xctestplan
+          defaultPlan: true
+        - path: Tests/UITests/Store/UITests.xctestplan
+          defaultPlan: false
+        - path: Tests/UnitTests/Store/UnitTests.xctestplan
+          defaultPlan: false
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+
+  POS Debug:
+    build:
+      targets:
+        POS: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      language: "ru"
+      testPlans:
+        - path: Tests/APITests/POS/APITests.xctestplan
+          defaultPlan: true
+        - path: Tests/UITests/POS/UITests.xctestplan
+          defaultPlan: false
+        - path: Tests/UnitTests/POS/UnitTests.xctestplan
+          defaultPlan: false
+    profile:
+      config: Debug
+    analyze:
+      config: Debug
+    archive:
+      config: Debug
+      revealArchiveInOrganizer: false
+
+  POS Release:
+    build:
+      targets:
+        POS: all
+    run:
+      config: Release
+    test:
+      config: Release
+      gatherCoverageData: true
+      language: "ru"
+      testPlans:
+        - path: Tests/APITests/POS/APITests.xctestplan
+          defaultPlan: true
+        - path: Tests/UITests/POS/UITests.xctestplan
+          defaultPlan: false
+        - path: Tests/UnitTests/POS/UnitTests.xctestplan
+          defaultPlan: false
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+
+### TERGETS ###
+
+targets:
+
+  StoreAPITests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/APITests/Store/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.api-tests"
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+      SYSTEM_HEADER_SEARCH_PATHS:
+        - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
+        - "${PODS_ROOT}/Headers/Public"
+        - "${PODS_ROOT}/Headers/Public/Firebase"
+        - "${PODS_ROOT}/Headers/Public/FirebaseAnalyticsInterop"
+    sources:
+      - path: Tests
+        excludes:
+          - "/APITests/POS"
+          - "/UnitTests"
+          - "/UITests"
+        name: Tests
+    dependencies:
+      - target: Store
+
+  POSAPITests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/APITests/POS/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.api-tests"
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+      SYSTEM_HEADER_SEARCH_PATHS:
+        - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
+        - "${PODS_ROOT}/Headers/Public"
+        - "${PODS_ROOT}/Headers/Public/Firebase"
+        - "${PODS_ROOT}/Headers/Public/FirebaseAnalyticsInterop"
+    sources:
+      - path: Tests
+        excludes:
+          - "/APITests/Store"
+          - "/UnitTests"
+          - "/UITests"
+        name: Tests
+    dependencies:
+      - target: POS
+
+  StoreUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/UnitTests/Store/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.unit-tests"
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+      SYSTEM_HEADER_SEARCH_PATHS:
+        - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
+        - "${PODS_ROOT}/Headers/Public"
+        - "${PODS_ROOT}/Headers/Public/Firebase"
+        - "${PODS_ROOT}/Headers/Public/FirebaseAnalyticsInterop"
+    sources:
+      - path: Tests
+        excludes:
+          - "/UnitTests/POS"
+          - "/APITests"
+          - "/UITests"
+        name: Tests
+    dependencies:
+      - target: Store
+
+  POSUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/UnitTests/POS/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.unit-tests"
+      EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+      SYSTEM_HEADER_SEARCH_PATHS:
+        - "${SRCROOT}/Pods/Firebase/CoreOnly/Sources $(inherited)"
+        - "${PODS_ROOT}/Headers/Public"
+        - "${PODS_ROOT}/Headers/Public/Firebase"
+        - "${PODS_ROOT}/Headers/Public/FirebaseAnalyticsInterop"
+    sources:
+      - path: Tests
+        excludes:
+          - "/UnitTests/Store"
+          - "/APITests"
+          - "/UITests"
+        name: Tests
+    dependencies:
+      - target: POS
+
+  StoreUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/UITests/Store/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      TEST_TARGET_NAME: "Store"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store.ui-tests"
+    sources:
+      - path: Tests
+        excludes:
+          - "/UITests/POS"
+          - "/UnitTests"
+          - "/APITests"
+        name: Tests
+    dependencies:
+      - target: Store
+
+  POSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    settings:
+      INFOPLIST_FILE: Tests/UITests/POS/Info.plist
+      DEVELOPMENT_TEAM: "277JX9R2RP"
+      TEST_TARGET_NAME: "POS"
+      PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos.ui-tests"
+    sources:
+      - path: Tests
+        excludes:
+          - "/UITests/Store"
+          - "/UnitTests"
+          - "/APITests"
+        name: Tests
+    dependencies:
+      - target: POS
+
+  Store:
+    type: application
+    platform: iOS
+    deploymentTarget: 15.0
+    settings:
+      base:
+        INFOPLIST_FILE: Store/Common/Resources/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: "MEOWLS"
+        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.shopping
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+        VERSIONING_SYSTEM: "apple-generic"
+        ENABLE_BITCODE: 0
+        MARKETING_VERSION: "1.0.0"
+        OTHER_SWIFT_FLAGS: "$(inherited) -DStore -no-verify-emitted-module-interface"
+        DEVELOPMENT_TEAM: "277JX9R2RP"
+        PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.store"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        debug:
+          DEBUG_INFORMATION_FORMAT: dwarf
+        release:
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    sources:
+      - path: Kit
+        excludes:
+          - "Common/Resources/Info.plist"
+          - "**/UserEmployee.swift"
+      - path: Store
+
+  POS:
+    type: application
+    platform: iOS
+    deploymentTarget: 15.0
+    settings:
+      base:
+        INFOPLIST_FILE: POS/Common/Resources/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: "MEOWLS POS"
+        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+        VERSIONING_SYSTEM: "apple-generic"
+        ENABLE_BITCODE: 0
+        MARKETING_VERSION: "1.0.0"
+        OTHER_SWIFT_FLAGS: "$(inherited) -DPOS -no-verify-emitted-module-interface"
+        DEVELOPMENT_TEAM: "277JX9R2RP"
+        PRODUCT_BUNDLE_IDENTIFIER: "ru.artemayer.meowls.pos"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        debug:
+          DEBUG_INFORMATION_FORMAT: dwarf
+        release:
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    sources:
+      - path: Kit
+        excludes:
+          - "Common/Resources/Info.plist"
+          - "**/UserAuthorization.swift"
+          - "**/UserStore.swift"
+      - path: POS
