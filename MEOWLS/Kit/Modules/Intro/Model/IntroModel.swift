@@ -20,6 +20,7 @@ public extension IntroModel {
 
     enum Route {
         case mainFlow
+        case underConstruction
     }
 
 }
